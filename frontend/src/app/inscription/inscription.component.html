@@ -1,0 +1,17 @@
+
+    <div class="container">
+        <!-- Inscription Form -->
+        <div class="form-box">
+            <h2>Inscription</h2>
+            <form>
+                <input type="text"  [(ngModel)]="user.name" name="name" placeholder="Nom" required>
+                <input type="text" [(ngModel)]="user.prenom"  name="prenom" placeholder="Prenom" required>
+                <input type="email" [(ngModel)]="user.email"  name="email" placeholder="Mail" required>
+                <input type="password" [(ngModel)]="user.password"  name="password" placeholder="Password" required>
+                <button type="submit"  (click)="ajoutUser()" class="signup-btn">S'inscrire</button>
+            </form>
+        </div>
+
+        
+    </div>
+

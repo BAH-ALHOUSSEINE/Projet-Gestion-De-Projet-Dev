@@ -1,0 +1,93 @@
+/* General styling */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+
+
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    
+    margin-left: 10%;
+    margin-top: 8%;
+    
+}
+
+/* Form Box Styling */
+.form-box {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 12px;
+    width: 450px;
+    text-align: center;
+    background-color: #F08080 ;
+    margin-left: 45%;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+   
+}
+
+.form-box h2, .form-box h1 {
+    margin-bottom: 1.5rem;
+    color: #333;
+}
+
+.form-box input {
+    width: 100%;
+    padding: 0.8rem;
+    margin-bottom: 1rem;
+    border: none;
+    border-radius: 8px;
+    background-color: #e2e2e2;
+    font-size: 1rem;
+    color: #333;
+    width: 90%;
+    height: 70%;
+}
+
+.form-box input::placeholder {
+    color: #666;
+}
+
+/* Button Styles */
+.signup-btn, .login-btn {
+    width: 100%;
+    padding: 0.8rem;
+    border: none;
+    border-radius: 24px;
+    font-size: 1rem;
+    color: #fff;
+    cursor: pointer;
+    margin-top: 1rem;
+}
+
+.signup-btn {
+    background-color: #00a2ff;
+}
+
+.login-btn {
+    background-color: #00a2ff;
+}
+
+/* Divider Styling */
+.divider {
+    display: flex;
+    align-items: center;
+    margin: 1rem 0;
+}
+
+.divider span {
+    flex: 1;
+    height: 1px;
+    background-color: #ccc;
+}
+
+.divider p {
+    margin: 0 0.5rem;
+    color: #666;
+    font-size: 0.9rem;
+}

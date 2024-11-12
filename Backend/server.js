@@ -10,6 +10,17 @@ connectDB();
 const app = express();
 app.use(express.json());
 
+const cors = require('cors');
+
+app.use(cors({
+    origin: 'http://localhost:4200', // Permet uniquement l'accès depuis cette origine
+    methods: ['GET', 'POST', 'PUT', 'DELETE'], // Méthodes HTTP autorisées
+    allowedHeaders: ['Content-Type', 'Authorization'], // En-têtes autorisés
+  }));
+
+  app.use(cors());
+
+  
 app.use('/api/auth', authRoutes);
 app.use('/api/projects', projectRoutes);
 app.use('/api/tasks', taskRoutes);

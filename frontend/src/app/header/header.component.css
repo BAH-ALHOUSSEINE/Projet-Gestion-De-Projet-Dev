@@ -14,7 +14,7 @@ html, body {
   }
   
   .footer {
-   background-color: #F08080 ;
+    background-color: gray;
     color: white;
     padding: 1rem;
     text-align: center;

@@ -1,8 +1,7 @@
 export class User {
 
-    nom ?: string;
+    name ?: string;
     prenom?: string;
     email ?: string;
     password ?: string;
-    DateNaissance ? : Date;
 }

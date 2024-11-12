@@ -1,0 +1,92 @@
+
+
+/* Background style */
+
+
+/* Container for the form */
+.login-container {
+    text-align: center;
+    color: black;
+    
+}
+
+.title {
+    color: #00a2ff;
+}
+
+/* App name styling */
+
+
+/* Login box styling */
+.login-box {
+    background-color: #F08080 ;
+    padding: 2rem;
+    border-radius: 12px;
+    width: 300px;
+    margin-top: 5%;
+    margin-left: 40%;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+
+}
+
+/* Input field styling */
+.login-box input {
+    width: 80%;
+    height: 80%;
+    padding: 0.8rem;
+    margin-bottom: 1rem;
+    border: none;
+    border-radius: 8px;
+    background-color: #e2e2e2;
+    font-size: 1rem;
+    color: #333;
+}
+
+.login-box input::placeholder {
+    color: #666;
+}
+
+/* Login button */
+.login-btn {
+    width: 100%;
+    padding: 0.8rem;
+    border: none;
+    border-radius: 24px;
+    font-size: 1rem;
+    color: #fff;
+    background-color: #00a2ff;
+    cursor: pointer;
+    margin-top: 1rem;
+}
+
+/* Divider styling */
+.divider {
+    display: flex;
+    align-items: center;
+    margin: 1.5rem 0;
+    color: #666;
+}
+
+.divider span {
+    flex: 1;
+    height: 1px;
+    background-color: #ccc;
+}
+
+.divider p {
+    margin: 0 0.5rem;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+/* Signup button */
+.signup-btn {
+    width: 100%;
+    padding: 0.8rem;
+    border: none;
+    border-radius: 24px;
+    font-size: 1rem;
+    color: #fff;
+    background-color: #333;
+    cursor: pointer;
+}
