@@ -4,6 +4,18 @@ const jwt = require('jsonwebtoken');
 const register = async (req, res) => {
   try {
     const { nom, prenom, email, password } = req.body;
+
+    // Vérifie si tous les champs sont présents
+    if (!nom || !prenom || !email || !password) {
+      return res.status(400).json({ error: 'Tous les champs sont requis' });
+    }
+
+    // Vérifie si l'adresse email existe déjà dans la bdd
+    const existing_mail = await User.findOne({ email });
+    if (existing_mail) {
+      return res.status(400).json({ error: 'L\'email est déjà utilisé' }); // Email déjà pris
+    }
+
     const user = new User({ nom, prenom, email, password });
     await user.save();
     res.status(201).json({ message: 'Utilisateur créé avec succès' });
