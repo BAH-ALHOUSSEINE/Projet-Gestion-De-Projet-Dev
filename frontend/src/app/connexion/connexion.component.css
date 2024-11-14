@@ -90,3 +90,9 @@
     background-color: #333;
     cursor: pointer;
 }
+
+
+.error-message{
+    color: red;
+
+}

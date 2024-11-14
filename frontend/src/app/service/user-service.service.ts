@@ -21,11 +21,22 @@ export class UserServiceService {
   constructor(private http: HttpClient) { }
 
 
-  register(user: User): Observable<User> {
+  register(user: User): Observable<any> {
    
     const url = `${this.baseUrl}/register`;
    
-    return this.http.post<User>(url, user, httpOptions);
+    return this.http.post<any>(url, user, httpOptions);
   }
+
+
+  login(email: string | undefined , password : String | undefined) : Observable<any>{
+
+    const url = `${this.baseUrl}/login`;
+
+    const body = {email,password};
+
+    return  this.http.post<any>(url, body, httpOptions);
+  }
+
 
 }

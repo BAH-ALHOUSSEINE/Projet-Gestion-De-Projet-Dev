@@ -1,8 +1,12 @@
 
-    <div class="container">
-        <!-- Inscription Form -->
+    
+   <div class="container">
+   
+
         <div class="form-box">
             <h2>Inscription</h2>
+            <div *ngIf="champEmpty === 1" class="error-message">Veuillez remplir tous les champs.</div>
+            <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
             <form>
                 <input type="text"  [(ngModel)]="user.name" name="name" placeholder="Nom" required>
                 <input type="text" [(ngModel)]="user.prenom"  name="prenom" placeholder="Prenom" required>
