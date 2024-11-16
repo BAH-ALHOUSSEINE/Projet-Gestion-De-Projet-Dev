@@ -1,0 +1,19 @@
+<!-- src/app/detail-projet/detail-projet.component.html -->
+<div class="detail-projet-container">
+    <div class="sidebar">
+      <h3>{{ projet?.nom_projet }}</h3>
+      <p>Informations de votre projet</p>
+    </div>
+  
+    <div class="main-content">
+      <h2>Informations du projet</h2>
+      <div class="sprint-info">
+        <h3>Sprint en cours</h3>
+        <p>{{ sprintEnCours?.name || 'Pas de sprint en cours' }}</p>
+        <select>
+          <option *ngFor="let sprint of sprints" [value]="sprint._id">{{ sprint.name }}</option>
+        </select>
+      </div>
+    </div>
+  </div>
+  

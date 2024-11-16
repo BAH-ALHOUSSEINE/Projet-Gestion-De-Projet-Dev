@@ -1,1 +1,22 @@
-<p>projet works!</p>
+<div class="projects-container">
+    <h1>Mes Projets</h1>
+  
+    <!-- Liste des projets -->
+    <div class="project-list">
+      <!-- Projet existant -->
+      <div 
+        *ngFor="let projet of projets" 
+        class="project-card" 
+        (click)="ouvrirProjet(projet.id ? projet.id : '')"
+      >
+        <i class="fas fa-folder"></i>
+        <p>{{ projet.nom_projet || 'Nom du projet non défini' }}</p> <!-- Utiliser 'nom_projet' -->
+      </div>
+  
+      <!-- Icône pour créer un nouveau projet -->
+      <div class="project-card new-project" (click)="creerProjet()">
+        <i class="fas fa-plus-circle"></i>
+        <p>Créer un projet</p>
+      </div>
+    </div>
+</div>

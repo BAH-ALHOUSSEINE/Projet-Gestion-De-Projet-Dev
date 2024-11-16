@@ -1,0 +1,20 @@
+/* detail-projet.component.css */
+.detail-projet-container {
+    display: flex;
+  }
+  
+  .sidebar {
+    width: 250px;
+    background-color: #f4f4f4;
+    padding: 20px;
+  }
+  
+  .main-content {
+    flex: 1;
+    padding: 20px;
+  }
+  
+  .sprint-info {
+    margin-top: 20px;
+  }
+  

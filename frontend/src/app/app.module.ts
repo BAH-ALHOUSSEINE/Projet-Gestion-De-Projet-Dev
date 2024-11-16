@@ -11,6 +11,7 @@ import { InscriptionComponent } from './inscription/inscription.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { provideHttpClient, withFetch } from '@angular/common/http';
+import { DetailProjetComponent } from './detail-projet/detail-projet.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { provideHttpClient, withFetch } from '@angular/common/http';
     ConnexionComponent,
     InscriptionComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    DetailProjetComponent
   ],
   imports: [
     BrowserModule,
