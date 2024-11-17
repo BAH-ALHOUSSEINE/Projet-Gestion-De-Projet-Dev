@@ -10,6 +10,16 @@ const createProject = async (req, res) => {
   }
 };
 
+const getProjects = async (req, res) => {
+  try {
+    const projets = await Projet.find({ id_admin: req.user.id }); // Filtre les projets par l'ID de l'utilisateur connecté
+    res.json(projets);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+
 const addMember = async (req, res) => {
   try {
     const project = await Project.findById(req.params.projectId);
@@ -21,4 +31,4 @@ const addMember = async (req, res) => {
   }
 };
 
-module.exports = { createProject, addMember };
+module.exports = { createProject, addMember, getProjects };
