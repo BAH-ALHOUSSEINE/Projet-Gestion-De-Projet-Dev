@@ -13,6 +13,10 @@ import { FooterComponent } from './footer/footer.component';
 import { provideHttpClient, withFetch } from '@angular/common/http';
 import { DetailProjetComponent } from './detail-projet/detail-projet.component';
 
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from './interceptors/auth.interceptor';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,7 +37,8 @@ import { DetailProjetComponent } from './detail-projet/detail-projet.component';
   ],
   providers: [
     provideClientHydration(),
-    provideHttpClient(withFetch()) 
+    provideHttpClient(withFetch()),
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true } 
   ],
   bootstrap: [AppComponent]
 })

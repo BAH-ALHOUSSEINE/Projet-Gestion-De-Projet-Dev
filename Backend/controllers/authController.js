@@ -30,15 +30,17 @@ const login = async (req, res) => {
       return res.status(401).json({ error: 'Identifiants invalides' });
     }
     
-    //const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
-    //const decoded = jwt.verify(token, process.env.JWT_SECRET); // Vérifier et décoder le token
-    //const user1 = await User.findById(decoded.id); // Récupérer l'utilisateur via l'ID dans le token
-/*
-    if (!user1) {
-      return res.status(404).json({ message: 'Utilisateur non trouvé' });
-    }
-*/
-    res.json({ user });
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1d' });
+    
+    res.json({ 
+      token,
+      user: {
+        id: user._id,
+        nom: user.nom,
+        prenom: user.prenom,
+        email: user.email
+      }
+    });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
