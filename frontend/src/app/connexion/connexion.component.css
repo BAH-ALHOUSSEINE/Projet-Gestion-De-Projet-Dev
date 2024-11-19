@@ -5,9 +5,10 @@
 
 /* Container for the form */
 .login-container {
-    text-align: center;
-    color: black;
-    
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    margin-top: 100px;
 }
 
 .title {
@@ -19,12 +20,10 @@
 
 /* Login box styling */
 .login-box {
-    background-color: #F08080 ;
+    background-color: white ;
     padding: 2rem;
     border-radius: 12px;
     width: 300px;
-    margin-top: 5%;
-    margin-left: 40%;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
 
 }

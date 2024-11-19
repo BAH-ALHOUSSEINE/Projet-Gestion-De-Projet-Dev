@@ -23,25 +23,19 @@ const register = async (req, res) => {
 };
 
 const login = async (req, res) => {
+  console.log("test console log login")
   try {
     const { email, password } = req.body;
     const user = await User.findOne({ email });
     if (!user || !(await user.matchPassword(password))) {
       return res.status(401).json({ error: 'Identifiants invalides' });
     }
-    
-    //const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
-    //const decoded = jwt.verify(token, process.env.JWT_SECRET); // Vérifier et décoder le token
-    //const user1 = await User.findById(decoded.id); // Récupérer l'utilisateur via l'ID dans le token
-/*
-    if (!user1) {
-      return res.status(404).json({ message: 'Utilisateur non trouvé' });
-    }
-*/
-    res.json({ user });
+    const token = jwt.sign({ _id: user._id }, '777', { expiresIn: '1h' }); // Expires dans 1 heure
+    res.json({ token });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 };
+
 
 module.exports = { register, login };

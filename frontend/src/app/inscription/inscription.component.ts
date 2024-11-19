@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { User } from '../models/user';
-import { UserServiceService } from '../service/user-service.service';
+import { UserService } from '../service/auth.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -18,7 +18,7 @@ export class InscriptionComponent {
 
 
 
-   constructor( private userService : UserServiceService,   private router: Router ) {
+   constructor( private userService : UserService,   private router: Router ) {
     this.user.email="";
     this.user.name ="";
     this.user.password="";
@@ -35,8 +35,6 @@ export class InscriptionComponent {
    
      
     this.userService.register(this.user).subscribe(
-
-
       response => {
         // Si l'email est valide (aucune erreur 400)
         console.log('Email validé', response);

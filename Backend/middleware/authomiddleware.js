@@ -18,4 +18,12 @@ const protect = async (req, res, next) => {
   }
 };
 
-module.exports = { protect };
+
+function authenticateUser (token ) {
+  // Décoder et vérifier le token
+  const decoded = jwt.verify(token, '777');
+  const userId = decoded._id;
+  return userId;
+};
+
+module.exports = { protect, authenticateUser };

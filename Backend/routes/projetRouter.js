@@ -1,9 +1,9 @@
 const express = require('express');
-const { createProject, addMember } = require('../controllers/projetController');
-const { protect } = require('../middleware/authomiddleware');
+const { createProject, addMember, getUserProjects } = require('../controllers/projetController');
 const router = express.Router();
 
-router.post('/', protect, createProject);
-router.put('/:projectId/members', protect, addMember);
+router.post('/project', createProject);
+router.put('/:projectId/members', addMember);
+router.get('/user/:userId',getUserProjects )
 
 module.exports = router;

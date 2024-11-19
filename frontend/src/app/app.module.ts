@@ -11,6 +11,10 @@ import { InscriptionComponent } from './inscription/inscription.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { provideHttpClient, withFetch } from '@angular/common/http';
+import { UserService } from './service/auth.service';
+import { APP_INITIALIZER } from '@angular/core';
+
+
 
 @NgModule({
   declarations: [
@@ -31,7 +35,7 @@ import { provideHttpClient, withFetch } from '@angular/common/http';
   ],
   providers: [
     provideClientHydration(),
-    provideHttpClient(withFetch()) 
+    provideHttpClient(withFetch())
   ],
   bootstrap: [AppComponent]
 })

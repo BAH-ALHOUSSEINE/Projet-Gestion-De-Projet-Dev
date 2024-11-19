@@ -1,0 +1,5 @@
+.page-footer
+{
+    background-color: var(--first-color);
+    border-top: 2px solid white;
+}

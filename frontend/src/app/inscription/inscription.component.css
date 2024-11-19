@@ -1,32 +1,20 @@
-/* General styling */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Arial, sans-serif;
-}
 
 
 
 .container {
     display: flex;
-    flex-direction: column;
-    gap: 2rem;
-    
-    margin-left: 10%;
-    margin-top: 8%;
-    
+    justify-content: center; 
+    align-items: center; 
+    margin-top: 100px;
+    width: 100vw;
 }
 
 /* Form Box Styling */
 .form-box {
-    background-color: #fff;
+    background-color: white ;
     padding: 2rem;
     border-radius: 12px;
-    width: 450px;
-    text-align: center;
-    background-color: #F08080 ;
-    margin-left: 45%;
+    width: 300px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
    
 }

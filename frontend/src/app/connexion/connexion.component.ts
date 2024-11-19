@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { User } from '../models/user';
-import { UserServiceService } from '../service/user-service.service';
+import { UserService } from '../service/auth.service';
+import { AuthGuard } from "../guards/auth.guard"
 
 import { Router } from '@angular/router';
 @Component({
@@ -15,11 +16,8 @@ export class ConnexionComponent {
   champEmpty  : number = 0;
   errorMessage  : String ="";
 
-  
 
-
-
-  constructor( private userService : UserServiceService,   private router: Router ) {
+  constructor( private userService : UserService,   private router: Router, private authGuard : AuthGuard ) {
    this.user.email="";
    this.user.password="";
 
@@ -27,8 +25,6 @@ export class ConnexionComponent {
 
 
   login(){
-
-    
     if(this.user.password=="" || this.user.email==""){
       this.champEmpty=1;
    }
@@ -41,8 +37,9 @@ export class ConnexionComponent {
 
 
       response => {
-       console.log(response);
-       console.log(this.user);
+       console.log("reponse : " +response);
+       console.log("token : " + response.token);
+       this.authGuard.login(response.token)
        this.router.navigate(['/projet']);
       },
       error => {
@@ -53,13 +50,9 @@ export class ConnexionComponent {
         }
       }
   
-  
-  
-  );
+    );
 
-   }
-    
-
+  }  
 }
 
 }

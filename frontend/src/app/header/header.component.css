@@ -2,20 +2,47 @@ html, body {
     height: 100%;
     margin: 0;
   }
+
+  
+nav
+{
+  background-color: var(--first-color);
+  border-bottom: 2px solid white;
+}
   
   .wrapper {
     display: flex;
     flex-direction: column;
-    min-height: 100vh; /* Assure que le wrapper prend au moins 100% de la hauteur de la vue */
+    
   }
+
+  .nav-wrapper
+  {
+   display: flex;
+   flex-direction: row; 
+   justify-content: space-between;
+   align-items: center;
+   padding-right: 5px;
+   padding-left: 5px;
+  }
+
+  .header-button {
+    display: flex;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    color: #fff;
+    background-color: #00a2ff;
+    cursor: pointer;;
+    height: 70%;
+    align-items: center;
+}
+
+.header-button:hover {
+    background-color: #00a2ffb7;
+}
   
   .content {
     flex: 1; /* Prend l'espace restant pour pousser le footer vers le bas */
   }
   
-  .footer {
-    background-color: gray;
-    color: white;
-    padding: 1rem;
-    text-align: center;
-  }

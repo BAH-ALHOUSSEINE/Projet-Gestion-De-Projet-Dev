@@ -1,0 +1,140 @@
+
+
+.projects-container {
+    display: flex;
+    flex-wrap: wrap; /* Autoriser le retour à la ligne pour les éléments */
+    gap: 10px; /* Espacement entre les éléments */
+    justify-content: start; /* Répartir uniformément les cartes, y compris sur la dernière rangée */
+    align-items: start;
+    padding: 100px;
+    overflow-y: auto;
+}
+
+.project-card {
+    flex: 0 1 calc(16.66% - 10px); /* 16.66% pour 6 éléments par rangée, en tenant compte du gap */
+    height: 150px; /* Hauteur des cartes */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f0f0f0; /* Couleur de fond des cartes */
+    border: 1px solid #ccc; /* Bordure des cartes */
+    border-radius: 5px; /* Coins arrondis */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombre douce */
+    text-align: center;
+    font-size: 14px; /* Taille de police */
+    cursor: pointer;
+}
+
+.project-card:hover
+{
+    background-color: #f0f0f0c5;
+}
+
+.add-project-container
+{
+    display: flex;
+    flex-direction: row;
+    flex: 1;
+}
+
+.project-panel
+{
+    flex: 3;
+    border-right: 2px solid white;
+
+    
+}
+
+.creation-panel
+{
+    flex: 1;
+    color: white;
+    border-bottom: 2px solid white;
+    padding: 20px;
+
+}
+
+
+button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+
+.side-panel {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 30%;
+    height: 100%;
+    background-color: #f8f9fa;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    z-index: 1000;
+  }
+  
+  .panel-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .close-button {
+    background: none;
+    border: none;
+    font-size: 1.2em;
+    cursor: pointer;
+  }
+  
+  .panel-body {
+    flex-grow: 1;
+    margin-top: 20px;
+    
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    
+  }
+
+  .form-input
+  {
+    color: white !important;
+
+  }
+
+  .form-input:focus {
+    border-bottom: 2px solid var(--second-color) !important; /* Changer la couleur de la bordure inférieure en bleu lors du focus */
+  }
+
+  .panel-actions {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    color: white;
+  }
+  
+  .cancel-button {
+    background: #ccc;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+  }
+  
+  .confirm-button {
+    background: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+  }

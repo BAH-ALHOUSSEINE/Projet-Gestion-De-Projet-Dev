@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { User } from '../models/user';
 import { Observable } from 'rxjs';
+import { of } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 const httpOptions = {
@@ -13,7 +14,7 @@ const httpOptions = {
 })
 
 
-export class UserServiceService {
+export class UserService {
 
  
   private baseUrl = 'http://localhost:3000/api/auth'; 
@@ -37,6 +38,7 @@ export class UserServiceService {
 
     return  this.http.post<any>(url, body, httpOptions);
   }
+
 
 
 }
