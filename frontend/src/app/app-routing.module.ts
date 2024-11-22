@@ -10,7 +10,7 @@ const routes: Routes = [
   { path: "Inscription", component: InscriptionComponent },
   { path: "connexion", component: ConnexionComponent },
   { path: "projet", component: ProjetComponent, canActivate: [AuthGuard] },
-  // { path: "", redirectTo: "connexion", pathMatch: "full" }
+  { path: "", redirectTo: "connexion", pathMatch: "full" }
 ]
 
 @NgModule({
