@@ -1,0 +1,17 @@
+<div *ngIf="project as project">
+    <div class="project-detail-container">
+        <div class="project-detail-header">
+            {{ project.nom_projet }}
+        </div>
+        <div class="project-detail-body">
+            <p><strong>Type de projet:</strong> {{ project.type_projet }}</p>
+            <p><strong>Description:</strong> {{ project.description_projet }}</p>
+            <p><strong>Date de début:</strong> {{ project.date_debut | date }}</p>
+            <p><strong>Date de fin:</strong> {{ project.date_fin | date }}</p>
+            <p><strong>Membres:</strong></p>
+            <ul>
+                <li *ngFor="let member of project.membres">{{ member }}</li>
+            </ul>
+        </div>
+    </div>
+</div>

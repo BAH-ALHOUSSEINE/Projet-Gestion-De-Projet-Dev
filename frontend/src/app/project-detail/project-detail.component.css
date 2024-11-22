@@ -1,0 +1,52 @@
+.project-detail-container {
+    padding: 20px; /* Espacement autour du contenu */
+    background-color: #f8f9fa; /* Fond clair pour un contraste suffisant */
+    color: #333; /* Texte sombre pour une bonne lisibilité */
+    border-radius: 8px; /* Coins arrondis pour un look moderne */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Légère ombre */
+    margin: 50px auto; /* Centrer la carte verticalement et horizontalement */
+    max-width: 800px; /* Limiter la largeur pour une bonne lisibilité */
+}
+
+.project-detail-header {
+    font-size: 1.8em; /* Taille de police augmentée pour le titre */
+    font-weight: bold;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #007bff; /* Séparateur bleu */
+    padding-bottom: 10px;
+}
+
+.project-detail-body {
+    line-height: 1.6; /* Espacement des lignes pour améliorer la lisibilité */
+    font-size: 1.1em;
+}
+
+.project-detail-actions {
+    display: flex;
+    justify-content: space-between; /* Espacement entre les boutons */
+    margin-top: 30px;
+    gap: 10px;
+}
+
+.project-detail-actions .button {
+    padding: 10px 20px;
+    font-size: 1em;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.project-detail-actions .edit-button {
+    background-color: #007bff;
+    color: white;
+}
+
+.project-detail-actions .delete-button {
+    background-color: #dc3545;
+    color: white;
+}
+
+.project-detail-actions .back-button {
+    background-color: #6c757d;
+    color: white;
+}
