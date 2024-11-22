@@ -1,21 +1,28 @@
-const Sprint = require('../models/Sprint');
+const Project = require('../models/Project');
 
 // Ajouter une catégorie de tâches à un sprint
 exports.addCategorieToSprint = async (req, res) => {
   try {
-    const { sprintId } = req.params;
+    const { projetId,sprintId } = req.params;
     const { nom, taches } = req.body;
 
     console.log(sprintId);
 
-    const sprint = await Sprint.findById(sprintId);
-    if (!sprint) {
+    
+
+    const projet = await Project.findById(projetId);
+    if (!projet) {
+      return res.status(404).json({ message: 'Projet non trouvé' });
+    }
+
+     const sprint = projet.sprints.id(sprintId);
+
+     if (!sprint) {
       return res.status(404).json({ message: 'Sprint non trouvé' });
     }
 
-    // Ajouter une nouvelle catégorie
     sprint.categorie_tache.push({ nom, taches });
-    const updatedSprint = await sprint.save();
+    const updatedSprint = await projet.save();
 
     res.status(200).json(updatedSprint);
   } catch (error) {

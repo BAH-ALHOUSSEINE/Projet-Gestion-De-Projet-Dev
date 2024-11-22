@@ -7,14 +7,15 @@ const createProject = async (req, res) => {
   console.log("createProject in Back")
   try {
     // Récupération des données envoyées dans le body de la requête
-    let { nom_projet, id_admin, type_projet, description_projet, date_debut, date_fin, membres } = req.body;
+
+    let { nom_projet, id_admin, type_projet, description_projet, date_debut, date_fin, membres, sprints } = req.body;
 
     // Validation des données (si nécessaire, tu peux ajouter plus de validations ici)
     if (!nom_projet || !id_admin || !type_projet || !description_projet || !date_debut || !date_fin || !membres) {
       return res.status(400).json({ message: "Tous les champs sont requis." });
     }
 
-    id_admin = authenticateUser(id_admin);
+    //id_admin = authenticateUser(id_admin);
     
     // Création du projet avec les données reçues
     const newProject = new Project({
@@ -24,7 +25,8 @@ const createProject = async (req, res) => {
       description_projet,
       date_debut: new Date(date_debut),
       date_fin: new Date(date_fin),
-      membres
+      membres,
+      sprints
     });
 
     // console.log(newProject)

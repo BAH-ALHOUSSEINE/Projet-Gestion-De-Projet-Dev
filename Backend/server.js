@@ -5,6 +5,8 @@ const projectRoutes = require('./routes/projetRouter');
 const taskRoutes = require('./routes/taskRouter');
 const userRoutes = require('./routes/userRouter');
 const sprintRoutes = require('./routes/routerSprint');
+
+
 require('dotenv').config();
 
 connectDB();
@@ -27,7 +29,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/projects', projectRoutes);
 //pp.use('/api/tasks', taskRoutes);
 app.use('/api/users', userRoutes);
-app.use('/api/sprint',sprintRoutes );
+app.use('/api/projet',sprintRoutes );
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
