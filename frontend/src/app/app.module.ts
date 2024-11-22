@@ -13,6 +13,7 @@ import { FooterComponent } from './footer/footer.component';
 import { provideHttpClient, withFetch } from '@angular/common/http';
 import { UserService } from './service/auth.service';
 import { APP_INITIALIZER } from '@angular/core';
+import { ProjectDetailComponent } from './project-detail/project-detail.component';
 
 
 
@@ -25,7 +26,8 @@ import { APP_INITIALIZER } from '@angular/core';
     ConnexionComponent,
     InscriptionComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    ProjectDetailComponent
   ],
   imports: [
     BrowserModule,

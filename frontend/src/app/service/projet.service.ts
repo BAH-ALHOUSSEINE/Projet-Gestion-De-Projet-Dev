@@ -54,6 +54,11 @@ export class ProjetService {
     return this.http.get<any>(url);  // Utilisation de GET pour récupérer les projets
   }
 
+  getProjectById(projectId: string): Observable<any> {
+    const url = `http://localhost:3000/api/projects/${projectId}`;
+    return this.http.get<any>(url);
+  }
+
   // Appeler cette méthode pour mettre à jour les projets
   updateProjects(projects: Projet[]): void {
     this.projectsSubject.next(projects); // Émettre la nouvelle liste de projets

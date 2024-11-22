@@ -1,4 +1,5 @@
 export class Projet {
+    _id ?: string; // L'identifiant du projet (représente l'ObjectId de MongoDB)
     nom_projet ?: string;
     id_admin ?: string; // L'id de l'administrateur (représente l'ObjectId de MongoDB)
     type_projet ?: string;
@@ -9,6 +10,7 @@ export class Projet {
 
     static fromData(projectData: any): Projet {
       const projet = new Projet();
+      projet._id = projectData._id;
       projet.nom_projet = projectData.nom_projet;
       projet.id_admin = projectData.id_admin;
       projet.type_projet = projectData.type_projet;

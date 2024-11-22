@@ -12,7 +12,7 @@
   <div class="add-project-container" *ngIf="isProjectCreationPanelOpen">
     <div class="project-panel">
       <div class="projects-container">
-        <div class="project-card" *ngFor="let project of projects">
+        <div class="project-card" *ngFor="let project of projects" (click)="project._id ? goToProjectDetail(project._id) : callFailed()">
           {{ project.nom_projet }}
         </div>
       </div>
