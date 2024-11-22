@@ -3,6 +3,7 @@ import { ActivatedRouteSnapshot, CanActivate, GuardResult, MaybeAsync, RouterSta
 import { BehaviorSubject } from 'rxjs';
 import { Router } from '@angular/router';  // Importer Router pour la redirection
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -12,7 +13,14 @@ export class AuthGuard implements CanActivate {
 
   static canAcessLocalStorage()
   {
-    return typeof window !== "undefined" && window.localStorage;
+    try {
+      console.log("plat," , )
+      console.log("can accesLocalStorageValue : " , typeof window !== 'undefined' && typeof localStorage !== 'undefined')
+      return typeof window !== 'undefined' && typeof localStorage !== 'undefined';
+    } catch (e) {
+      console.error("Accès au localStorage refusé :", e);
+      return false;
+    }
   }
 
   constructor( private router : Router) {
@@ -61,7 +69,7 @@ export class AuthGuard implements CanActivate {
     }
     else
     {
-      console.log("Problème d'accès au local storage")
+      console.log("Problème d'accès au local storage in canActivate")
       return false;
     }
   

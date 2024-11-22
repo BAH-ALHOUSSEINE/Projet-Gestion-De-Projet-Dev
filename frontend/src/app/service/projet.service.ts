@@ -64,4 +64,5 @@ export class ProjetService {
     this.projectsSubject.next(projects); // Émettre la nouvelle liste de projets
   }
 
+
 }
