@@ -1,6 +1,6 @@
 const { authenticateUser } = require('../middleware/authomiddleware');
 const Project = require('../models/Project');
-
+const mongoose = require('mongoose');
 
 const createProject = async (req, res) => {
 
@@ -15,8 +15,17 @@ const createProject = async (req, res) => {
       return res.status(400).json({ message: "Tous les champs sont requis." });
     }
 
-    //id_admin = authenticateUser(id_admin);
-    
+    id_admin = authenticateUser(id_admin);
+
+    // Ajouter id_admin à membres s'il n'est pas déjà présent
+    if (!membres.map((membre) => membre.toString()).includes(id_admin)) {
+      membres.push(id_admin);
+    }
+
+    membres.push("6735e95cb107699b291027b9");
+    membres.push("67350167f4ac621967b63da1");
+
+
     // Création du projet avec les données reçues
     const newProject = new Project({
       nom_projet,
@@ -75,8 +84,8 @@ const getUserProjects = async (req, res) => {
         { membres: userId }    // L'utilisateur est membre du projet
       ]
     })
-      // .populate('id_admin', 'nom prenom email') //permet de prendre les info lié à l'admin
-      // .populate('membres', 'nom prenom email'); 
+      .populate('id_admin', 'nom prenom email') //permet de prendre les info lié à l'admin
+      .populate('membres', 'nom prenom email'); 
     
     console.log("proj : " + projects)
     // Retourner la réponse avec la liste des projets
@@ -89,7 +98,7 @@ const getUserProjects = async (req, res) => {
 
 const getProjectById = async (req, res) => {
   try {
-    const project = await Project.findById(req.params.projectId).populate('membres', 'nom email');
+    const project = await Project.findById(req.params.projectId).populate('membres', 'prenom email').populate('id_admin', 'nom prenom email');
     if (!project) {
       return res.status(404).json({ message: 'Projet introuvable.' });
     }

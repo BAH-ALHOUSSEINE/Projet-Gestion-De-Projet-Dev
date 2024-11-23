@@ -1,15 +1,10 @@
 
 
-html, body {
-    height: 100%;
-    margin: 0;
-    background-color: var(--first-color);
-}
-
 .wrapper {
   display: flex;
   flex-direction: column;
   min-height: 100vh; /* Assure que le wrapper prend au moins 100% de la hauteur de la vue */
+
 }
 
 .nav-wrapper
@@ -18,7 +13,7 @@ html, body {
 }
   
 .content {
-  flex: 1; /* Prend l'espace restant pour pousser le footer vers le bas */
+  flex: 1; 
   background-color: var(--first-color);
 }
 

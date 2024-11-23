@@ -4,7 +4,7 @@ const authRoutes = require('./routes/authRouter');
 const projectRoutes = require('./routes/projetRouter');
 const taskRoutes = require('./routes/taskRouter');
 const userRoutes = require('./routes/userRouter');
-const sprintRoutes = require('./routes/routerSprint');
+const sprintRoutes = require('./routes/routerSprint')
 
 
 require('dotenv').config();

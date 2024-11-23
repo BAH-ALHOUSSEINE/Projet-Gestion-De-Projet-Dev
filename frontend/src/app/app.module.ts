@@ -14,6 +14,8 @@ import { provideHttpClient, withFetch } from '@angular/common/http';
 import { UserService } from './service/auth.service';
 import { APP_INITIALIZER } from '@angular/core';
 import { ProjectDetailComponent } from './project-detail/project-detail.component';
+import { AboutViewComponent } from './sidebarView/about-view/about-view.component';
+import { TaskViewComponent } from './sidebarView/task-view/task-view.component';
 
 
 
@@ -27,7 +29,10 @@ import { ProjectDetailComponent } from './project-detail/project-detail.componen
     InscriptionComponent,
     HeaderComponent,
     FooterComponent,
-    ProjectDetailComponent
+    ProjectDetailComponent,
+    AboutViewComponent,
+    TaskViewComponent
+
   ],
   imports: [
     BrowserModule,

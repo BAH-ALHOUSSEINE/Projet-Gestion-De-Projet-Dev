@@ -1,23 +1,40 @@
+:host {
+  background-color: var(--first-color);
+  width: 100%;
+}
+
+
+.viewing-project-container {
+  text-align: start;
+  color: white;
+  padding-top: 10px;
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
 
 
 .projects-container {
     display: flex;
     flex-wrap: wrap; /* Autoriser le retour à la ligne pour les éléments */
-    gap: 10px; /* Espacement entre les éléments */
+    gap: 30px; /* Espacement entre les éléments */
     justify-content: start; /* Répartir uniformément les cartes, y compris sur la dernière rangée */
-    align-items: start;
-    padding: 100px;
-    overflow-y: auto;
+    align-items: center;
+    padding: 50px;
+    height: 70%;
+   
 }
 
+
+
 .project-card {
-    flex: 0 1 calc(16.66% - 10px); /* 16.66% pour 6 éléments par rangée, en tenant compte du gap */
-    height: 150px; /* Hauteur des cartes */
+    flex: 0 0 23%;
+    height: 200px; /* Hauteur des cartes */
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #f0f0f0; /* Couleur de fond des cartes */
-    border: 1px solid #ccc; /* Bordure des cartes */
+    background-color: var(--third-color);
+    color: white;
     border-radius: 5px; /* Coins arrondis */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombre douce */
     text-align: center;
@@ -26,29 +43,23 @@
     pointer-events: auto; 
 }
 
-.project-card:hover
-{
-    background-color: #f0f0f0c5;
+.project-card:hover {
+  transform: scale(1.05); /* Agrandissement et légère rotation */
+  /* box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); Ombre plus prononcée */
+  /* border: 0.1px solid var(--second-color); */
+  font-size: 16px; /* Augmentation douce de la taille de la police */
 }
 
-.add-project-container
-{
-    display: flex;
-    flex-direction: row;
-    flex: 1;
-}
+
 
 .project-panel
 {
     flex: 3;
     border-right: 2px solid white;
-
-    
 }
 
 .creation-panel
 {
-    flex: 1;
     color: white;
     border-bottom: 2px solid white;
     padding: 20px;
@@ -56,6 +67,17 @@
 
 }
 
+.create-project-card
+{
+  font-size: 2em;
+  color: var(--second-color)
+}
+.create-project-card:hover {
+  border: 2px dashed var(--second-color);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  transform: scale(1.05);
+  font-size: 2em;
+}
 
 button {
     margin-top: 20px;
@@ -139,4 +161,28 @@ button {
     border: none;
     padding: 10px 20px;
     cursor: pointer;
+  }
+
+
+
+  @media (max-width: 768px) {
+    .viewing-project-container {
+      flex: 2; /* Réduire la taille du conteneur de projets */
+    }
+    .creation-panel {
+      flex: 2;
+    }
+  }
+
+
+  @media (max-width: 768px) {
+    .project-card {
+      flex: 1 1 calc(50% - 20px); /* Cartes qui occupent 50% de l'écran sur les petits écrans */
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .project-card {
+      flex: 1 1 100%; /* Cartes qui occupent 100% de l'écran sur les très petits écrans */
+    }
   }

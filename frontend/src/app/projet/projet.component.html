@@ -1,17 +1,17 @@
 <div style="display: flex; flex-direction: row;">
-<div class="viewing-project-container" [ngStyle]="{'width': isProjectCreationPanelOpen ? '75%' : '100%'}">
-    <div class="projects-container">
+  <div class="viewing-project-container" [ngStyle]="{'flex': isProjectCreationPanelOpen ? '3' : '4'}">
+    <p class="title">Vos Projets</p>
+    <div class="projects-container vertical-scrollable">
       <div class="project-card" *ngFor="let project of projects" (click)="project._id && goToProjectDetail(project._id)">
         {{ project.nom_projet }}
       </div>
       <div class="project-card create-project-card" (click)="openProjectCreationPanel()" *ngIf="!isProjectCreationPanelOpen" >
-        <span>Créer projet</span>
+        <span>+</span>
       </div>
     </div>
   </div>
-  
-  <div class="add-project-container" *ngIf="isProjectCreationPanelOpen">
-    <div class="creation-panel">
+
+    <div class="creation-panel" *ngIf="isProjectCreationPanelOpen" [ngStyle]="{'flex': isProjectCreationPanelOpen ? '1' : '1'}">
       <div class="panel-header">
         <h3>Créer un projet</h3>
       </div>
@@ -71,11 +71,10 @@
             />
           </div>
           <div class="panel-actions">
-            <button type="button" class="cancel-button" (click)="closeProjectCreationPanel()">Annuler</button>
-            <button type="submit" class="confirm-button">Confirmer</button>
+            <button type="button" class="button-secondary" (click)="closeProjectCreationPanel()">Annuler</button>
+            <button type="submit" class="button-primary">Confirmer</button>
           </div>
         </form>
       </div>
     </div>
-  </div>
 </div>

@@ -2,4 +2,70 @@
 :root {
     --first-color: #292C31;
     --second-color: #00A2FF;
+    --third-color: #1F1F1F;
   }
+
+  html, body {
+    height: 100%;
+    margin: 0;
+    background-color: var(--first-color) ;
+    overflow: auto;
+    color: white;
+  }
+
+  .button-primary
+  {
+    display: flex;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    color: #fff;
+    background-color: var(--second-color);
+    cursor: pointer;
+    align-items: center;
+  }
+
+  .button-primary:hover {
+    background-color: #00a2ffb7;
+}
+
+.button-secondary
+{
+  display: flex;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  color: #fff;
+  background-color: var(--third-color);
+  cursor: pointer;
+  align-items: center;
+}
+
+.title
+{
+  font-size: 2em;
+  color: white;
+}
+
+
+.vertical-scrollable
+{
+  overflow-y: auto;
+}
+
+
+.vertical-scrollable::-webkit-scrollbar {
+  width: 12px; /* Largeur de la scrollbar */
+  height: 12px; /* Hauteur de la scrollbar (horizontal) */
+}
+
+.vertical-scrollable::-webkit-scrollbar-thumb {
+  background-color: var(--second-color); /* Couleur de la barre de défilement */
+  border-radius: 10px; /* Bordure arrondie */
+
+}
+
+.vertical-scrollable::-webkit-scrollbar-track {
+  background-color: var(--third-color) ;/* Couleur du fond de la track (la zone vide de la scrollbar) */
+  border-radius: 10px; /* Bordure arrondie pour la track */
+}

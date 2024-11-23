@@ -49,8 +49,7 @@ export class ProjetComponent implements OnInit {
 
   submitProjectCreation(): void {
     console.log("Soumission de la création du projet :", this.newProject);
-    const userId = '673b359e1c0adf59528029a1'; // Exemple d'ID utilisateur
-    this.newProject.membres = [userId];
+    this.newProject.membres = [];
     this.projectService.addProjectForCurrentUser(this.newProject).subscribe((newProjectData) => {
       const newProject = Projet.fromData(newProjectData.projet);
       this.projects.push(newProject);
