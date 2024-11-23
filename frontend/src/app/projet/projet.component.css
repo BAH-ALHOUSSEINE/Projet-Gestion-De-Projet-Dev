@@ -23,6 +23,7 @@
     text-align: center;
     font-size: 14px; /* Taille de police */
     cursor: pointer;
+    pointer-events: auto; 
 }
 
 .project-card:hover
@@ -51,6 +52,7 @@
     color: white;
     border-bottom: 2px solid white;
     padding: 20px;
+    border-left: 2px solid white;
 
 }
 

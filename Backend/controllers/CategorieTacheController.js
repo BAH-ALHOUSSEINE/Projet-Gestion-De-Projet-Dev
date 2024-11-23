@@ -8,15 +8,12 @@ exports.addCategorieToSprint = async (req, res) => {
 
     console.log(sprintId);
 
-    
-
     const projet = await Project.findById(projetId);
     if (!projet) {
       return res.status(404).json({ message: 'Projet non trouvé' });
     }
 
      const sprint = projet.sprints.id(sprintId);
-
      if (!sprint) {
       return res.status(404).json({ message: 'Sprint non trouvé' });
     }

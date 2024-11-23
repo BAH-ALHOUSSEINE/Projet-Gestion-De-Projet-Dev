@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProjetService } from '../service/projet.service';
 import { Projet } from '../models/projet';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-projet',
@@ -10,13 +11,11 @@ import { Projet } from '../models/projet';
 export class ProjetComponent implements OnInit {
 
   projects: Projet[] = []; // Liste des projets dans le composant
-
   isProjectCreationPanelOpen = false;
-
   newProject: Projet = new Projet();  // Données du projet en cours de création
 
 
-  constructor(private projectService: ProjetService) {}
+  constructor(private projectService: ProjetService, private router: Router) {}
 
   ngOnInit(): void {
     // Souscrire à la liste des projets du service
@@ -27,24 +26,6 @@ export class ProjetComponent implements OnInit {
     // Charger les projets dès le début
     this.loadUserProjects();
   }
-
-
-  // addProject(): void {
-  //   console.log("Ajout du projet");
-
-  //   this.projectService.addProjectForCurrentUser(this.newProject).subscribe((newProjectData) => {
-  //     // Logique après l'ajout d'un projet
-  //     console.log("Nouveau projet ajouté", newProjectData);
-  //     const newProject = Projet.fromData(newProjectData.projet); // Convertir les données en instance de Projet
-
-  //     // Ajouter à la liste locale des projets
-  //     this.projects.push(newProject);
-
-  //     // Mettre à jour les projets dans le service
-  //     this.projectService.updateProjects(this.projects);
-  //   });
-  // }
-
 
   loadUserProjects(): void {
     const userId = '673b359e1c0adf59528029a1'; // Exemple d'ID utilisateur
@@ -68,12 +49,33 @@ export class ProjetComponent implements OnInit {
 
   submitProjectCreation(): void {
     console.log("Soumission de la création du projet :", this.newProject);
-    this.newProject.membres = []
+    const userId = '673b359e1c0adf59528029a1'; // Exemple d'ID utilisateur
+    this.newProject.membres = [userId];
     this.projectService.addProjectForCurrentUser(this.newProject).subscribe((newProjectData) => {
       const newProject = Projet.fromData(newProjectData.projet);
       this.projects.push(newProject);
       this.projectService.updateProjects(this.projects);
       this.closeProjectCreationPanel(); // Fermer le panneau après création
+      
+      // Redirection vers la page du projet
+      const projectId = newProjectData.projet._id; // Récupération de l'ID du projet
+      this.router.navigate([`/${projectId}`]); // Redirige vers localhost:4200/idprojet
+    
     });
+  }
+
+  goToProjectDetail(projectId: string): void {
+    if (!projectId) {
+      console.error("Impossible de rediriger vers le projet sans ID");
+      return;
+    }
+    
+    console.log("Redirection vers le projet :", projectId);
+    this.router.navigate([`/${projectId}`]);
+  }
+
+  //fonction pour débugger
+  callFailed(): void {
+    console.log("Appel a échoué");
   }
 }

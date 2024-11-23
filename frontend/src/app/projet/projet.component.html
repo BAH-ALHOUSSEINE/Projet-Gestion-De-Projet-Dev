@@ -1,22 +1,16 @@
-<div class="viewing-project-container" *ngIf="!isProjectCreationPanelOpen">
+<div style="display: flex; flex-direction: row;">
+<div class="viewing-project-container" [ngStyle]="{'width': isProjectCreationPanelOpen ? '75%' : '100%'}">
     <div class="projects-container">
-      <div class="project-card" *ngFor="let project of projects">
+      <div class="project-card" *ngFor="let project of projects" (click)="project._id && goToProjectDetail(project._id)">
         {{ project.nom_projet }}
       </div>
-      <div class="project-card create-project-card" (click)="openProjectCreationPanel()">
+      <div class="project-card create-project-card" (click)="openProjectCreationPanel()" *ngIf="!isProjectCreationPanelOpen" >
         <span>Créer projet</span>
       </div>
     </div>
   </div>
   
   <div class="add-project-container" *ngIf="isProjectCreationPanelOpen">
-    <div class="project-panel">
-      <div class="projects-container">
-        <div class="project-card" *ngFor="let project of projects">
-          {{ project.nom_projet }}
-        </div>
-      </div>
-    </div>
     <div class="creation-panel">
       <div class="panel-header">
         <h3>Créer un projet</h3>
@@ -84,4 +78,4 @@
       </div>
     </div>
   </div>
-  
+</div>

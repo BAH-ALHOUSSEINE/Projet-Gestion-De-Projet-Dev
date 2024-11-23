@@ -30,6 +30,5 @@ app.use('/api/projects', projectRoutes);
 //pp.use('/api/tasks', taskRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/projet',sprintRoutes );
-
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
