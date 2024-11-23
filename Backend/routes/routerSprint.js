@@ -5,12 +5,12 @@ const categorieTacheController = require('../controllers/CategorieTacheControlle
 const tacheController = require('../controllers/taskController');
 
 // Route pour créer un sprint
-router.post('/sprintaj', sprintController.createSprint);
+router.post('/:projetId/sprintaj', sprintController.createSprint);
 
 // Route pour ajouter une catégorie à un sprint
-router.post('/:sprintId/categorie', categorieTacheController.addCategorieToSprint);
+router.post('/:projetId/sprint/:sprintId/categorie', categorieTacheController.addCategorieToSprint);
 
 // Route pour ajouter une tâche à une catégorie dans un sprint
-router.post('/:sprintId/categorie/:categorieId/tache', tacheController.addTacheToCategorie);
+router.post('/:projetId/sprint/:sprintId/categorie/:categorieId/tache', tacheController.addTacheToCategorie);
 
 module.exports = router;

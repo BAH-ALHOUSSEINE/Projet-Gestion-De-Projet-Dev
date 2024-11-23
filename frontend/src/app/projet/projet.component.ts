@@ -65,6 +65,11 @@ export class ProjetComponent implements OnInit {
   }
 
   goToProjectDetail(projectId: string): void {
+    if (!projectId) {
+      console.error("Impossible de rediriger vers le projet sans ID");
+      return;
+    }
+    
     console.log("Redirection vers le projet :", projectId);
     this.router.navigate([`/${projectId}`]);
   }
