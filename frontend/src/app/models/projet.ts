@@ -39,6 +39,7 @@ export class Projet {
       projet.sprints = Array.isArray(projectData.sprints)
       ? projectData.sprints.map((s: any) => {
             const sprint = new Sprint();
+            sprint._id = s._id;
             sprint.date_debut = s.date_debut;
             sprint.date_fin = s.date_fin;
             sprint.status = s.status;

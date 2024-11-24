@@ -58,14 +58,7 @@
     border-right: 2px solid white;
 }
 
-.creation-panel
-{
-    color: white;
-    border-bottom: 2px solid white;
-    padding: 20px;
-    border-left: 2px solid white;
 
-}
 
 .create-project-card
 {
@@ -101,11 +94,7 @@ button {
     z-index: 1000;
   }
   
-  .panel-header {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+
   
   .close-button {
     background: none;
@@ -114,46 +103,9 @@ button {
     cursor: pointer;
   }
   
-  .panel-body {
-    flex-grow: 1;
-    margin-top: 20px;
-    
-  }
+ 
   
-  .form-group {
-    margin-bottom: 15px;
-  }
-  
-  .form-group label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
-    
-  }
 
-  .form-input
-  {
-    color: white !important;
-
-  }
-
-  .form-input:focus {
-    border-bottom: 2px solid var(--second-color) !important; /* Changer la couleur de la bordure inférieure en bleu lors du focus */
-  }
-
-  .panel-actions {
-    display: flex;
-    justify-content: space-between;
-    gap: 10px;
-    color: white;
-  }
-  
-  .cancel-button {
-    background: #ccc;
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
-  }
   
   .confirm-button {
     background: #007bff;

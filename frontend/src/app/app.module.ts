@@ -16,6 +16,12 @@ import { APP_INITIALIZER } from '@angular/core';
 import { ProjectDetailComponent } from './project-detail/project-detail.component';
 import { AboutViewComponent } from './sidebarView/about-view/about-view.component';
 import { TaskViewComponent } from './sidebarView/task-view/task-view.component';
+import { DynamicFormComponent } from './elements/dynamic-form/dynamic-form.component';
+import { CreateProjectFormComponent } from './forms/create-project-form/create-project-form.component';
+import { CreateSprintFormComponent } from './forms/create-sprint-form/create-sprint-form.component';
+
+
+
 
 
 
@@ -31,13 +37,17 @@ import { TaskViewComponent } from './sidebarView/task-view/task-view.component';
     FooterComponent,
     ProjectDetailComponent,
     AboutViewComponent,
-    TaskViewComponent
+    TaskViewComponent,
+    DynamicFormComponent,
+    CreateProjectFormComponent,
+    CreateSprintFormComponent
 
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+
 
   ],
   providers: [

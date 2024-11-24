@@ -1,2 +1,28 @@
-<p style="color: aliceblue;">task-view works!</p>
-<button (click)="createSprint()">Add Sprint</button>
+<div style="display: flex;flex-direction: row;flex: 1;">
+    <div class="task-container" style="display: flex;flex-direction: column;padding: 30px;  align-items: flex-end; /* Aligne le dropdown à droite */"  [ngStyle]="{'flex': sidepanel ? '3' : '4'}">
+        <div class="dropdown">
+            <button 
+            class="dropdown-button" 
+            (click)="toggleDropdown()">
+            Sprint {{ current_index_sprint  }}
+            <span class="arrow">&#9662;</span>
+            </button>
+            <ul 
+            class="dropdown-menu vertical-scrollable" 
+            *ngIf="isDropdownOpen">
+            <li 
+                *ngFor="let s of projectMock.sprints; let i = index" 
+                (click)="selectSprint(s,i)">
+                Sprint {{i + 1}}
+            </li>
+            <li (click)="openSidePanel()">Sprint +</li>
+            </ul>
+        </div>
+    </div>
+    <app-create-sprint-form 
+    *ngIf="sidepanel" 
+    [ngStyle]="{'flex': sidepanel ? '1' : '1'}"
+    (formCancel)="closeSidePanel()"
+    ></app-create-sprint-form>
+</div>
+      

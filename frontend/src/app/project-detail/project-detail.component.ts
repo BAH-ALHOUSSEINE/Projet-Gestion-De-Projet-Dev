@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ProjetService } from '../service/projet.service';
 import { Projet } from '../models/projet';
@@ -6,54 +6,78 @@ import { AboutViewComponent } from '../sidebarView/about-view/about-view.compone
 import { TaskViewComponent } from '../sidebarView/task-view/task-view.component';
 import { Injector } from '@angular/core';
 
-
 @Component({
   selector: 'app-project-detail',
   templateUrl: './project-detail.component.html',
-  styleUrls: ['./project-detail.component.css']
+  styleUrls: ['./project-detail.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProjectDetailComponent implements OnInit {
   project: Projet | null = null;
-
+  componentInjector: Injector | null = null;
 
   views = [
     { id: 'about', name: 'À propos', component: AboutViewComponent },
     { id: 'tasks', name: 'Tâches', component: TaskViewComponent },
-    // { id: 'test', name: 'Test', component: TestComponent },
-    // { id: 'release', name: 'Release', component: ReleaseComponent },
-    // { id: 'collaborator', name: 'Collaborateurs', component: CollaboratorComponent }
+    // Autres vues...
   ];
 
-  activeView: string = this.views[0].id; // Vue par défaut
+  activeView: string = this.views[0].id;
 
   get activeViewComponent() {
     return this.views.find(view => view.id === this.activeView) || null;
   }
 
-  setActiveView(viewId: string) {
-    this.activeView = viewId;
-  }
-
   constructor(
     private route: ActivatedRoute,
     private projectService: ProjetService,
-    private injector: Injector
+    private injector: Injector,
+    private cdr: ChangeDetectorRef
   ) {}
 
+  private updateInjector() {
+    if (this.project) {
+      this.componentInjector = Injector.create({
+        providers: [{ 
+          provide: 'project',
+          useValue: this.project
+        }],
+        parent: this.injector,
+      });
+      this.cdr.markForCheck();
+    }
+  }
 
-  createInjector(data: any) {
-    return Injector.create({
-      providers: [{ provide: 'project', useValue: data }],
-      parent: this.injector,
-    });
+    // Garde la méthode createInjector pour la compatibilité avec le template
+    createInjector(data: any) {
+      if (!this.componentInjector) {
+        this.componentInjector = Injector.create({
+          providers: [{ provide: 'project', useValue: data }],
+          parent: this.injector,
+        });
+      }
+      return this.componentInjector;
+    }
+
+  setActiveView(viewId: string) {
+    if (this.activeView !== viewId) {
+      this.activeView = viewId;
+      this.cdr.markForCheck();
+    }
   }
 
   ngOnInit(): void {
-    const projectId = this.route.snapshot.paramMap.get('id'); // Récupérer l'ID depuis l'URL
+    const projectId = this.route.snapshot.paramMap.get('id');
     if (projectId) {
-      this.projectService.getProjectById(projectId).subscribe((projectData) => {
-        console.log(projectData)
-        this.project = Projet.fromData(projectData); // Charger les données du projet
+      this.projectService.getProjectById(projectId).subscribe({
+        next: (projectData) => {
+          this.project = Projet.fromData(projectData);
+          this.createInjector(this.project);
+          this.cdr.markForCheck();
+        },
+        error: (error) => {
+          console.error('Erreur lors du chargement du projet:', error);
+        }
       });
     }
   }

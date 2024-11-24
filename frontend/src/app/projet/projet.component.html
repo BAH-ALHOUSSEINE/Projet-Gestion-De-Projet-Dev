@@ -11,70 +11,12 @@
     </div>
   </div>
 
-    <div class="creation-panel" *ngIf="isProjectCreationPanelOpen" [ngStyle]="{'flex': isProjectCreationPanelOpen ? '1' : '1'}">
-      <div class="panel-header">
-        <h3>Créer un projet</h3>
-      </div>
-      <div class="panel-body">
-        <form (ngSubmit)="submitProjectCreation()">
-          <div class="form-group">
-            <label for="nomProjet">Nom du projet</label>
-            <input
-              class="form-input"
-              id="nomProjet"
-              [(ngModel)]="newProject.nom_projet"
-              type="text"
-              name="nomProjet"
-              required
-            />
-          </div>
-          <div class="form-group">
-            <label for="typeProjet">Type de projet</label>
-            <input
-              class="form-input"
-              id="typeProjet"
-              [(ngModel)]="newProject.type_projet"
-              type="text"
-              name="typeProjet"
-              required
-            />
-          </div>
-          <div class="form-group">
-            <label for="descriptionProjet">Description</label>
-            <textarea
-              class="form-input"
-              [(ngModel)]="newProject.description_projet"
-              id="descriptionProjet"
-              name="descriptionProjet"
-            ></textarea>
-          </div>
-          <div class="form-group">
-            <label for="dateDebut">Date de début</label>
-            <input
-              class="form-input"
-              id="dateDebut"
-              [(ngModel)]="newProject.date_debut"
-              type="date"
-              name="dateDebut"
-              required
-            />
-          </div>
-          <div class="form-group">
-            <label for="dateFin">Date de fin</label>
-            <input
-              class="form-input"
-              id="dateFin"
-              [(ngModel)]="newProject.date_fin"
-              type="date"
-              name="dateFin"
-              required
-            />
-          </div>
-          <div class="panel-actions">
-            <button type="button" class="button-secondary" (click)="closeProjectCreationPanel()">Annuler</button>
-            <button type="submit" class="button-primary">Confirmer</button>
-          </div>
-        </form>
-      </div>
-    </div>
+  <app-create-project-form 
+  *ngIf="isProjectCreationPanelOpen" 
+  [ngStyle]="{'flex': isProjectCreationPanelOpen ? '1' : '1'}"
+  (projectCreated)="onProjectCreated($event)"
+  (formCancel)="closeProjectCreationPanel()"
+  ></app-create-project-form>
+
+    
 </div>
