@@ -15,7 +15,7 @@ const createProject = async (req, res) => {
       return res.status(400).json({ message: "Tous les champs sont requis." });
     }
 
-    //id_admin = authenticateUser(id_admin);
+     id_admin = authenticateUser(id_admin);
     
     // Création du projet avec les données reçues
     const newProject = new Project({
