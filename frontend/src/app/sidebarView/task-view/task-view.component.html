@@ -1,28 +1,120 @@
-<div style="display: flex;flex-direction: row;flex: 1;">
-    <div class="task-container" style="display: flex;flex-direction: column;padding: 30px;  align-items: flex-end; /* Aligne le dropdown à droite */"  [ngStyle]="{'flex': sidepanel ? '3' : '4'}">
-        <div class="dropdown">
-            <button 
-            class="dropdown-button" 
-            (click)="toggleDropdown()">
-            Sprint {{ current_index_sprint  }}
-            <span class="arrow">&#9662;</span>
-            </button>
-            <ul 
-            class="dropdown-menu vertical-scrollable" 
-            *ngIf="isDropdownOpen">
-            <li 
-                *ngFor="let s of projectMock.sprints; let i = index" 
-                (click)="selectSprint(s,i)">
-                Sprint {{i + 1}}
-            </li>
-            <li (click)="openSidePanel()">Sprint +</li>
+<button type="button" (click)="affiher_form_sprint()" class="btn btn-primary">Creation Sprint</button>&nbsp;&nbsp;
+<button type="button"  (click)="affiher_form_categorie()"class="btn btn-primary">Creation categorie Sprint</button>&nbsp;&nbsp;
+<button type="button" class="btn btn-primary">Creation Tache</button>
+
+<div *ngIf="affichage_sprint===true">
+
+    <div   *ngFor="let sprint of projectMock.sprints; " class="sprint-container">
+        <!-- Afficher les informations sur le sprint -->
+        <h2>Sprint du {{ sprint.date_debut | date:'dd/MM/yyyy' }} au {{ sprint.date_fin | date:'dd/MM/yyyy' }}</h2>
+        <p><strong>Statut :</strong>  <span  class="btn btn-primary"> {{ sprint.status }} </span> --
+            <button type="button" class="btn btn-primary">EDIT</button> --
+            <button type="button" class="btn btn-primary">DETAILS</button> 
+        </p>
+        
+        <div *ngFor="let categorie of sprint.categorie_tache" class="categorie-container">
+          <!-- Afficher les catégories de tâches -->
+         
+      
+          <div >
+    
+           
+            <!-- Afficher les tâches associées -->
+            <ul>
+              <li *ngFor="let tache of categorie.taches">
+                <strong>Description :</strong> {{ tache.description_tache }} <br>
+                <strong>Membre assigné :</strong> {{ tache.id_membre }} <br>
+                <strong>Date d'échéance :</strong> {{ tache.date_echeance | date:'dd/MM/yyyy' }} <br>
+                <strong>Priorité :</strong> {{ tache.priorite }} <br>
+                <strong>Statut :</strong> {{ tache.status }} <br>
+              </li>
             </ul>
+          </div>
+          <!-- Message si aucune tâche dans cette catégorie -->
+          <ng-template #noTasks>
+            <p>Aucune tâche dans cette catégorie.</p>
+          </ng-template>
         </div>
-    </div>
-    <app-create-sprint-form 
-    *ngIf="sidepanel" 
-    [ngStyle]="{'flex': sidepanel ? '1' : '1'}"
-    (formCancel)="closeSidePanel()"
-    ></app-create-sprint-form>
+      </div>
 </div>
+
+<div *ngIf="creation_sprint===true">
+
+  
+             
+    <form>
+
+       
+     
+        <!-- Champ Date de début -->
+        <div class="form-group">
+          <label for="dateDebut">Date de début</label>
+          <input type="date" [(ngModel)]="sprint.date_debut" id="dateDebut" name="date_debut" class="form-control" required>
+        </div>
+      
+        <!-- Champ Date de fin -->
+        <div class="form-group">
+          <label for="dateFin">Date de fin</label>
+          <input type="date" id="dateFin" [(ngModel)]="sprint.date_fin"  name="date_fin" class="form-control" required>
+        </div>
+      
+        <!-- Champ Statut -->
+        <div class="form-group">
+          <label for="status">Statut</label>
+          <select id="status" name="status" [(ngModel)]="sprint.status"  class="form-control" required>
+            <option value="en_attente" selected>en_attente</option>
+            <option value="en_cours">en_cours</option>
+            <option value="termine">terminé</option>
+          </select>
+        </div>
+      
+        
+      
+        <!-- Bouton de soumission -->
+        <button type="submit"  (click)="createSprint()" class="btn btn-primary">Créer</button>
+      </form>
+      
+
+</div>
+  
+
+<div *ngIf="creation_categorie_tache===true">
+    
+    <p style="text-align: center;margin-top: 8%;">CREATION DE  DE CATEGORIE DE TACHE</p>
+    <form>
+
+        Creation de categorie
+        <select class="form-control form-control-lg" id="idsprint" name="idsprint" [(ngModel)]="idsprint">
+        <option *ngFor="let sprint of projectMock.sprints;" [value]="sprint._id">
+        {{sprint._id}}
+        {{ sprint.date_debut | date:'dd/MM/yyyy' }}
+        {{ sprint.date_fin | date:'dd/MM/yyyy' }}
+       
+       
+        
+        </option>
+        </select>
+      
+        <!-- Champ Date de début -->
+        <div class="form-group">
+          <label for="dateDebut">Nom de la categorie</label>
+          <input type="text" [(ngModel)]="categorie_tache.nom"   placeholder="Entre le nom de la categorie" id="dateDebut" name="nom" class="form-control" required>
+        </div>
+      
+        <!-- Champ Date de fin -->
+      
+      
+        <!-- Champ Statut -->
+      
+      
+        
+      
+        <!-- Bouton de soumission -->
+        <button type="submit"  (click)="  createcategorietache ()" class="btn btn-primary">Créer</button>
+      </form>
+      
+
+</div>
+
+          
       

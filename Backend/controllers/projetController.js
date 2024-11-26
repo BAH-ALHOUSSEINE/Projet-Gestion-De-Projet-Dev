@@ -109,6 +109,21 @@ const getProjectById = async (req, res) => {
   }
 };
 
+const getSprintByprojetId = async (req, res) => {
+  try {
+    const project = await Project.findById(req.params.projectId).populate('membres', 'prenom email').populate('id_admin', 'nom prenom email');
+    if (!project) {
+      return res.status(404).json({ message: 'Projet introuvable.' });
+    }
+    res.status(200).json(project.sprints);
+  } catch (error) {
+    console.error('Erreur lors de la récupération du projet:', error);
+    res.status(500).json({ message: 'Erreur serveur.' });
+  }
+};
 
 
-module.exports = { createProject, addMember, getUserProjects, getProjectById };
+
+
+
+module.exports = { createProject, addMember, getUserProjects, getProjectById, getSprintByprojetId };

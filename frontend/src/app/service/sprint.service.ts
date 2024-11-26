@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, catchError, Observable, of } from 'rxjs';
 import { AuthGuard } from '../guards/auth.guard';
 import { Sprint } from '../models/sprint';
+import { CategorieTache } from '../models/categorie-tache';
 
 
 const httpOptions = {
@@ -33,4 +34,20 @@ export class SprintService {
         })
       );
     }
+    
+    addcategorietacge(projetId : string | undefined  , idsprint : string  | undefined ,  categorie_tache : CategorieTache | undefined ): Observable<any> {
+      const url = `${this.baseURL}${projetId}/sprint/${idsprint}/categorie`;  // Construction de l'URL
+      console.log("URL de la requête:", url);
+  
+        console.log("données envoyées : " , categorie_tache)
+      return this.http.post(url, categorie_tache, httpOptions).pipe(
+        catchError(error => {
+          console.error('Erreur lors de l\'ajout du sprint', error);
+          return of({ success: false, message: 'Erreur lors de l\'ajout du sprint' });
+        })
+      );
+    }
+
+
+
   }

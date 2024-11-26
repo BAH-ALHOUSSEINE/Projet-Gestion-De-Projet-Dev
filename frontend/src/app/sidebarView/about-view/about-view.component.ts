@@ -12,7 +12,7 @@ export class AboutViewComponent {
   constructor(@Inject('project') public project: Projet) {
 
     console.log("ça marche ?")
-    console.log(project)
+   // console.log(project)
   }
 
 

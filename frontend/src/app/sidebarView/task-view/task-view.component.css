@@ -49,3 +49,95 @@
 }
 
 
+.sprint-container {
+  margin-top: 10px;
+  border: 1px solid #ccc;
+  padding: 0px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  width: 50%;
+  background-color: #080808c4;
+}
+
+.categorie-container {
+  margin-left: 20px;
+  border-left: 2px solid #007bff;
+  padding-left: 10px;
+  margin-bottom: 10px;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  background-color:#eef;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+}
+
+  /* Conteneur principal pour centrer le formulaire */
+  form {
+    max-width: 400px; /* Largeur maximale */
+    margin: 40px auto; /* Centrer horizontalement et espacer du haut */
+    padding: 20px; /* Espacement interne */
+    border: 1px solid #ddd; /* Bordure légère */
+    border-radius: 8px; /* Coins arrondis */
+    background-color: #f9f9f9; /* Fond léger */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombre douce */
+  }
+
+  /* Marges pour les groupes de champs */
+  .form-group {
+    margin-bottom: 15px;
+  }
+
+  /* Styles pour les labels */
+  label {
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    display: block;
+    color: #333;
+  }
+
+  /* Styles pour les champs d'entrée */
+  input[type="datetime-local"], select {
+    width: 100%; /* Prendre toute la largeur */
+    padding: 10px; /* Espacement interne */
+    font-size: 14px; /* Taille de police */
+    border: 1px solid #ccc; /* Bordure grise */
+    border-radius: 4px; /* Coins arrondis */
+    box-sizing: border-box; /* Inclure les bordures dans la largeur */
+    outline: none; /* Supprimer l'effet focus par défaut */
+    transition: border-color 0.3s ease; /* Animation douce */
+  }
+
+  /* Focus sur les champs */
+  input[type="datetime-local"]:focus, select:focus {
+    border-color: #007bff; /* Bordure bleue au focus */
+  }
+
+  /* Boutons */
+  
+
+  /* Effet hover sur le bouton */
+  button:hover {
+    background-color: #0056b3; /* Bleu plus foncé */
+  }
+
+  /* Ajout d'un espacement pour le bouton */
+  button + button {
+    margin-top: 10px;
+  }
+
+  /* Ajouter un effet sur le conteneur en survol */
+  form:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Ombre plus marquée */
+  }
+
+  .status_style{
+    background-color: #007bff;
+  }

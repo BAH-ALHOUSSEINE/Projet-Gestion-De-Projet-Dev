@@ -22,7 +22,7 @@ export class ProjectDetailComponent implements OnInit {
     // Autres vues...
   ];
 
-  activeView: string = this.views[0].id;
+  activeView: string = this.views[1].id;
 
   get activeViewComponent() {
     return this.views.find(view => view.id === this.activeView) || null;
