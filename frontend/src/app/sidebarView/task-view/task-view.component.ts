@@ -26,6 +26,8 @@ export class TaskViewComponent {
   affichage_sprint ? : boolean;
   categorie_tache  : CategorieTache = new CategorieTache ();
   idsprint  ? : string ;
+  message ? : String;
+  result_creation_sprint ? : number =0 ;
 
 
 
@@ -65,9 +67,11 @@ export class TaskViewComponent {
   
     
     if (this.project._id) {
-      this.sprintService.addSprintForCurrentProject(this.project._id, this.sprint).subscribe((newSprint: Sprint) => {
+      this.sprintService.addSprintForCurrentProject(this.project._id, this.sprint).subscribe((newSprint: any) => {
         // Ajoute le nouveau sprint directement à la liste des sprints
-        this.router.navigate([`/${this.project._id}`]);
+        this.message = newSprint.message;
+        this.result_creation_sprint=1;
+        console.log(newSprint.message);
         // Force la détection des changements
       });
     }
@@ -79,7 +83,9 @@ export class TaskViewComponent {
     
     
     this.sprintService.addcategorietacge(this.project._id,this.idsprint ,this.categorie_tache).subscribe( (newcat : CategorieTache) => {
-      this.router.navigate([`/${this.project._id}`]);
+      this.creation_sprint=false;
+      this.creation_categorie_tache=false;
+      this.affichage_sprint = true;
     });
   }
 

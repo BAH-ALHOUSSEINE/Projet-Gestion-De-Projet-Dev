@@ -37,7 +37,7 @@ export class ProjetComponent implements OnInit {
   }
 
   openProjectCreationPanel(): void {
-    // this.isProjectCreationPanelOpen = true;
+      this.isProjectCreationPanelOpen = true;
     // console.log('isProjectCreationPanelOpen:', this.isProjectCreationPanelOpen);
     // this.newProject = new Projet(); // Réinitialiser les données du nouveau projet
   }

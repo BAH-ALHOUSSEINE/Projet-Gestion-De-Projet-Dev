@@ -28,7 +28,7 @@ export class InscriptionComponent {
    ajoutUser(){
 
     
-    if(this.user.nom=="" || this.user.prenom=="" || this.user.password=="" || this.user.email==""){
+    if( this.user.prenom=="" || this.user.password=="" || this.user.email==""){
       this.champEmpty=1;
    }
    else {

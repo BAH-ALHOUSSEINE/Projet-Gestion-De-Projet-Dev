@@ -40,10 +40,12 @@
 
 <div *ngIf="creation_sprint===true">
 
-  
+    <p style="text-align: center;margin-top: 8%;">CREATION DE  SPRINT</p>
+   
              
     <form>
 
+        <p *ngIf="result_creation_sprint" style="text-align: center; background-color: greenyellow;  color: white;">{{message}}</p>
        
      
         <!-- Champ Date de début -->
