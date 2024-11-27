@@ -11,48 +11,41 @@ import { Router } from '@angular/router';
 })
 export class ConnexionComponent {
 
+  user: User = new User();
+  champEmpty: number = 0;
+  errorMessage: String = "";
 
-  user  : User = new User ();
-  champEmpty  : number = 0;
-  errorMessage  : String ="";
-
-
-  constructor( private userService : UserService,   private router: Router, private authGuard : AuthGuard ) {
-   this.user.email="";
-   this.user.password="";
+  constructor(private userService: UserService, private router: Router, private authGuard: AuthGuard) {
+    this.user.email = "";
+    this.user.password = "";
 
   }
 
+  login() {
+    if (this.user.password == "" || this.user.email == "") {
+      this.champEmpty = 1;
+    }
+    else {
 
-  login(){
-    if(this.user.password=="" || this.user.email==""){
-      this.champEmpty=1;
-   }
-   else {
-   
-     console.log(this.user);
+      console.log(this.user);
 
-    this.userService.login(this.user.email,this.user.password).subscribe(
-      
-
-
-      response => {
-       console.log("reponse : " +response);
-       console.log("token : " + response.token);
-       this.authGuard.login(response.token)
-       this.router.navigate(['/projet']);
-      },
-      error => {
-        // Si l'API retourne une erreur 400, affichez le message d'erreur
-        if (error.status === 401) {
-          this.champEmpty  = 0;
-          this.errorMessage = error.error.error;  // Message d'erreur de l'API
+      this.userService.login(this.user.email, this.user.password).subscribe({
+        next: (response) => {
+          console.log("reponse : " + response);
+          console.log("token : " + response.token);
+          this.authGuard.login(response.token)
+          this.router.navigate(['/projet']);
+        },
+        error: (err) => {
+          // Si l'API retourne une erreur 400, affichez le message d'erreur
+          if (err.status === 401) {
+            this.champEmpty = 0;
+            this.errorMessage = err.error.error;  // Message d'erreur de l'API
+          }
         }
       }
-  
-    );
-
-  }  
-}
+      );
+    }
+  }
 
 }
