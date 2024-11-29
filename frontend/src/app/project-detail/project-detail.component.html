@@ -15,7 +15,9 @@
       <ng-container *ngIf="activeViewComponent">
         <ng-container 
           [ngComponentOutlet]="activeViewComponent.component" 
-          [ngComponentOutletInjector]="createInjector(project)">
+          [ngComponentOutletInjector]="createInjector(project)"
+         
+          >
         </ng-container>
       </ng-container>
     </div>

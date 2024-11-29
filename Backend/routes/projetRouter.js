@@ -3,7 +3,7 @@ const { createProject, addMember, getUserProjects, getProjectById,getSprintBypro
 const router = express.Router();
 
 router.post('/project', createProject);
-router.put('/:projectId/members', addMember);
+router.post('/:projectId/members', addMember);
 router.get('/user/:userId',getUserProjects);
 router.get('/:projectId', getProjectById);
 router.get('/:projectId/sprints',getSprintByprojetId );

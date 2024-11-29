@@ -22,7 +22,7 @@ export class ProjectDetailComponent implements OnInit {
     // Autres vues...
   ];
 
-  activeView: string = this.views[1].id;
+  activeView: string = this.views[0].id;
 
   get activeViewComponent() {
     return this.views.find(view => view.id === this.activeView) || null;
@@ -80,5 +80,11 @@ export class ProjectDetailComponent implements OnInit {
         }
       });
     }
-  }
+}
+
+update(updatedProject: Projet): void {
+  this.project = updatedProject;
+}
+
+ 
 }

@@ -1,5 +1,6 @@
 const { authenticateUser } = require('../middleware/authomiddleware');
 const Project = require('../models/Project');
+const User = require('../models/User');
 const mongoose = require('mongoose');
 
 const createProject = async (req, res) => {
@@ -58,14 +59,24 @@ const createProject = async (req, res) => {
 
 const addMember = async (req, res) => {
   try {
+    const { email } = req.body;
+    const user = await User.findOne({ email });
+    
+    if (!user) {
+      return res.status(401).json({ error: 'Ce email n est pas lié à un user' });
+    }
+
     const project = await Project.findById(req.params.projectId);
-    project.membres.push(req.body.memberId);
+    project.membres.push(user._id);  // Ajout du membre
     await project.save();
-    res.json({ message: 'Membre ajouté au projet' });
+
+    res.status(200).json(project);  // Retourne le projet mis à jour
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 };
+
+
 
 
 const getUserProjects = async (req, res) => {

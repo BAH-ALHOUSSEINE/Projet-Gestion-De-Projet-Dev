@@ -72,6 +72,7 @@ export class TaskViewComponent {
         this.message = newSprint.message;
         this.result_creation_sprint=1;
         console.log(newSprint.message);
+        this.cdr.detectChanges;
         // Force la détection des changements
       });
     }

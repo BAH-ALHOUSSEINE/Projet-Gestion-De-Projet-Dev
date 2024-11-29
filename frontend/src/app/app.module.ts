@@ -19,7 +19,10 @@ import { TaskViewComponent } from './sidebarView/task-view/task-view.component';
 import { DynamicFormComponent } from './elements/dynamic-form/dynamic-form.component';
 import { CreateProjectFormComponent } from './forms/create-project-form/create-project-form.component';
 import { CreateSprintFormComponent } from './forms/create-sprint-form/create-sprint-form.component';
-
+import { PopupadduserComponent } from './popupadduser/popupadduser.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input'; 
 
 
 
@@ -40,13 +43,18 @@ import { CreateSprintFormComponent } from './forms/create-sprint-form/create-spr
     TaskViewComponent,
     DynamicFormComponent,
     CreateProjectFormComponent,
-    CreateSprintFormComponent
+    CreateSprintFormComponent,
+    PopupadduserComponent
 
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule
+
 
 
   ],
