@@ -6,7 +6,7 @@ import { of, throwError } from 'rxjs';
 import { AuthGuard } from '../guards/auth.guard';
 import { UserService } from '../service/auth.service';
 
-fdescribe('ConnexionComponent', () => {
+describe('ConnexionComponent', () => {
   let component: ConnexionComponent;
   let fixture: ComponentFixture<ConnexionComponent>;
   let userService: jasmine.SpyObj<UserService>;
@@ -35,8 +35,6 @@ fdescribe('ConnexionComponent', () => {
     router = TestBed.inject(Router) as jasmine.SpyObj<Router>;
     authGuard = TestBed.inject(AuthGuard) as jasmine.SpyObj<AuthGuard>;
     fixture.detectChanges();
-
-    userService.login.and.returnValue(of({ token: 'fake-token' }));
   });
 
   it('should create the component', () => {
@@ -59,9 +57,31 @@ fdescribe('ConnexionComponent', () => {
   });
 
   it('should call userService.login when parameters are correct', () => {
+    const response = { token: 'fake-token' };
+    userService.login.and.returnValue(of(response));
     component.user.email = 'test@email.com';
     component.user.password = 'password';
     component.login();
     expect(userService.login).toHaveBeenCalledWith(component.user.email, component.user.password);
+  });
+
+  it('should handle successful login by calling authGuard.login and router.navigate', () => {
+    const response = { token: 'fake-token' };
+    userService.login.and.returnValue(of(response));
+    component.user.email = 'test@email.com';
+    component.user.password = 'password';
+    component.login();
+    expect(authGuard.login).toHaveBeenCalledWith('fake-token');
+    expect(router.navigate).toHaveBeenCalledWith(['/projet']);
+  });
+
+  it('should handle login error by setting errorMessage when status is 401', () => {
+    const errorResponse = { status: 401, error: { error: 'error message' } };
+    userService.login.and.returnValue(throwError(() => errorResponse));
+    component.user.email = 'test@email.com';
+    component.user.password = 'password';
+    component.login();
+    expect(component.champEmpty).toBe(0);
+    expect(component.errorMessage).toBe('error message');
   });
 });
