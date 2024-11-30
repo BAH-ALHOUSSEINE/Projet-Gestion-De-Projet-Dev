@@ -22,7 +22,8 @@ import { CreateSprintFormComponent } from './forms/create-sprint-form/create-spr
 import { PopupadduserComponent } from './popupadduser/popupadduser.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input'; 
+import { MatInputModule } from '@angular/material/input';
+import { CreateCategorieFormComponent } from './forms/create-categorie-form/create-categorie-form.component'; 
 
 
 
@@ -44,7 +45,8 @@ import { MatInputModule } from '@angular/material/input';
     DynamicFormComponent,
     CreateProjectFormComponent,
     CreateSprintFormComponent,
-    PopupadduserComponent
+    PopupadduserComponent,
+    CreateCategorieFormComponent
 
   ],
   imports: [

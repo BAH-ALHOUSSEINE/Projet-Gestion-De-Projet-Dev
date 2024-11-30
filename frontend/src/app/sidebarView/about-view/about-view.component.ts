@@ -15,11 +15,14 @@ export class AboutViewComponent {
   user  : User = new User();
   error  : number = 0;
   errorMessage  : String ="";
+
+  projectMock : Projet = new Projet();
     
   constructor(@Inject('project') public project: Projet,private cdr: ChangeDetectorRef,private serviveproject : ProjetService, private projectdetail : ProjectDetailComponent ) {
 
     console.log("ça marche ?")
    // console.log(project)
+   this.projectMock = this.project;
   }
 
   Annuler(){
@@ -27,21 +30,15 @@ export class AboutViewComponent {
  }
  
  ajoutermembre() {
-  this.serviveproject.addmembre(this.project._id, this.user).subscribe({
-    next: (updatedProject) => {
-      this.project = updatedProject;
-      this.projectdetail.update(updatedProject); // Met à jour le projet localement
-      this.cdr.detectChanges();// Notifie les autres composants
-      this.showdiallogue = false;
-    },
-    error: (error) => {
-      if (error.status === 401) {
-        this.error = 1;
-        this.errorMessage = error.error.error; // Message d'erreur de l'API
-      } else {
-        console.error(error);
-      }
-    },
+  console.log("user-email : ", this.user.email)
+  this.serviveproject.addmembre(this.project._id, this.user).subscribe((newUser: User) => {
+
+    this.projectMock.membres?.push(newUser)
+        
+    console.log("new user : ", newUser)
+    this.cdr.detectChanges();
+
+
   });
 }
 

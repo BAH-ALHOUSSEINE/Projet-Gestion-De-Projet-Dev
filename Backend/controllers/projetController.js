@@ -23,8 +23,6 @@ const createProject = async (req, res) => {
       membres.push(id_admin);
     }
 
-    membres.push("6735e95cb107699b291027b9");
-    membres.push("67350167f4ac621967b63da1");
 
 
     // Création du projet avec les données reçues
@@ -61,16 +59,25 @@ const addMember = async (req, res) => {
   try {
     const { email } = req.body;
     const user = await User.findOne({ email });
+
+    console.log(user)
+    console.log("user id : ", user._id)
     
     if (!user) {
       return res.status(401).json({ error: 'Ce email n est pas lié à un user' });
     }
 
     const project = await Project.findById(req.params.projectId);
-    project.membres.push(user._id);  // Ajout du membre
-    await project.save();
+    if (!project.membres.includes(user._id)) {
+      project.membres.push(user._id);
+    } else {
+      return res.status(401).json({ error: 'Ce email n est pas lié à un user' });
+    }
 
-    res.status(200).json(project);  // Retourne le projet mis à jour
+    await project.save({ validateBeforeSave: false });
+    console.log("user ajouté au projet")
+
+    res.status(200).json(user);  // Retourne le projet mis à jour
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -98,7 +105,7 @@ const getUserProjects = async (req, res) => {
       .populate('id_admin', 'nom prenom email') //permet de prendre les info lié à l'admin
       .populate('membres', 'nom prenom email'); 
     
-    console.log("proj : " + projects)
+    // console.log("proj : " + projects)
     // Retourner la réponse avec la liste des projets
     res.status(200).json(projects);
   } catch (err) {

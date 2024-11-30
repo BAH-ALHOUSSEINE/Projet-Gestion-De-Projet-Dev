@@ -1,3 +1,4 @@
+import { CategorieTache } from "./categorie-tache";
 import { Sprint } from "./sprint";
 import { User } from "./user";
 
@@ -43,10 +44,21 @@ export class Projet {
             sprint.date_debut = s.date_debut;
             sprint.date_fin = s.date_fin;
             sprint.status = s.status;
-            sprint.categorie_tache = [];
+    
+            // Initialiser les catégories de tâches si elles existent dans les données
+            sprint.categorie_tache = Array.isArray(s.categorie_tache)
+              ? s.categorie_tache.map((ct: any) => {
+                    const categorie = new CategorieTache();
+                    categorie._id = ct._id;
+                    categorie.nom = ct.nom;
+                    categorie.taches = [];
+                    return categorie;
+                })
+              : [];
+            
             return sprint;
         })
-      : []; 
+      : [];
          
       
       return projet;

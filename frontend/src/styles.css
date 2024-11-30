@@ -3,6 +3,7 @@
     --first-color: #292C31;
     --second-color: #00A2FF;
     --third-color: #1F1F1F;
+    --fourth-color: #1F1F1F;
   }
 
   html, body {
@@ -36,9 +37,15 @@
   border-radius: 10px;
   font-size: 1rem;
   color: #fff;
-  background-color: var(--third-color);
+  background-color: var(--first-color);
   cursor: pointer;
   align-items: center;
+  /* border: 2px solid white; */
+}
+
+.button-secondary:hover
+{
+
 }
 
 .title

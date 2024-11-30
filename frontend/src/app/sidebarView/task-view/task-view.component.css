@@ -42,6 +42,7 @@
   list-style: none;
   cursor: pointer;
   color: white;
+  background-color: var(--third-color);
 }
 
 .dropdown-menu li:hover {
@@ -141,3 +142,60 @@ li {
   .status_style{
     background-color: #007bff;
   }
+
+  .dropdown-sprint
+  {
+    width: auto;
+    height: auto;
+    background-color: var(--third-color);
+    color: white;
+  }
+
+  .categorie-button {
+    background-color: var(--third-color);
+    height: 50px;
+    width: 80%;
+    color: white;
+    text-align: start;
+    border-radius: 10px;
+    border: none;
+    margin-bottom: 10px;
+    transition: all 0.3s ease; /* Transition douce */
+    position: relative; /* Nécessaire pour positionner le triangle */
+  }
+  
+  .categorie-button:hover {
+    background-color: var(--fourth-color); /* Une couleur plus claire */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Ombre légère */
+    transform: translateY(-3px); /* Légère élévation */
+  }
+  
+  /* Triangle à droite du bouton */
+  .categorie-button::after {
+    content: "";
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    border-width: 6px;
+    border-style: solid;
+    border-color: white transparent transparent transparent; /* Triangle initial pointant vers le bas */
+  
+  }
+  
+  /* Quand le bouton est togglé (ajout d'une classe active) */
+  .categorie-button.active::after {
+    border-color: var(--second-color) transparent transparent transparent; /* Triangle devient bleu */
+  }
+
+  .add-categorie
+  {
+    background-color: var(--second-color);
+    text-align: center;
+  }
+
+  .add-categorie:hover
+  {
+    background-color: var(--second-color);
+  }
+

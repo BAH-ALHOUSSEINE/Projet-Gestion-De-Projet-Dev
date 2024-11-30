@@ -1,6 +1,6 @@
 export enum Status {
-    EnAttente = 'en_attente',
-    EnCours = 'en_cours',
+    EnAttente = 'en attente',
+    EnCours = 'en cours',
     Termine = 'terminé'
   }
   
