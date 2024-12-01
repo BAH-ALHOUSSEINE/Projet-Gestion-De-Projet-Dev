@@ -1,66 +1,52 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { User } from '../models/user';
 import { UserService } from '../service/auth.service';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-inscription',
   templateUrl: './inscription.component.html',
-  styleUrl: './inscription.component.css'
+  styleUrls: ['./inscription.component.css'], // Correction de 'styleUrl' en 'styleUrls'
 })
 export class InscriptionComponent {
-
   user: User = new User();
   champEmpty: number = 0;
-  errorMessage: String = "";
-
-
-
-
+  errorMessage: string = '';
 
   constructor(private userService: UserService, private router: Router) {
-    this.user.email = "";
-    this.user.name = "";
-    this.user.password = "";
-    this.user.prenom = "";
+    // Initialisation des champs utilisateur (peut être omise, car déjà gérée dans le modèle `User`)
+    this.user = {
+      email: '',
+      nom: '',
+      password: '',
+      prenom: '',
+    };
   }
 
-  ajoutUser() {
-
-
-    if (this.user.name == "" || this.user.prenom == "" || this.user.password == "" || this.user.email == "") {
+  ajoutUser(): void {
+    // Vérification si tous les champs sont remplis
+    if (
+      this.user.nom === '' ||
+      this.user.prenom === '' ||
+      this.user.password === '' ||
+      this.user.email === ''
+    ) {
       this.champEmpty = 1;
-    }
-    else {
-
-
+    } else {
       this.userService.register(this.user).subscribe({
         next: (response) => {
-          // Si l'email est valide (aucune erreur 400)
+          // Si l'email est validé (aucune erreur 400)
           console.log('Email validé', response);
           this.router.navigate(['/connexion']);
         },
         error: (err) => {
-          // Si l'API retourne une erreur 400, affichez le message d'erreur
+          // Gestion des erreurs provenant de l'API
           if (err.status === 400) {
             this.champEmpty = 0;
-            this.errorMessage = err.error.error;  // Message d'erreur de l'API
+            this.errorMessage = err.error.error; // Message d'erreur renvoyé par l'API
           }
-        }
-      }
-
-
-
-      );
-
+        },
+      });
     }
-
-
   }
-
-
-
 }
-
-
-
