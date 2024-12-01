@@ -36,8 +36,8 @@ describe('HeaderComponent', () => {
 
   it('should call authGuard.isLoggedIn.subscribe on init', () => {
     const subscribeSpy = spyOn(authGuard.isLoggedIn, 'subscribe');
-    fixture.detectChanges();
-    expect(authGuard.isLoggedIn.subscribe).toHaveBeenCalled();
+    fixture.detectChanges(); // ngOnInit:  called after the constructor
+    expect(subscribeSpy).toHaveBeenCalled();
   });
 
   it('should update component.isLoggedIn based on localStorage', () => {
