@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  backend:
+    image: backend:latest  # Nom de l'image backend
+    build:
+      context: ./Backend    # Chemin vers le Dockerfile du backend
+    container_name: backend
+    ports:
+      - "3000:3000"         # Expose le backend sur le port 3000
+    volumes:
+      - ./Backend:/app      # Monte le code local pour développement (facultatif)
+    environment:
+      - PORT=3000
+      - MONGO_URI=mongodb://database:27017/gestiondeprojetDB
+    networks:
+      - gdp-network         # Réseau Docker partagé
+
+  frontend:
+    image: frontend:latest  # Nom de l'image frontend
+    build:
+      context: ./frontend   # Chemin vers le Dockerfile du frontend
+    container_name: frontend
+    ports:
+      - "4200:80"           # Expose le frontend sur le port 4200
+    networks:
+      - gdp-network         # Réseau Docker partagé
+
+  database:
+    image: mongo:6.0        # Utilise l'image officielle MongoDB
+    container_name: database
+    volumes:
+      - mongo-data:/data/db # Persiste les données MongoDB
+    ports:
+      - "27017:27017"       # Expose MongoDB sur le port 27017
+    networks:
+      - gdp-network         # Réseau Docker partagé
+
+volumes:
+  mongo-data:               # Volume Docker pour persister les données MongoDB
+
+networks:
+  gdp-network:              # Réseau dédié pour ton projet
