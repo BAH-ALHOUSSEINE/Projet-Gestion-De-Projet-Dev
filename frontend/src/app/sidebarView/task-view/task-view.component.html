@@ -1,0 +1,50 @@
+<div style="display: flex;flex-direction: row;flex: 1;">
+  <div class="task-container" style="display: flex;flex-direction: column;padding: 30px;   /* Aligne le dropdown à droite */"  [ngStyle]="{'flex': sidePanel ? '3' : '4'}">
+    <!-- <p>{{information}}</p> -->
+    <div style="display: flex; flex-direction: row; align-items: center; justify-content: end;gap: 10px">
+      <select
+      class="form-control dropdown-sprint"
+      (change)="onSprintSelect($event)"
+      [(ngModel)]="selectedSprintIndex">
+        <option *ngFor="let s of projectMock.sprints; let i = index" [value]="i">
+          Sprint {{i + 1}}
+        </option>
+      </select>
+      <button *ngIf="!sprint_creation" class="button-primary" (click)="openSprintCreation()">+</button>
+    </div>
+
+    <div *ngFor="let s of selectedSprint.categorie_tache; let i = index">
+      <button 
+        (click)="toggleCategorie(i)" 
+        class="categorie-button"
+        [class.active]="selectedCategories.includes(i)">
+        {{ s.nom }}
+      </button>
+      <div *ngIf="selectedCategories.includes(i)" class="content">
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin nec...</p>
+      </div>
+    </div>
+
+    <button *ngIf="!categorie_creation && selectedSprintIndex != -1" class="categorie-button add-categorie" (click)="openCategorieCreation()">Ajouter une catégorie de tache</button>
+  </div>
+
+  <app-create-sprint-form 
+  *ngIf="sprint_creation" 
+  [ngStyle]="{'flex': sprint_creation ? '1' : '1'}"
+  (formCancel)="closeSprintCreation()"
+  [project]="projectMock"
+  (sprintCreated)="handleSprintCreated($event)"
+  ></app-create-sprint-form>
+
+  <app-create-categorie-form
+  *ngIf="categorie_creation"
+  [ngStyle]="{'flex': categorie_creation ? '1' : '1'}"
+  (formCancel)="closeCategorieCreation()"
+  (categorieCreated)="handleCategorieCreated($event)"
+  [project]="projectMock"
+  [sprint]="selectedSprint"
+  >
+
+  </app-create-categorie-form>
+
+</div>

@@ -1,3 +1,4 @@
+
 .project-detail-container {
     padding: 20px; /* Espacement autour du contenu */
     background-color: #f8f9fa; /* Fond clair pour un contraste suffisant */
@@ -49,4 +50,54 @@
 .project-detail-actions .back-button {
     background-color: #6c757d;
     color: white;
+}
+
+
+
+
+  
+  .sidebar button {
+    display: block;
+    margin: 10px 0;
+    padding: 10px;
+    background-color: var(--third-color);
+    color: white;
+    border: none;
+    text-align: left;
+    cursor: pointer;
+    width: 100%;
+  }
+  
+  .sidebar button.active {
+    background-color: var(--second-color);
+    font-weight: bold;
+  }
+
+  .sidebar button.active:hover {
+    background-color: var(--second-color);
+    font-weight: bold;
+  }
+  
+  .sidebar button:hover {
+    background-color: #555;
+  }
+
+  .content-container{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    /* padding : 30px; */
+    flex: 4;
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  background-color: var(--first-color);
+  color: white;
+  padding: 10px;
+  border-right : 2px solid white;
+  border-bottom: 2px solid white;
+  height: 100%;
 }

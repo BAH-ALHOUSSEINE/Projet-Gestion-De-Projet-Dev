@@ -1,0 +1,201 @@
+:host {
+  width: 100%;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-button {
+  background-color: var(--third-color); /* Couleur de fond sombre */
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-width: 120px;
+}
+
+.dropdown-button .arrow {
+  margin-left: 10px;
+}
+
+.dropdown-menu {
+  display: block; /* Caché par défaut */
+  position: absolute;
+  background-color:  var(--third-color);
+  min-width: 160px;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  z-index: 1;
+  margin-top: 5px;
+  max-height: 200px;
+}
+
+.dropdown-menu li {
+  padding: 10px;
+  list-style: none;
+  cursor: pointer;
+  color: white;
+  background-color: var(--third-color);
+}
+
+.dropdown-menu li:hover {
+  background-color: #3a3a3a;
+}
+
+
+.sprint-container {
+  margin-top: 10px;
+  border: 1px solid #ccc;
+  padding: 0px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  width: 50%;
+  background-color: #080808c4;
+}
+
+.categorie-container {
+  margin-left: 20px;
+  border-left: 2px solid #007bff;
+  padding-left: 10px;
+  margin-bottom: 10px;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  background-color:#eef;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+}
+
+  /* Conteneur principal pour centrer le formulaire */
+  form {
+    max-width: 400px; /* Largeur maximale */
+    margin: 40px auto; /* Centrer horizontalement et espacer du haut */
+    padding: 20px; /* Espacement interne */
+    border: 1px solid #ddd; /* Bordure légère */
+    border-radius: 8px; /* Coins arrondis */
+    background-color: #f9f9f9; /* Fond léger */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombre douce */
+  }
+
+  /* Marges pour les groupes de champs */
+  .form-group {
+    margin-bottom: 15px;
+  }
+
+  /* Styles pour les labels */
+  label {
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    display: block;
+    color: #333;
+  }
+
+  /* Styles pour les champs d'entrée */
+  input[type="datetime-local"], select {
+    width: 100%; /* Prendre toute la largeur */
+    padding: 10px; /* Espacement interne */
+    font-size: 14px; /* Taille de police */
+    border: 1px solid #ccc; /* Bordure grise */
+    border-radius: 4px; /* Coins arrondis */
+    box-sizing: border-box; /* Inclure les bordures dans la largeur */
+    outline: none; /* Supprimer l'effet focus par défaut */
+    transition: border-color 0.3s ease; /* Animation douce */
+  }
+
+  /* Focus sur les champs */
+  input[type="datetime-local"]:focus, select:focus {
+    border-color: #007bff; /* Bordure bleue au focus */
+  }
+
+  /* Boutons */
+  
+
+  /* Effet hover sur le bouton */
+  button:hover {
+    background-color: #0056b3; /* Bleu plus foncé */
+  }
+
+  /* Ajout d'un espacement pour le bouton */
+  button + button {
+    margin-top: 10px;
+  }
+
+  /* Ajouter un effet sur le conteneur en survol */
+  form:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Ombre plus marquée */
+  }
+
+  .status_style{
+    background-color: #007bff;
+  }
+
+  .dropdown-sprint
+  {
+    width: auto;
+    height: auto;
+    background-color: var(--third-color);
+    color: white;
+  }
+
+  .categorie-button {
+    background-color: var(--third-color);
+    height: 50px;
+    width: 80%;
+    color: white;
+    text-align: start;
+    border-radius: 10px;
+    border: none;
+    margin-bottom: 10px;
+    transition: all 0.3s ease; /* Transition douce */
+    position: relative; /* Nécessaire pour positionner le triangle */
+  }
+  
+  .categorie-button:hover {
+    background-color: var(--fourth-color); /* Une couleur plus claire */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Ombre légère */
+    transform: translateY(-3px); /* Légère élévation */
+  }
+  
+  /* Triangle à droite du bouton */
+  .categorie-button::after {
+    content: "";
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    border-width: 6px;
+    border-style: solid;
+    border-color: white transparent transparent transparent; /* Triangle initial pointant vers le bas */
+  
+  }
+  
+  /* Quand le bouton est togglé (ajout d'une classe active) */
+  .categorie-button.active::after {
+    border-color: var(--second-color) transparent transparent transparent; /* Triangle devient bleu */
+  }
+
+  .add-categorie
+  {
+    background-color: var(--second-color);
+    text-align: center;
+  }
+
+  .add-categorie:hover
+  {
+    background-color: var(--second-color);
+  }
+

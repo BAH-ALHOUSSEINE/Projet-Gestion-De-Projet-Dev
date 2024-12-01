@@ -20,7 +20,7 @@ export class InscriptionComponent {
 
    constructor( private userService : UserService,   private router: Router ) {
     this.user.email="";
-    this.user.name ="";
+    this.user.nom ="";
     this.user.password="";
     this.user.prenom="";
    }
@@ -28,7 +28,7 @@ export class InscriptionComponent {
    ajoutUser(){
 
     
-    if(this.user.name=="" || this.user.prenom=="" || this.user.password=="" || this.user.email==""){
+    if( this.user.prenom=="" || this.user.password=="" || this.user.email==""){
       this.champEmpty=1;
    }
    else {

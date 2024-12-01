@@ -1,6 +1,7 @@
 const { authenticateUser } = require('../middleware/authomiddleware');
 const Project = require('../models/Project');
-
+const User = require('../models/User');
+const mongoose = require('mongoose');
 
 const createProject = async (req, res) => {
 
@@ -15,8 +16,15 @@ const createProject = async (req, res) => {
       return res.status(400).json({ message: "Tous les champs sont requis." });
     }
 
-     id_admin = authenticateUser(id_admin);
-    
+    id_admin = authenticateUser(id_admin);
+
+    // Ajouter id_admin à membres s'il n'est pas déjà présent
+    if (!membres.map((membre) => membre.toString()).includes(id_admin)) {
+      membres.push(id_admin);
+    }
+
+
+
     // Création du projet avec les données reçues
     const newProject = new Project({
       nom_projet,
@@ -49,14 +57,33 @@ const createProject = async (req, res) => {
 
 const addMember = async (req, res) => {
   try {
+    const { email } = req.body;
+    const user = await User.findOne({ email });
+
+    console.log(user)
+    console.log("user id : ", user._id)
+    
+    if (!user) {
+      return res.status(401).json({ error: 'Ce email n est pas lié à un user' });
+    }
+
     const project = await Project.findById(req.params.projectId);
-    project.membres.push(req.body.memberId);
-    await project.save();
-    res.json({ message: 'Membre ajouté au projet' });
+    if (!project.membres.includes(user._id)) {
+      project.membres.push(user._id);
+    } else {
+      return res.status(401).json({ error: 'Ce email n est pas lié à un user' });
+    }
+
+    await project.save({ validateBeforeSave: false });
+    console.log("user ajouté au projet")
+
+    res.status(200).json(user);  // Retourne le projet mis à jour
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 };
+
+
 
 
 const getUserProjects = async (req, res) => {
@@ -75,10 +102,10 @@ const getUserProjects = async (req, res) => {
         { membres: userId }    // L'utilisateur est membre du projet
       ]
     })
-      // .populate('id_admin', 'nom prenom email') //permet de prendre les info lié à l'admin
-      // .populate('membres', 'nom prenom email'); 
+      .populate('id_admin', 'nom prenom email') //permet de prendre les info lié à l'admin
+      .populate('membres', 'nom prenom email'); 
     
-    console.log("proj : " + projects)
+    // console.log("proj : " + projects)
     // Retourner la réponse avec la liste des projets
     res.status(200).json(projects);
   } catch (err) {
@@ -89,7 +116,7 @@ const getUserProjects = async (req, res) => {
 
 const getProjectById = async (req, res) => {
   try {
-    const project = await Project.findById(req.params.projectId).populate('membres', 'nom email');
+    const project = await Project.findById(req.params.projectId).populate('membres', 'prenom email').populate('id_admin', 'nom prenom email');
     if (!project) {
       return res.status(404).json({ message: 'Projet introuvable.' });
     }
@@ -100,6 +127,21 @@ const getProjectById = async (req, res) => {
   }
 };
 
+const getSprintByprojetId = async (req, res) => {
+  try {
+    const project = await Project.findById(req.params.projectId).populate('membres', 'prenom email').populate('id_admin', 'nom prenom email');
+    if (!project) {
+      return res.status(404).json({ message: 'Projet introuvable.' });
+    }
+    res.status(200).json(project.sprints);
+  } catch (error) {
+    console.error('Erreur lors de la récupération du projet:', error);
+    res.status(500).json({ message: 'Erreur serveur.' });
+  }
+};
 
 
-module.exports = { createProject, addMember, getUserProjects, getProjectById };
+
+
+
+module.exports = { createProject, addMember, getUserProjects, getProjectById, getSprintByprojetId };

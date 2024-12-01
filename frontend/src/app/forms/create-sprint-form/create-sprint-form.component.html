@@ -1,0 +1,7 @@
+<app-dynamic-form
+[formConfig]="projectFormConfig"
+[formHeader]="'Créer un sprint'"
+(formCancel)="cancelCreation()"
+(formSubmit)="submitSprintCreation()"
+[formData]="newSprint"
+></app-dynamic-form>

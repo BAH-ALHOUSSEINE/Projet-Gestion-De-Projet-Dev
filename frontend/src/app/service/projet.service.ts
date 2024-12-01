@@ -3,6 +3,8 @@ import {Projet} from '../models/projet'
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { AuthGuard } from '../guards/auth.guard';
+import { User } from '../models/user';
+
 
 
 const httpOptions = {
@@ -15,10 +17,15 @@ const httpOptions = {
 })
 export class ProjetService {
 
+  private projectSubject = new BehaviorSubject<Projet | null>(null);
+  public project$ = this.projectSubject.asObservable();
+
   private projectsSubject = new BehaviorSubject<Projet[]>([]); // Initialisation de la liste des projets
   public projects$ = this.projectsSubject.asObservable(); // Observable pour que le composant puisse s'abonner
 
   private baseUrl = 'http://localhost:3000/api/projects/project'; 
+
+  
 
   constructor(private http: HttpClient) { }
 
@@ -62,6 +69,17 @@ export class ProjetService {
   // Appeler cette méthode pour mettre à jour les projets
   updateProjects(projects: Projet[]): void {
     this.projectsSubject.next(projects); // Émettre la nouvelle liste de projets
+  }
+
+  addmembre(projectId: string | undefined ,email : User): Observable<any> {
+    console.log()
+    const url = `http://localhost:3000/api/projects/${projectId}/members`;
+    return this.http.post<any>(url,email , httpOptions);
+
+  }
+
+  updateProject(project: Projet): void {
+    this.projectSubject.next(project);
   }
 
 

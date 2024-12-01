@@ -1,5 +1,30 @@
-<div *ngIf="project as project">
-    <div class="project-detail-container">
+<div *ngIf="project as project" style="flex: 1; display: flex; flex-direction: row;height: 100%;">
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <button
+        *ngFor="let view of views"
+        (click)="setActiveView(view.id)"
+        [class.active]="activeView === view.id"
+      >
+        {{ view.name }}
+      </button>
+    </div>
+  
+    <!-- Content -->
+    <div class="content-container">
+      <ng-container *ngIf="activeViewComponent">
+        <ng-container 
+          [ngComponentOutlet]="activeViewComponent.component" 
+          [ngComponentOutletInjector]="createInjector(project)"
+         
+          >
+        </ng-container>
+      </ng-container>
+    </div>
+  </div>
+  
+
+    <!-- <div class="project-detail-container">
         <div class="project-detail-header">
             {{ project.nom_projet }}
         </div>
@@ -13,5 +38,5 @@
                 <li *ngFor="let member of project.membres">{{ member }}</li>
             </ul>
         </div>
-    </div>
-</div>
+    </div> -->
+

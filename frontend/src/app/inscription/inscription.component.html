@@ -8,7 +8,7 @@
             <div *ngIf="champEmpty === 1" class="error-message">Veuillez remplir tous les champs.</div>
             <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
             <form>
-                <input type="text"  [(ngModel)]="user.name" name="name" placeholder="Nom" required>
+                <!-- <input type="text"  [(ngModel)]="user.name" name="name" placeholder="Nom" required> -->
                 <input type="text" [(ngModel)]="user.prenom"  name="prenom" placeholder="Prenom" required>
                 <input type="email" [(ngModel)]="user.email"  name="email" placeholder="Mail" required>
                 <input type="password" [(ngModel)]="user.password"  name="password" placeholder="Password" required>

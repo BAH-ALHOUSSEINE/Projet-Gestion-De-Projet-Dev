@@ -1,0 +1,198 @@
+:host
+{
+    width: 100%;
+}
+
+.information-style
+{
+    display: flex;
+    align-items: start;
+    justify-content: start;
+    background-color: var(--third-color);
+    min-height: 200px; /* Assure une taille suffisante */
+    display: flex;
+    align-items: start;
+    justify-content: start;
+    border-radius: 10px;
+    color: white;
+    padding: 10px;  
+    flex-direction: column;
+}
+
+.description-container
+{
+    flex: 2;  
+}
+
+.date-container
+{
+    flex: 1;
+    flex-direction: column;
+}
+
+.date-announcer
+{
+    display: flex; 
+    flex-direction: row;
+    width: 100%;
+    border: 5px solid var(--first-color);
+    padding: 20px;
+}
+
+.date
+{
+    padding-left: 10px;;
+}
+
+.date-title
+{
+    font-weight: bold;
+}
+
+.image-container
+{
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+}
+
+.collaborator-container
+{
+    flex: 2; 
+    overflow-y: scroll;
+    max-height: 200px;
+}
+
+.collaborator
+{
+    display: flex;
+    flex-direction: row;
+    height: 60px;
+    border-bottom: 2px solid var(--first-color);
+    width: 100%;
+    align-items: center;
+    padding: 10px;
+}
+
+
+
+.information-container
+{
+    display: flex; 
+    flex-direction: row; 
+    align-items: stretch; 
+    width: 100%;
+    margin-top: 20px; 
+    gap: 20px;
+}
+
+
+/* Background style */
+
+
+/* Container for the form */
+.login-container {
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    border: 5px solid var(--first-color);
+    height: 100%;
+   
+   
+}
+
+
+
+/* App name styling */
+
+
+/* Login box styling */
+.login-box {
+    background-color: var(--third-color);
+    padding: 2rem;
+    border-radius: 12px;
+    
+    width: 300px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+
+}
+
+/* Input field styling */
+.login-box input {
+    width: 80%;
+    height: 80%;
+    padding: 0.8rem;
+    margin-bottom: 1rem;
+    border: none;
+    border-radius: 8px;
+    background-color: #e2e2e2;
+    font-size: 1rem;
+    color: #333;
+}
+
+.login-box input::placeholder {
+    color: #666;
+}
+
+/* Login button */
+.login-btn {
+    width: 100%;
+    padding: 0.8rem;
+    border: none;
+    border-radius: 24px;
+    font-size: 1rem;
+    color: #fff;
+    background-color: #00a2ff;
+    cursor: pointer;
+    margin-top: 2%;
+   
+}
+.login-btn1 {
+    width: 30%;
+    padding: 0.8rem;
+    border: none;
+    border-radius: 24px;
+    font-size: 1rem;
+    color: #fff;
+    background-color: #00a2ff;
+    cursor: pointer;
+    margin-top: 2%;
+   
+}
+/* Divider styling */
+.divider {
+    display: flex;
+    align-items: center;
+    margin: 1.5rem 0;
+    color: #666;
+}
+
+.divider span {
+    flex: 1;
+    height: 1px;
+    background-color: #ccc;
+}
+
+.divider p {
+    margin: 0 0.5rem;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+/* Signup button */
+.signup-btn {
+    width: 100%;
+    padding: 0.8rem;
+    border: none;
+    border-radius: 24px;
+    font-size: 1rem;
+    color: #fff;
+    background-color: #333;
+    cursor: pointer;
+}
+
+
+.error-message{
+    color: red;
+
+}

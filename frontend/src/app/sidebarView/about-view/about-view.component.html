@@ -1,0 +1,63 @@
+<div style="padding: 30px">
+<div style="display: flex;flex-direction: row;align-items: center; gap: 20px;">
+    <p class="title">{{project.nom_projet}}</p>
+    <p>{{project.type_projet}}</p>
+</div>
+<div class="information-container ">
+    <div class="description-container information-style">
+        <p>{{project.description_projet}}</p>
+    </div>
+    <div class="date-container information-style">
+        <div class="date-announcer">
+            <p class="date-title">Date de début : </p>
+            <p class="date">{{project.formatDateInFrench(project.date_debut)}}</p>
+        </div>
+        <div class="date-announcer">
+            <p class="date-title">Date de fin : </p>
+            <p class="date">{{project.formatDateInFrench(project.date_fin)}}</p>
+        </div>
+    </div>
+   
+</div>
+<div class="information-container">
+    <div class="image-container  information-style">
+        <p class="title">+</p>
+    </div>
+    <div class="collaborator-container information-style vertical-scrollable">
+        <p class="title">Collaborateurs</p>
+        <div class="collaborator" *ngFor="let member of project.membres">
+            <p>{{member.prenom}}</p>
+        </div>
+        <div class="collaborator">
+            <button  class="login-btn1"  (click)="openDialog()">ajouter un membres</button>
+
+        </div>
+    </div>
+
+
+    <div *ngIf="showdiallogue" class="login-container">
+        <!-- App Name -->
+       
+       <div *ngIf="error===1" class="error-message">{{ errorMessage }}</div>   
+        <!-- Login Form -->
+        <div class="login-box">
+         
+           
+            <form>
+                
+                <input type="text"  [(ngModel)]="user.email"  name="email" placeholder="Email" required>
+                 
+               
+                <!-- Connexion Button -->
+                <button type="submit" (click)="ajoutermembre()"  class="login-btn">Ajouter</button>
+                <button type="submit"  (click)="Annuler()"  class="login-btn">Annuler</button>
+                
+            </form>
+            
+        </div>
+    
+    </div>
+    
+</div>
+
+</div>

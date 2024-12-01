@@ -37,31 +37,14 @@ export class ProjetComponent implements OnInit {
   }
 
   openProjectCreationPanel(): void {
-    this.isProjectCreationPanelOpen = true;
-    console.log('isProjectCreationPanelOpen:', this.isProjectCreationPanelOpen);
-    this.newProject = new Projet(); // Réinitialiser les données du nouveau projet
+      this.isProjectCreationPanelOpen = true;
+    // console.log('isProjectCreationPanelOpen:', this.isProjectCreationPanelOpen);
+    // this.newProject = new Projet(); // Réinitialiser les données du nouveau projet
   }
 
   closeProjectCreationPanel(): void {
     this.isProjectCreationPanelOpen = false;
     console.log('isProjectCreationPanelOpen:', this.isProjectCreationPanelOpen);
-  }
-
-  submitProjectCreation(): void {
-    console.log("Soumission de la création du projet :", this.newProject);
-    const userId = '673b359e1c0adf59528029a1'; // Exemple d'ID utilisateur
-    this.newProject.membres = [userId];
-    this.projectService.addProjectForCurrentUser(this.newProject).subscribe((newProjectData) => {
-      const newProject = Projet.fromData(newProjectData.projet);
-      this.projects.push(newProject);
-      this.projectService.updateProjects(this.projects);
-      this.closeProjectCreationPanel(); // Fermer le panneau après création
-      
-      // Redirection vers la page du projet
-      const projectId = newProjectData.projet._id; // Récupération de l'ID du projet
-      this.router.navigate([`/${projectId}`]); // Redirige vers localhost:4200/idprojet
-    
-    });
   }
 
   goToProjectDetail(projectId: string): void {
@@ -77,5 +60,25 @@ export class ProjetComponent implements OnInit {
   //fonction pour débugger
   callFailed(): void {
     console.log("Appel a échoué");
+  }
+
+
+  onProjectCreated(newProject: Projet): void {
+    console.log("Projet créé avec succès :", newProject);
+  
+    // Ajouter le projet à la liste existante
+    this.projects.push(newProject);
+  
+    // Mettre à jour les projets dans le service
+    this.projectService.updateProjects(this.projects);
+  
+    // Fermer le panneau
+    this.closeProjectCreationPanel();
+  
+    // Redirection vers la page du projet
+    const projectId = newProject._id; // Assurez-vous que _id est présent dans l'objet
+    if (projectId) {
+      this.goToProjectDetail(projectId);
+    }
   }
 }

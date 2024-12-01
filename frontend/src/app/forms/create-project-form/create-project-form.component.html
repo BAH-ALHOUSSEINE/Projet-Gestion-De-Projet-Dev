@@ -1,0 +1,7 @@
+<app-dynamic-form
+[formConfig]="projectFormConfig"
+[formData]="newProject"
+[formHeader]="'Créer un projet'"
+(formSubmit)="submitProjectCreation()"
+(formCancel)="cancelCreation()"
+></app-dynamic-form>

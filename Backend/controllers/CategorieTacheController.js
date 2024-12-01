@@ -18,8 +18,11 @@ exports.addCategorieToSprint = async (req, res) => {
       return res.status(404).json({ message: 'Sprint non trouvé' });
     }
 
-    sprint.categorie_tache.push({ nom, taches });
+    taches = [];
+
+    sprint.categorie_tache.push({ nom: nom, taches });
     const updatedSprint = await projet.save();
+    console.log("creation tache réussie");
 
     res.status(200).json(updatedSprint);
   } catch (error) {

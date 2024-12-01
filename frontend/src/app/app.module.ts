@@ -14,6 +14,18 @@ import { provideHttpClient, withFetch } from '@angular/common/http';
 import { UserService } from './service/auth.service';
 import { APP_INITIALIZER } from '@angular/core';
 import { ProjectDetailComponent } from './project-detail/project-detail.component';
+import { AboutViewComponent } from './sidebarView/about-view/about-view.component';
+import { TaskViewComponent } from './sidebarView/task-view/task-view.component';
+import { DynamicFormComponent } from './elements/dynamic-form/dynamic-form.component';
+import { CreateProjectFormComponent } from './forms/create-project-form/create-project-form.component';
+import { CreateSprintFormComponent } from './forms/create-sprint-form/create-sprint-form.component';
+import { PopupadduserComponent } from './popupadduser/popupadduser.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { CreateCategorieFormComponent } from './forms/create-categorie-form/create-categorie-form.component'; 
+
+
 
 
 
@@ -27,12 +39,25 @@ import { ProjectDetailComponent } from './project-detail/project-detail.componen
     InscriptionComponent,
     HeaderComponent,
     FooterComponent,
-    ProjectDetailComponent
+    ProjectDetailComponent,
+    AboutViewComponent,
+    TaskViewComponent,
+    DynamicFormComponent,
+    CreateProjectFormComponent,
+    CreateSprintFormComponent,
+    PopupadduserComponent,
+    CreateCategorieFormComponent
+
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule
+
+
 
   ],
   providers: [

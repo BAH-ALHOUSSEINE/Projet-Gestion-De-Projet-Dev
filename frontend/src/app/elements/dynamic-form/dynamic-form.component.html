@@ -1,0 +1,65 @@
+
+<div class="creation-panel">
+    <div class="dynamic-form-header">
+        <p class="title">{{ formHeader }}</p>
+      </div>
+<form (ngSubmit)="submitForm()">
+    <div class="form-group" *ngFor="let field of formConfig">
+      <label [for]="field.id">{{ field.label }}</label>
+      <ng-container [ngSwitch]="field.type">
+        <input
+          *ngSwitchCase="'text'"
+          [id]="field.id"
+          [(ngModel)]="formData[field.name]"
+          [name]="field.name"
+          type="text"
+          [required]="field.required"
+          class="form-input"
+        />
+        <textarea
+          *ngSwitchCase="'textarea'"
+          [id]="field.id"
+          [(ngModel)]="formData[field.name]"
+          [name]="field.name"
+          class="form-input"
+        ></textarea>
+        <input
+          *ngSwitchCase="'date'"
+          [id]="field.id"
+          [(ngModel)]="formData[field.name]"
+          [name]="field.name"
+          type="date"
+          [required]="field.required"
+          class="form-input date-picker"
+        />
+        <select
+        *ngSwitchCase="'select'"
+        [id]="field.id"
+        [(ngModel)]="formData[field.name]"
+        [name]="field.name"
+        [required]="field.required"
+        class="form-control"
+        >
+          <option *ngFor="let option of field.options" [value]="option.value">
+            {{ option.label }}
+          </option>
+        </select>
+        <!-- Ajouter plus de types si nécessaire -->
+      </ng-container>
+    </div>
+    <div class="panel-actions">
+      <button type="button" class="button-secondary" (click)="cancelForm()">Annuler</button>
+      <button type="submit" class="button-primary">Confirmer</button>
+    </div>
+  </form>
+</div>
+
+
+<!-- <div class="form-group">
+  <label for="status">Statut</label>
+  <select id="status" name="status" [(ngModel)]="sprint.status"  class="form-control" required>
+    <option value="en_attente" selected>en_attente</option>
+    <option value="en_cours">en_cours</option>
+    <option value="termine">terminé</option>
+  </select>
+</div> -->
