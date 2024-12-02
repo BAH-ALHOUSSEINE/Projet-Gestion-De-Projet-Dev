@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { RouterModule } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { MatDialog } from '@angular/material/dialog';
 import { HeaderComponent } from './header/header.component';
@@ -34,9 +34,4 @@ fdescribe('AppComponent', () => {
     fixture.detectChanges();
     expect(appComponent).toBeTruthy();
   });
-
-  // it('should call dialog.open when openPopop is called', () => {
-  //   appComponent.openPopup();
-  //   expect(dialog.open).toHaveBeenCalled();
-  // });
 });
