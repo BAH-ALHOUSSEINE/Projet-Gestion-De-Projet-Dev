@@ -1,102 +1,112 @@
-.creation-panel
-{
-    color: white;
-    background-color: var(--third-color);
-    padding: 20px;
-    border-radius: 10px;
-    margin-top: 30px;
-    margin-right: 10px;
+.creation-panel {
+  color: white;
+  background-color: var(--third-color);
+  padding: 20px;
+  border-radius: 10px;
+  margin-top: 30px;
+  margin-right: 10px;
 
 }
 
 .panel-header {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 
 .panel-body {
-    flex-grow: 1;
-    margin-top: 20px;
-    
+  flex-grow: 1;
+  margin-top: 20px;
+
 }
 
 
 .form-group label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
-    
-  }
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
 
-  .form-input
-  {
-    color: white !important;
+}
 
-  }
+.form-input {
+  color: white !important;
 
-  .form-input:focus {
-    border-bottom: 2px solid var(--second-color) !important; /* Changer la couleur de la bordure inférieure en bleu lors du focus */
-  }
+}
 
-
-  .form-group {
-    margin-bottom: 15px;
-  }
-  
+.form-input:focus {
+  border-bottom: 2px solid var(--second-color) !important;
+  /* Changer la couleur de la bordure inférieure en bleu lors du focus */
+}
 
 
-  .panel-actions {
-    display: flex;
-    justify-content: space-between;
-    gap: 10px;
-    color: white;
-  }
-  
-  .cancel-button {
-    background: #ccc;
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
-  }
-
-    .date-picker::-webkit-calendar-picker-indicator {
-      background-color: white; /* Remplacez par la couleur souhaitée */
-      border-radius: 50%; /* Exemple pour ajouter un effet */
-      padding: 5px;
-    }
-    
-    .date-picker::-webkit-calendar-picker-indicator:hover {
-      background-color: var(--second-color); /* Couleur au survol */
-    }
-  
-
-    .form-control {
-
-      background-color: var(--first-color);
-      color: #fff; /* Texte blanc */
-      border: 1px solid #444; /* Bordure gris foncé */
-      border-radius: 10px; /* Coins arrondis */
-      padding: 8px; /* Espacement interne */
-      font-size: 14px; /* Taille de la police */
-      appearance: none; /* Supprime l'apparence par défaut */
-      outline: none; /* Supprime le contour lors de la sélection */
-    }
-    
-    .form-control:hover {
-      border-color: #888; /* Bordure plus claire au survol */
-    }
-    
-    .form-control:focus {
-      border-color: #007BFF; /* Bordure bleue lors de la mise au focus */
-      box-shadow: 0 0 4px #007BFF; /* Ombre bleue */
-    }
-    
-    .form-control option {
-      background-color: var(--first-color)
-      color: #fff; /* Texte blanc dans les options */
-    }
+.form-group {
+  margin-bottom: 15px;
+}
 
 
-  
+
+.panel-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  color: white;
+}
+
+.cancel-button {
+  background: #ccc;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.date-picker::-webkit-calendar-picker-indicator {
+  background-color: white;
+  /* Remplacez par la couleur souhaitée */
+  border-radius: 50%;
+  /* Exemple pour ajouter un effet */
+  padding: 5px;
+}
+
+.date-picker::-webkit-calendar-picker-indicator:hover {
+  background-color: var(--second-color);
+  /* Couleur au survol */
+}
+
+
+.form-control {
+
+  background-color: var(--first-color);
+  color: #fff;
+  /* Texte blanc */
+  border: 1px solid #444;
+  /* Bordure gris foncé */
+  border-radius: 10px;
+  /* Coins arrondis */
+  padding: 8px;
+  /* Espacement interne */
+  font-size: 14px;
+  /* Taille de la police */
+  appearance: none;
+  /* Supprime l'apparence par défaut */
+  outline: none;
+  /* Supprime le contour lors de la sélection */
+}
+
+.form-control:hover {
+  border-color: #888;
+  /* Bordure plus claire au survol */
+}
+
+.form-control:focus {
+  border-color: #007BFF;
+  /* Bordure bleue lors de la mise au focus */
+  box-shadow: 0 0 4px #007BFF;
+  /* Ombre bleue */
+}
+
+.form-control option {
+  background-color: var(--first-color);
+  color: #fff;
+  /* Texte blanc dans les options */
+}

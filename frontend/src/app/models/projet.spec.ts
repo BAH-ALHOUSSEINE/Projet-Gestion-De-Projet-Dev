@@ -1,4 +1,5 @@
 import { Projet } from './projet';
+import { User } from './user';
 
 describe('Projet', () => {
   it('should create an instance', () => {
@@ -26,7 +27,7 @@ describe('Projet', () => {
       description_projet: 'description',
       date_debut: new Date(),
       date_fin: new Date(),
-      membres: ['membre1', 'membre2']
+      membres: [new User, new User]
     };
     const projet = Projet.fromData(projectData);
     expect(projet._id).toBe('123');
@@ -36,7 +37,7 @@ describe('Projet', () => {
     expect(projet.description_projet).toBe('description');
     expect(projet.date_debut).toEqual(new Date(projectData.date_debut));
     expect(projet.date_fin).toEqual(new Date(projectData.date_fin));
-    expect(projet.membres).toEqual(['membre1', 'membre2']);
+    expect(projet.membres).toEqual([new User, new User]);
   });
 
   it('should set membre to [] when membre is undefined or invalid', () => {

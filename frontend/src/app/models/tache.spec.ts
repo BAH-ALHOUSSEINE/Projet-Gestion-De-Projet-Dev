@@ -9,7 +9,6 @@ describe('Tache', () => {
     const tache = new Tache();
     expect(tache.description_tache).toBeUndefined();
     expect(tache.id_membre).toBeUndefined();
-    expect(tache.id_projet).toBeUndefined();
     expect(tache.date_echeance).toBeUndefined();
     expect(tache.status).toBeUndefined();
     expect(tache.priorite).toBeUndefined();
@@ -19,13 +18,11 @@ describe('Tache', () => {
     const tache = new Tache();
     tache.description_tache = 'description';
     tache.id_membre = 'membre';
-    tache.id_projet = 'projet';
     tache.date_echeance = new Date();
     tache.status = 'À faire';
     tache.priorite = 'Basse';
     expect(tache.description_tache).toBe('description');
     expect(tache.id_membre).toBe('membre');
-    expect(tache.id_projet).toBe('projet');
     expect(tache.date_echeance).toEqual(new Date());
     expect(tache.status).toBe('À faire');
     expect(tache.priorite).toBe('Basse');
