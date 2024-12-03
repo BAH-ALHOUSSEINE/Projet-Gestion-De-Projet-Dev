@@ -99,6 +99,10 @@ deleteprojet(idprojet : string | undefined){
 
 }
 
+listeprojet(){
+  this.router.navigate(['/projet']);
+}
+
 
  
 }
