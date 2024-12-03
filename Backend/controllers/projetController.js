@@ -53,7 +53,7 @@ const createProject = async (req, res) => {
     console.error("Erreur lors de la création du projet:", error.stack);
     return res.status(500).json({ message: "Erreur serveur, impossible de créer le projet." });
   }
-};
+}
 
 const addMember = async (req, res) => {
   try {
@@ -141,7 +141,63 @@ const getSprintByprojetId = async (req, res) => {
 };
 
 
+const  deleteprojet = async (req,res)=>{
+
+
+  try{
+  const  idprojet =  req.params.projectId;
+    const projet = await Project.findById(idprojet);
+    if (!projet) {
+      return res.status(404).json({ message: 'Projet introuvable' });
+    }
+   await  projet.deleteOne();
+   
+
+   res.status(200).json(projet);
+
+  }
+  catch(error){
+    console.error("Erreur lors de la création du sprint :", error);
+    res.status(500).json({ message: 'Erreur lors de la suppression ', error });
+  }
+   
+}
+
+
+const deleteprojetmemebre = async (req, res) => {
+  try {
+    const idprojet = req.params.projectId;
+    const emailToDelete = req.body.email; // L'email du membre à supprimer est envoyé dans le corps de la requête.
+
+    // Trouver le projet par son ID
+    const projet = await Project.findById(idprojet);
+    if (!projet) {
+      return res.status(404).json({ message: 'Projet introuvable' });
+    }
+    const user = await User.findOne({ emailToDelete });
+    // Supprimer le membre avec l'email donné
+    const membresAvant = projet.membres.length;
+    projet.membres = projet.membres.filter(membre => membre.email !== emailToDelete);
+
+    if (projet.membres.length === membresAvant) {
+      return res.status(404).json({ message: 'Membre avec cet email non trouvé dans le projet' });
+    }
+
+    // Sauvegarder les modifications
+    await projet.save();
+
+    res.status(200).json(user );
+  } catch (error) {
+    console.error("Erreur lors de la suppression d'un membre :", error);
+    res.status(500).json({ message: 'Erreur lors de la suppression', error });
+  }
+};
+ 
+   
+   
+   
+   
 
 
 
-module.exports = { createProject, addMember, getUserProjects, getProjectById, getSprintByprojetId };
+module.exports = { createProject, addMember, getUserProjects, getProjectById, getSprintByprojetId ,deleteprojet,deleteprojetmemebre};

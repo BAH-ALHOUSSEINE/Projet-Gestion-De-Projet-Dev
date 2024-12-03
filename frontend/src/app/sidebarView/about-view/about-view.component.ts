@@ -5,6 +5,7 @@ import { PopupadduserComponent } from '../../popupadduser/popupadduser.component
 import {ProjetService} from  '../../service/projet.service';
 import { ProjectDetailComponent } from '../../project-detail/project-detail.component';
 import { User } from '../../models/user';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-about-view',
   templateUrl: './about-view.component.html',
@@ -18,7 +19,7 @@ export class AboutViewComponent {
 
   projectMock : Projet = new Projet();
     
-  constructor(@Inject('project') public project: Projet,private cdr: ChangeDetectorRef,private serviveproject : ProjetService, private projectdetail : ProjectDetailComponent ) {
+  constructor(@Inject('project') public project: Projet, private router : Router, private cdr: ChangeDetectorRef,private serviveproject : ProjetService, private projectdetail : ProjectDetailComponent ) {
 
     console.log("ça marche ?")
    // console.log(project)
@@ -37,8 +38,41 @@ export class AboutViewComponent {
         
     console.log("new user : ", newUser)
     this.cdr.detectChanges();
+   
+
+  });
+}
 
 
+deleteprojet()
+{
+  
+  
+  this.serviveproject.deleteProject(this.project._id).subscribe((reponse : Projet )=>{
+  alert("supprimer");
+   this.router.navigate(['/projet']);
+  });
+
+}
+
+
+deleteprojetmembre(email: string | undefined) {
+  if (!email) {
+    console.error("Email non spécifié !");
+    return;
+  }
+
+  this.serviveproject.deleteProjectmemebre(this.project._id, email).subscribe({
+    next: (response: User) => {
+      // Suppression locale du membre dans le tableau des membres
+      this.project.membres = this.project.membres?.filter(membre => membre.email !== email);
+      // Met à jour la vue avec ChangeDetectorRef
+      this.cdr.detectChanges();
+      console.log(`Membre avec l'email ${email} supprimé avec succès.`);
+    },
+    error: (err) => {
+      console.error("Erreur lors de la suppression du membre :", err);
+    },
   });
 }
 

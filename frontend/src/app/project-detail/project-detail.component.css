@@ -101,3 +101,12 @@
   border-bottom: 2px solid white;
   height: 100%;
 }
+
+.header-button {
+  height: 70%;
+  align-items: center;
+}
+
+.header-button:hover {
+    background-color: greenyellow;
+}

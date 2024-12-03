@@ -1,4 +1,5 @@
 <div style="padding: 30px">
+    
 <div style="display: flex;flex-direction: row;align-items: center; gap: 20px;">
     <p class="title">{{project.nom_projet}}</p>
     <p>{{project.type_projet}}</p>
@@ -27,6 +28,7 @@
         <p class="title">Collaborateurs</p>
         <div class="collaborator" *ngFor="let member of project.membres">
             <p>{{member.prenom}}</p>
+            <button  class="login-btn2"  (click)="deleteprojetmembre(member.email)">Supprimer</button>
         </div>
         <div class="collaborator">
             <button  class="login-btn1"  (click)="openDialog()">ajouter un membres</button>

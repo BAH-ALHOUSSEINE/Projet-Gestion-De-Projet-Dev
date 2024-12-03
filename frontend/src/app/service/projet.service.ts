@@ -82,5 +82,16 @@ export class ProjetService {
     this.projectSubject.next(project);
   }
 
+  deleteProject(Id: string | undefined ): Observable<any> {
+    const url = `http://localhost:3000/api/projects/${Id}`;  // Correction ici
+    return this.http.delete<any>(url, httpOptions);  // Suppression de l'argument "id" inutile
+  }
+  
+deleteProjectmemebre(id : string | undefined,email : string | undefined) : Observable<any>{
+
+  const url = `http://localhost:3000/api/projects/${id}/${email}`;  // Correction ici
+  return this.http.delete<any>(url, httpOptions);
+
+}
 
 }

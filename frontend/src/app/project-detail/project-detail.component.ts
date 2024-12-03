@@ -6,6 +6,8 @@ import { AboutViewComponent } from '../sidebarView/about-view/about-view.compone
 import { TaskViewComponent } from '../sidebarView/task-view/task-view.component';
 import { Injector } from '@angular/core';
 
+import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-project-detail',
   templateUrl: './project-detail.component.html',
@@ -32,7 +34,8 @@ export class ProjectDetailComponent implements OnInit {
     private route: ActivatedRoute,
     private projectService: ProjetService,
     private injector: Injector,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private router: Router
   ) {}
 
   private updateInjector() {
@@ -85,6 +88,17 @@ export class ProjectDetailComponent implements OnInit {
 update(updatedProject: Projet): void {
   this.project = updatedProject;
 }
+
+deleteprojet(idprojet : string | undefined){
+
+   this.projectService.deleteProject(idprojet).subscribe(reponse =>{
+
+   
+    this.router.navigate(['/projet']);
+   });
+
+}
+
 
  
 }
