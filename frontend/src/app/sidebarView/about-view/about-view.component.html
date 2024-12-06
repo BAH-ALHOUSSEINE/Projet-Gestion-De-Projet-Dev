@@ -27,6 +27,7 @@
         <p class="title">Collaborateurs</p>
         <div class="collaborator" *ngFor="let member of project.membres">
             <p>{{member.prenom}}</p>
+            <button  class="login-btn2"  (click)="deleteprojetmembre(member.email)">Supprimer</button>
         </div>
         <div class="collaborator">
             <button  class="login-btn1"  (click)="openDialog()">ajouter un membres</button>

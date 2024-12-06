@@ -42,6 +42,26 @@ export class AboutViewComponent {
   });
 }
 
+deleteprojetmembre(email: string | undefined) {
+  if (!email) {
+    console.error("Email non spécifié !");
+    return;
+  }
+
+  this.serviveproject.deleteProjectmemebre(this.project._id, email).subscribe({
+    next: (response: User) => {
+      // Suppression locale du membre dans le tableau des membres
+      this.project.membres = this.project.membres?.filter(membre => membre.email !== email);
+      // Met à jour la vue avec ChangeDetectorRef
+      this.cdr.detectChanges();
+      console.log(`Membre avec l'email ${email} supprimé avec succès.`);
+    },
+    error: (err) => {
+      console.error("Erreur lors de la suppression du membre :", err);
+    },
+  });
+}
+
 
    openDialog(){
     this.showdiallogue=true;
