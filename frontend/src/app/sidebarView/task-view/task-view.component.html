@@ -21,7 +21,14 @@
         {{ s.nom }}
       </button>
       <div *ngIf="selectedCategories.includes(i)" class="content">
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin nec...</p>
+        
+        <div *ngFor="let s of selectedSprint?.categorie_tache?.[selectedCategories.indexOf(i)]?.taches ?? []; let i = index">
+        
+        </div>
+        
+        
+        
+        <button *ngIf="!tache_creation"   (click)="openTacheCreation(i)">Ajouter une tache</button>
       </div>
     </div>
 
@@ -43,8 +50,23 @@
   (categorieCreated)="handleCategorieCreated($event)"
   [project]="projectMock"
   [sprint]="selectedSprint"
+
   >
 
   </app-create-categorie-form>
+
+
+  <app-create-tache-form
+  [project]="projectMock"
+  [sprint]="selectedSprint"
+  [categorie]="getIdcategorie()"
+  *ngIf="tache_creation"
+  [ngStyle]="{'flex': tache_creation ? '1' : '1'}"
+  (formCancel)="closetacheCreation()"
+ 
+>
+
+    
+  </app-create-tache-form>
 
 </div>

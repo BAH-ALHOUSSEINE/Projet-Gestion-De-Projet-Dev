@@ -1,13 +1,14 @@
 const Projet = require('../models/Project');
+const User = require('../models/User');
 
 // Ajouter une tâche à une catégorie de tâches dans un sprint
 exports.addTacheToCategorie = async (req, res) => {
   try {
     const { projetId, sprintId, categorieId } = req.params;
-    const { date_echeance, description_tache, id_membre, status, priorite } = req.body;
+    const { date_echeance, description, id_membre, status, priorite } = req.body;
 
     // Vérification des données d'entrée
-    if (!date_echeance || !description_tache || !id_membre || !status || !priorite) {
+    if (!date_echeance || !description || !id_membre || !status || !priorite) {
       return res.status(400).json({ message: 'Tous les champs doivent être renseignés' });
     }
 
@@ -29,15 +30,15 @@ exports.addTacheToCategorie = async (req, res) => {
       return res.status(404).json({ message: 'Catégorie non trouvée' });
     }
 
-    // Ajouter la nouvelle tâche à la catégorie
-    const nouvelleTache = { date_echeance, description_tache, id_membre, status, priorite };
+   
+    const nouvelleTache = { date_echeance, description, id_membre  , status, priorite };
     categorie.taches.push(nouvelleTache);
 
     // Sauvegarder les modifications dans le projet
     const updatedProjet = await projet.save();
 
     // Retourner la réponse avec les données mises à jour
-    res.status(200).json({ message: 'Tâche ajoutée avec succès', updatedProjet });
+    res.status(200).json({ message: 'Tâche ajoutée avec succès', nouvelleTache });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Erreur lors de l\'ajout de la tâche', error: error.message });

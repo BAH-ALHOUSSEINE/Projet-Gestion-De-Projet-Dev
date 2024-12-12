@@ -22,6 +22,7 @@ export class TaskViewComponent {
   selectedSprint: Sprint = new Sprint()
   selectedSprintIndex: number = 2;
   sprint_creation: boolean = false;
+  tache_creation  : boolean = false;
 
   information ? : String;
 
@@ -29,6 +30,7 @@ export class TaskViewComponent {
 
   categorie_creation : boolean = false;
   selectedCategories : number[] = [];
+  categorie ? : String;
 
 
 
@@ -104,6 +106,22 @@ export class TaskViewComponent {
     this.sidePanel = true;
   }
 
+  openTacheCreation(number : number)
+  {
+    alert(this.categorie);
+    this.categorie = this.selectedSprint.categorie_tache![number]._id;
+    
+    this.tache_creation = true;
+    this.sidePanel = true;
+  }
+
+  closetacheCreation()
+  {
+    this.tache_creation = false;
+    this.sidePanel = false;
+  }
+
+
   handleCategorieCreated(newCategorie: CategorieTache): void {
     if (!this.projectMock.sprints![this.selectedSprintIndex].categorie_tache) {
       this.projectMock.sprints![this.selectedSprintIndex].categorie_tache = [];
@@ -126,9 +144,20 @@ export class TaskViewComponent {
     }
   }
 
+  getIdcategorie(){
+    return this.categorie;
+  }
 
-
-
+  handleTacheCreated(newCategorie: CategorieTache): void {
+    if (!this.projectMock.sprints![this.selectedSprintIndex].categorie_tache) {
+      this.projectMock.sprints![this.selectedSprintIndex].categorie_tache = [];
+    }
+    console.log("index for add : " , this.selectedSprintIndex)
+    this.projectMock.sprints![this.selectedSprintIndex].categorie_tache?.push(newCategorie) // Ajoute le sprint à la liste existante
+    console.log("cattache : " , this.projectMock.sprints![this.selectedSprintIndex].categorie_tache)
+    this.closeCategorieCreation(); // Ferme le formulaire de création
+    console.log("hehehe");
+  }
 
 
 }

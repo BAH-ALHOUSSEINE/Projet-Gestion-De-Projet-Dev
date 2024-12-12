@@ -23,7 +23,8 @@ import { PopupadduserComponent } from './popupadduser/popupadduser.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { CreateCategorieFormComponent } from './forms/create-categorie-form/create-categorie-form.component'; 
+import { CreateCategorieFormComponent } from './forms/create-categorie-form/create-categorie-form.component';
+import { CreateTacheFormComponent } from './forms/create-tache-form/create-tache-form.component'; 
 
 
 
@@ -46,7 +47,8 @@ import { CreateCategorieFormComponent } from './forms/create-categorie-form/crea
     CreateProjectFormComponent,
     CreateSprintFormComponent,
     PopupadduserComponent,
-    CreateCategorieFormComponent
+    CreateCategorieFormComponent,
+    CreateTacheFormComponent
 
   ],
   imports: [
