@@ -26,7 +26,7 @@ export class InscriptionComponent {
   ajoutUser(): void {
     // Vérification si tous les champs sont remplis
     if (
-      this.user.nom === '' ||
+      // this.user.nom === '' ||
       this.user.prenom === '' ||
       this.user.password === '' ||
       this.user.email === ''
