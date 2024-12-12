@@ -4,7 +4,7 @@ const TaskSchema = new mongoose.Schema({
   description: String,
   id_membre: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
   date_echeance: Date,
-  status: { type: String, enum: ['A faire', 'En cours', 'Terminé'], default: 'À faire' },
+  status: { type: String, enum: ['A faire', 'en cours', 'Terminé'], default: 'À faire' },
   priorite: { type: String, enum: ['Base', 'Moyenne', 'Haute'] }
 });
 

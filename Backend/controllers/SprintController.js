@@ -1,4 +1,5 @@
 const Project = require('../models/Project');
+const Sprint = require('../models/Sprint');
 const User = require('../models/User');
 const mongoose = require('mongoose');
 
@@ -15,7 +16,7 @@ exports.createSprint = async (req, res) => {
       return res.status(404).json({ message: 'Projet introuvable' });
     }
 
-    const newSprint = { date_debut, date_fin, status, categorie_tache };
+    const newSprint = new Sprint ( {date_debut, date_fin, status, categorie_tache  });
     console.log("new sprint : ", newSprint);
 
     project.sprints = [...project.sprints, newSprint];
@@ -24,11 +25,13 @@ exports.createSprint = async (req, res) => {
     await project.save();
     // console.log("Après sauvegarde :", project);
 
+    console.log("dddddddddd"+newSprint);
+
     res.status(201).json({
-      message: 'Sprint ajouté avec succès',
-      sprint: newSprint,
+      newSprint
     });
     console.log("Création réussie");
+
   } catch (error) {
     console.error("Erreur lors de la création du sprint :", error);
     res.status(500).json({ message: 'Erreur lors de la création du sprint', error });

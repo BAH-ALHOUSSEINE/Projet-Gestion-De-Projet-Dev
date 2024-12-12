@@ -32,13 +32,13 @@ export class CreateCategorieFormComponent {
 
 
   submitCategorieCreation(): void {
-    console.log("lol")
-    console.log("projetssssssssssssss : ", this.project)
+   
     if (this.project._id) {
       console.log(this.project._id, " et sprint : ", this.sprint._id)
-       this.sprintService.addcategorietacge(this.project._id,this.sprint._id ,this.newCategorie).subscribe( (newcat : CategorieTache) => {
-        console.log("new object : " , this.newCategorie)
-        this.categorieCreated.emit(this.newCategorie); 
+       this.sprintService.addcategorietacge(this.project._id,this.sprint._id ,this.newCategorie).subscribe( (newcat : any) => {
+        console.log("new object : " , newcat)
+        alert("sssssssssssss"+newcat.nouvelleCategorie._id);
+        this.categorieCreated.emit(newcat.nouvelleCategorie); 
 
     });
     }
