@@ -199,3 +199,22 @@ li {
     background-color: var(--second-color);
   }
 
+  .task-button {
+    background-color: var(--third-color);
+    height: 50px;
+    width: 90%;
+    color: white;
+    text-align: start;
+    border-radius: 10px;
+    border: none;
+    margin-bottom: 10px;
+    transition: all 0.3s ease; /* Transition douce */
+    position: relative; /* Nécessaire pour positionner le triangle */
+  }
+  
+  .task-button:hover {
+    background-color: var(--fourth-color); /* Une couleur plus claire */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Ombre légère */
+    transform: translateY(-3px); /* Légère élévation */
+  }
+

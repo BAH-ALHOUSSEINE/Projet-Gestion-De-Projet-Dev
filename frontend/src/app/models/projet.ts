@@ -1,5 +1,6 @@
 import { CategorieTache } from "./categorie-tache";
 import { Sprint } from "./sprint";
+import { Tache } from "./tache";
 import { User } from "./user";
 
 export class Projet {
@@ -51,7 +52,18 @@ export class Projet {
                     const categorie = new CategorieTache();
                     categorie._id = ct._id;
                     categorie.nom = ct.nom;
-                    categorie.taches = [];
+                    categorie.taches =     // Ajouter les tâches à la catégorie si elles existent
+                    categorie.taches = Array.isArray(ct.taches)
+                      ? ct.taches.map((t: any) => {
+                            const tache = new Tache();
+                            tache.description = t.description;
+                            tache.id_membre = t.id_membre;
+                            tache.date_echeance = t.date_echeance;
+                            tache.status = t.status;
+                            tache.priorite = t.priorite;
+                            return tache;
+                        })
+                      : [];
                     return categorie;
                 })
               : [];

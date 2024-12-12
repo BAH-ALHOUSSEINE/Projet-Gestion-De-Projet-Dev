@@ -7,6 +7,7 @@ import { Subject, takeUntil } from 'rxjs';
 import { CategorieTache } from '../../models/categorie-tache';
 import { ThisReceiver } from '@angular/compiler';
 import { Router } from '@angular/router';
+import { Tache } from '../../models/tache';
 
 @Component({
   selector: 'app-task-view',
@@ -29,7 +30,7 @@ export class TaskViewComponent {
   sidePanel : boolean = false;
 
   categorie_creation : boolean = false;
-  selectedCategories : number[] = [];
+  selectedCategories : CategorieTache[] = [];
   categorie ? : String;
 
 
@@ -142,14 +143,14 @@ export class TaskViewComponent {
    
   }
 
-  toggleCategorie(index: number): void {
-    const pos = this.selectedCategories.indexOf(index);
+  toggleCategorie(categorie: CategorieTache): void {
+    const pos = this.selectedCategories.indexOf(categorie);
     if (pos > -1) {
       // Si l'index est déjà sélectionné, on le retire
       this.selectedCategories.splice(pos, 1);
     } else {
       // Sinon, on l'ajoute
-      this.selectedCategories.push(index);
+      this.selectedCategories.push(categorie);
     }
   }
 
@@ -166,6 +167,17 @@ export class TaskViewComponent {
     console.log("cattache : " , this.projectMock.sprints![this.selectedSprintIndex].categorie_tache)
     this.closeCategorieCreation(); // Ferme le formulaire de création
     console.log("hehehe");
+  }
+
+
+  taskOfCategorie(categorie: CategorieTache): Tache[] {
+    // Vérifie si la catégorie est dans les catégories ouvertes
+    let task : Tache[] = [];
+    this.selectedCategories.map(ct =>
+    {
+      if(ct._id == categorie._id)
+      {task = ct.taches!;}})
+    return task;
   }
 
 

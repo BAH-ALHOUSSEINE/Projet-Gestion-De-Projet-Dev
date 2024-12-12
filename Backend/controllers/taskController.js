@@ -8,7 +8,7 @@ exports.addTacheToCategorie = async (req, res) => {
     const { date_echeance, description, id_membre, status, priorite } = req.body;
 
     // Vérification des données d'entrée
-    if (!date_echeance || !description || !id_membre || !status || !priorite) {
+    if (!date_echeance || !description || !status || !priorite) {
       return res.status(400).json({ message: 'Tous les champs doivent être renseignés' });
     }
 
@@ -35,8 +35,8 @@ exports.addTacheToCategorie = async (req, res) => {
     categorie.taches.push(nouvelleTache);
 
     // Sauvegarder les modifications dans le projet
-    const updatedProjet = await projet.save();
-
+    await projet.save();
+    console.log("creation réussie")
     // Retourner la réponse avec les données mises à jour
     res.status(200).json({ message: 'Tâche ajoutée avec succès', nouvelleTache });
   } catch (error) {

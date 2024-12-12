@@ -28,9 +28,6 @@ export class CreateTacheFormComponent {
 
   projectFormConfig = [
     { id: 'description', name: 'description', label: 'Description du tache', type: 'text', required: true },
-    {id: 'id_membre',name: 'id_membre',label: 'Ajouter un membre',type: 'text',required: true,
-
-    },
     {id: 'date_echeance',name: 'date_echeance',label: 'Date echeance',type: 'date',required: true},
     {id: 'status',name: 'status',label: 'status',type: 'select',required: true,
       options: [

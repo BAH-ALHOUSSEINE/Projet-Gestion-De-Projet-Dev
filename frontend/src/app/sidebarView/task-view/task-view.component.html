@@ -15,15 +15,15 @@
 
     <div *ngFor="let s of selectedSprint.categorie_tache; let i = index">
       <button 
-        (click)="toggleCategorie(i)" 
+        (click)="toggleCategorie(s)" 
         class="categorie-button"
-        [class.active]="selectedCategories.includes(i)">
+        [class.active]="selectedCategories.includes(s)">
         {{ s.nom }}
       </button>
-      <div *ngIf="selectedCategories.includes(i)" class="content">
+      <div *ngIf="selectedCategories.includes(s)" class="content">
         
-        <div *ngFor="let s of selectedSprint?.categorie_tache?.[selectedCategories.indexOf(i)]?.taches ?? []; let i = index">
-        
+        <div style="display: flex; justify-content: end; width: 80%" *ngFor="let tache of taskOfCategorie(s)">
+         <button class="task-button">{{tache.description}}</button>
         </div>
         
         

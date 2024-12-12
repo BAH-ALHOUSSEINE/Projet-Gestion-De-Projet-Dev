@@ -37,8 +37,10 @@ export class ConnexionComponent {
           this.router.navigate(['/projet']);
         },
         error: (err) => {
+          console.log("ouai c greg")
           // Si l'API retourne une erreur 401, affichez le message d'erreur
           if (err.status === 401) {
+          
             this.champEmpty = 0;
             this.errorMessage = err.error.error;  // Message d'erreur de l'API
           }
