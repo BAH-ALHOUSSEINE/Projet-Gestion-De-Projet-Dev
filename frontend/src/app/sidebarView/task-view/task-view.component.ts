@@ -90,6 +90,7 @@ export class TaskViewComponent {
   onSprintSelect(event: Event): void {
     const selectedIndex = (event.target as HTMLSelectElement).value;
     this.selectedSprint = this.projectMock.sprints![+selectedIndex];
+    alert(this.selectedSprint._id);
     console.log("selected sprint: ", this.selectedSprintIndex);
   }
 
@@ -106,14 +107,20 @@ export class TaskViewComponent {
     this.sidePanel = true;
   }
 
-  openTacheCreation(number : number)
-  {
-    alert(this.categorie);
-    this.categorie = this.selectedSprint.categorie_tache![number]._id;
+  openTacheCreation(index: number) {
     
-    this.tache_creation = true;
-    this.sidePanel = true;
+    console.log("selectedSprintIndex : ", this.selectedSprintIndex);
+    console.log("Categgggggggggggggggggggorie Tache : ", this.projectMock.sprints![this.selectedSprintIndex].categorie_tache);
+    if (this.projectMock.sprints![this.selectedSprintIndex].categorie_tache![index]) {
+      this.categorie = this.projectMock.sprints![this.selectedSprintIndex].categorie_tache![index]._id;
+      alert(this.projectMock.sprints![this.selectedSprintIndex].categorie_tache![index]._id);
+      this.tache_creation = true;
+      this.sidePanel = true;
+    } else {
+      console.warn("Index de catégorie invalide.");
+    }
   }
+  
 
   closetacheCreation()
   {
@@ -123,6 +130,7 @@ export class TaskViewComponent {
 
 
   handleCategorieCreated(newCategorie: CategorieTache): void {
+    alert("eeeeeeeeeeeeeeeeeee");
     if (!this.projectMock.sprints![this.selectedSprintIndex].categorie_tache) {
       this.projectMock.sprints![this.selectedSprintIndex].categorie_tache = [];
     }
@@ -131,6 +139,7 @@ export class TaskViewComponent {
     console.log("cattache : " , this.projectMock.sprints![this.selectedSprintIndex].categorie_tache)
     this.closeCategorieCreation(); // Ferme le formulaire de création
     console.log("hehehe");
+   
   }
 
   toggleCategorie(index: number): void {

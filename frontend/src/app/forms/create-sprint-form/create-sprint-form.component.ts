@@ -34,9 +34,10 @@ export class CreateSprintFormComponent {
 
   submitSprintCreation(): void {
     if (this.project._id) {
-      this.sprintService.addSprintForCurrentProject(this.project._id, this.newSprint).subscribe((newSprint: any) => {
+      this.sprintService.addSprintForCurrentProject(this.project._id, this.newSprint).subscribe((newSprints: any) => {
         
-        this.sprintCreated.emit(newSprint); // Émet l'événement avec le sprint créé
+        this.sprintCreated.emit(newSprints.newSprint); // Émet l'événement avec le sprint créé
+        console.log("eeeeeeeeeeee"+newSprints.newSprint);
 
       });
     }
