@@ -1,7 +1,12 @@
 export enum Status {
     EnAttente = 'en attente',
     EnCours = 'en cours',
-    Termine = 'terminé'
+    Termine = 'terminé',
+    Afaire = 'A faire',
+    Base ='Base',
+    Moyenne = 'Moyenne',
+    Haute = 'Haute'
+
   }
   
   export enum StatusColor {

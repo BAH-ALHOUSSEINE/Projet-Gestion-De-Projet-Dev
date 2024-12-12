@@ -33,7 +33,7 @@ export class CreateCategorieFormComponent {
 
   submitCategorieCreation(): void {
     console.log("lol")
-    console.log("proj : ", this.project)
+    console.log("projetssssssssssssss : ", this.project)
     if (this.project._id) {
       console.log(this.project._id, " et sprint : ", this.sprint._id)
        this.sprintService.addcategorietacge(this.project._id,this.sprint._id ,this.newCategorie).subscribe( (newcat : CategorieTache) => {
