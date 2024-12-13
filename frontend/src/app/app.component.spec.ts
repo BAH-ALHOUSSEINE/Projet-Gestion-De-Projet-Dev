@@ -4,7 +4,7 @@ import { AppComponent } from './app.component';
 import { MatDialog } from '@angular/material/dialog';
 import { HeaderComponent } from './header/header.component';
 
-fdescribe('AppComponent', () => {
+describe('AppComponent', () => {
   let appComponent: AppComponent;
   let fixture: ComponentFixture<AppComponent>;
   let dialog: jasmine.SpyObj<MatDialog>;
