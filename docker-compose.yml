@@ -35,6 +35,31 @@ services:
       - "27017:27017"       # Expose MongoDB sur le port 27017
     networks:
       - gdp-network         # Réseau Docker partagé
+  
+  backend-tests:
+    build:
+      context: ./Backend
+    container_name: backend-tests
+    command: ["npm", "run", "test"] # Commande pour exécuter les tests Jest
+    networks:
+      - gdp-network
+    depends_on:
+      - database
+
+  frontend-tests:
+    build:
+      context: ./
+      dockerfile: frontend-tests/Dockerfile
+    environment:
+      - CHROME_BIN=/usr/bin/google-chrome-stable  # Variable d'environnement pour Chrome
+    ports:
+      - "9876:9876"  # Exposer le port des tests si nécessaire
+    volumes:
+      - ./frontend:/app  # Volume pour que les tests utilisent votre code frontend
+    container_name: frontend-tests
+    command: ["npm", "run", "test"] # Commande pour exécuter les tests unitaires Angular
+    networks:
+      - gdp-network
 
 volumes:
   mongo-data:               # Volume Docker pour persister les données MongoDB
