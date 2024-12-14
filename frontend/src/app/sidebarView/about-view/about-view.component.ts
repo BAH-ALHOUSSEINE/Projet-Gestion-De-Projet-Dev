@@ -16,6 +16,9 @@ export class AboutViewComponent {
   error  : number = 0;
   errorMessage  : String ="";
 
+  iduser  ?: String;
+  isadmin  ? : boolean=true;
+
   projectMock : Projet = new Projet();
     
   constructor(@Inject('project') public project: Projet,private cdr: ChangeDetectorRef,private serviveproject : ProjetService, private projectdetail : ProjectDetailComponent ) {
@@ -29,6 +32,35 @@ export class AboutViewComponent {
     this.showdiallogue=false;
  }
  
+ 
+
+  ngOnInit(): void {
+   
+          if (typeof window !== 'undefined' && typeof sessionStorage !== 'undefined') {
+            console.log(this.project);
+           
+            this.iduser = String(sessionStorage.getItem('iduser') || "");
+            if (this.iduser !== this.project?.id_admin?._id) {
+              this.isadmin = false;
+              console.log("Utilisateur non administrateur :", this.iduser);
+            } else {
+              this.isadmin = true;
+            }
+          } else {
+            console.warn("sessionStorage n'est pas disponible.");
+            this.iduser = "";
+            this.isadmin = false;
+          }
+          this.cdr.markForCheck();
+          
+        }
+        
+    
+
+
+ 
+
+
  ajoutermembre() {
   console.log("user-email : ", this.user.email)
   this.serviveproject.addmembre(this.project._id, this.user).subscribe((newUser: User) => {
