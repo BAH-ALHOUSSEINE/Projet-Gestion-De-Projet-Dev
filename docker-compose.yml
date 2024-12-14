@@ -51,11 +51,11 @@ services:
       context: ./
       dockerfile: frontend-tests/Dockerfile
     environment:
-      - CHROME_BIN=/usr/bin/google-chrome-stable  # Variable d'environnement pour Chrome
+      - CHROME_BIN=/usr/bin/chromium-browser
     ports:
       - "9876:9876"  # Exposer le port des tests si nécessaire
     volumes:
-      - ./frontend:/app  # Volume pour que les tests utilisent votre code frontend
+      - ./frontend:/app  # Volume pour que les tests utilisent le code frontend
     container_name: frontend-tests
     command: ["npm", "run", "test"] # Commande pour exécuter les tests unitaires Angular
     networks:
@@ -65,4 +65,5 @@ volumes:
   mongo-data:               # Volume Docker pour persister les données MongoDB
 
 networks:
-  gdp-network:              # Réseau dédié pour ton projet
+  gdp-network:              # Réseau dédié aux services de l'application
+    

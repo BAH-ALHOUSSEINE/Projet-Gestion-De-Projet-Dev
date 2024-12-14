@@ -1,0 +1,53 @@
+name: CI/CD - Test Backend and Frontend
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    services:
+      mongo:
+        image: mongo:6.0
+        ports:
+          - 27017:27017
+        options: >-
+          --health-cmd "echo 'db.runCommand({ ping: 1 })' | mongo --quiet"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=3
+
+    steps:
+    # 1. Checkout the repository
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    # 2. Set up Node.js for backend and frontend
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: 18
+
+    # 3. Backend Tests
+    - name: Install dependencies (Backend)
+      working-directory: ./Backend
+      run: npm install
+
+    - name: Run backend tests
+      working-directory: ./Backend
+      run: npm run test
+
+    # 4. Frontend Tests
+    - name: Install dependencies (Frontend)
+      working-directory: ./frontend
+      run: npm install
+
+    - name: Run frontend tests
+      working-directory: ./frontend
+      run: npm run test
