@@ -1,6 +1,8 @@
 
     <div class="nav-wrapper">
-      <p>Gestion de Projet</p>
+      <div class="Title-Header">
+      <p (click)="listeprojet()">Gestion de Projet</p>
+    </div>
       <button class="header-button button-primary" *ngIf="isLoggedIn" (click)="logout()">Déconnexion</button>
     </div>
 

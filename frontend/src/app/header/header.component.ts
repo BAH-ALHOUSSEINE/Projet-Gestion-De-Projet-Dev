@@ -33,4 +33,8 @@ export class HeaderComponent implements OnInit {
     // // Rediriger l'utilisateur vers la page de connexion
     // this.router.navigate(['/connexion']);
   }
+  listeprojet(){
+    this.router.navigate(['/projet']);
+   }
+
 }
