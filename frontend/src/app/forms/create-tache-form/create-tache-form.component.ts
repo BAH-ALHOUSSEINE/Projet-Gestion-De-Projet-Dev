@@ -21,7 +21,7 @@ export class CreateTacheFormComponent {
   @Input() sprint! : Sprint; // Ajoutez cette ligne pour recevoir le projet
   newtache : Tache = new Tache();
   @Input() categorie  :  string | undefined;
-  @Output()  tachecreated = new EventEmitter<Tache>(); 
+  @Output()  tacheCreated = new EventEmitter<Tache>(); 
  
   constructor(private sprintService: SprintService) {}
 
@@ -59,9 +59,9 @@ export class CreateTacheFormComponent {
     this.sprintService.addtache(this.project._id,this.sprint._id,this.categorie,this.newtache).subscribe((response : any )=>{
 
 
-        
+          console.log("tache : ", response)
 
-              this.tachecreated.emit(response);
+              this.tacheCreated.emit(response.nouvelleTache);
     })
 
       

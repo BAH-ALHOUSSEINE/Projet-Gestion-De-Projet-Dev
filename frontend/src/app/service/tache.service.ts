@@ -33,4 +33,31 @@ export class TacheService {
       })
     );
   }
+
+  deleteTache(
+    projetId: string | undefined,
+    sprintId: string | undefined,
+    categorieId: string | undefined,
+    tacheId: string | undefined  ): Observable<any> {
+    const url = `${this.baseURL}${projetId}/sprints/${sprintId}/categories/${categorieId}/tasks/${tacheId}`;
+    
+    console.log("URL de la requête DELETE:", url);
+  
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        // Ajoutez d'autres en-têtes si nécessaire
+      })
+    };
+  
+    return this.http.delete(url, httpOptions).pipe(
+      catchError(error => {
+        console.error('Erreur lors de la suppression de la tâche', error);
+        return of({ success: false, message: 'Erreur lors de la suppression de la tâche' });
+      })
+    );
+  }
 }
+
+
+

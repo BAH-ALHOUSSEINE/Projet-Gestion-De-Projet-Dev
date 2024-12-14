@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 import { Tache } from '../../models/tache';
 import { ProjetService } from '../../service/projet.service';
 import { User } from '../../models/user';
+import { TacheService } from '../../service/tache.service';
 
 @Component({
   selector: 'app-task-view',
@@ -45,6 +46,7 @@ export class TaskViewComponent {
   constructor(
     @Inject('project') public project: Projet,
     public projetService : ProjetService,
+    public taskService : TacheService,
     private cdr: ChangeDetectorRef,
     private router: Router
   ) {
@@ -164,16 +166,22 @@ export class TaskViewComponent {
     return this.categorie;
   }
 
-  handleTacheCreated(newCategorie: CategorieTache): void {
-    if (!this.projectMock.sprints![this.selectedSprintIndex].categorie_tache) {
-      this.projectMock.sprints![this.selectedSprintIndex].categorie_tache = [];
-    }
-    console.log("index for add : " , this.selectedSprintIndex)
-    this.projectMock.sprints![this.selectedSprintIndex].categorie_tache?.push(newCategorie) // Ajoute le sprint à la liste existante
-    console.log("cattache : " , this.projectMock.sprints![this.selectedSprintIndex].categorie_tache)
-    this.closeAll();
-    console.log("hehehe");
-  }
+  handleTacheCreated(newTache: Tache): void {
+    this.closeAll()
+    console.log("jen ai marre : " + this.categorie)
+  
+
+      for(const c of this.projectMock.sprints![this.selectedSprintIndex].categorie_tache!)
+      {
+        if(c._id == this.categorie)
+        {
+          console.log("jen ai marre : " + this.categorie)
+          c.taches?.push(newTache)
+        }
+      }
+  
+
+}
 
 
   taskOfCategorie(categorie: CategorieTache): Tache[] {
@@ -197,6 +205,30 @@ export class TaskViewComponent {
     this.sidePanel = true;
     this.tache_view = true;
     
+  }
+
+  deleteTask(t: Tache, index: number) {
+    // Récupérer la liste des tâches de la catégorie spécifique
+    const taches = this.projectMock.sprints![this.selectedSprintIndex].categorie_tache![index].taches!;
+  
+    // Trouver l'index de la tâche à supprimer
+    const taskIndex = taches.findIndex(task => task._id === t._id);
+  
+    // Si la tâche existe, la supprimer
+    if (taskIndex !== -1) {
+      taches.splice(taskIndex, 1); // Retire la tâche de la liste
+    }
+
+    this.taskService.deleteTache(
+      this.projectMock._id,
+      this.selectedSprint._id,
+      this.projectMock.sprints![this.selectedSprintIndex].categorie_tache![index]._id,
+      t._id).subscribe(response => {
+        console.log(response)
+        
+      });
+
+
   }
 
 

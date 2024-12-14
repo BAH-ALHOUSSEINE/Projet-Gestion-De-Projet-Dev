@@ -1,5 +1,6 @@
 const Projet = require('../models/Project');
 const User = require('../models/User');
+const mongoose = require('mongoose');
 
 // Ajouter une tâche à une catégorie de tâches dans un sprint
 exports.addTacheToCategorie = async (req, res) => {
@@ -31,8 +32,15 @@ exports.addTacheToCategorie = async (req, res) => {
     }
 
    
-    const nouvelleTache = { date_echeance, description, id_membre  , status, priorite };
-    categorie.taches.push(nouvelleTache);
+    const nouvelleTache = {
+      _id: new mongoose.Types.ObjectId(),
+      date_echeance,
+      description,
+      id_membre,
+      status,
+      priorite
+    };
+        categorie.taches.push(nouvelleTache);
 
     // Sauvegarder les modifications dans le projet
     await projet.save();
@@ -104,6 +112,54 @@ exports.updateTache = async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Erreur lors de la mise à jour de la tâche', error: error.message });
+  }
+};
+
+
+exports.deleteTache = async (req, res) => {
+  try {
+    console.log("Suppression d'une tâche")
+    const { projetId, sprintId, categorieId, tacheId } = req.params;
+
+    // Recherche du projet
+    const projet = await Projet.findById(projetId);
+    if (!projet) {
+      return res.status(404).json({ message: 'Projet non trouvé' });
+    }
+
+    // Recherche du sprint dans le projet
+    const sprint = projet.sprints.id(sprintId);
+    if (!sprint) {
+      return res.status(404).json({ message: 'Sprint non trouvé' });
+    }
+
+    // Recherche de la catégorie dans le sprint
+    const categorie = sprint.categorie_tache.id(categorieId);
+    if (!categorie) {
+      return res.status(404).json({ message: 'Catégorie non trouvée' });
+    }
+
+    // Recherche de la tâche dans la catégorie
+    const tache = categorie.taches.id(tacheId);
+    if (!tache) {
+      return res.status(404).json({ message: 'Tâche non trouvée' });
+    }
+    const tacheIndex = categorie.taches.findIndex(t => t._id.toString() === tacheId);
+    if (tacheIndex === -1) {
+      return res.status(404).json({ message: 'Tâche non trouvée' });
+    }
+
+    // Suppression de la tâche
+    categorie.taches.splice(tacheIndex, 1);
+
+    // Sauvegarder les modifications dans le projet
+    await projet.save();
+
+    // Retourner la réponse avec succès
+    res.status(200).json({ message: 'Tâche supprimée avec succès' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Erreur lors de la suppression de la tâche', error: error.message });
   }
 };
 
