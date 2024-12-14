@@ -23,8 +23,10 @@
       </button>
       <div *ngIf="selectedCategories.includes(s)" class="content">
         
-        <div style="display: flex; justify-content: end;align-items: start; width: 80%; flex-direction: row;" *ngFor="let tache of taskOfCategorie(s)">
-         <button class="task-button" (click)="setCurrentTask(tache,i)">{{tache.description}}</button>
+        <div style="display: flex; justify-content: end;align-items: start; width: 80%; flex-direction: row;" 
+        *ngFor="let tache of taskOfCategorie(s)">
+         <button class="task-button" [class.current]="tache._id === current_tache._id"  (click)="setCurrentTask(tache,i)" 
+         >{{tache.description}}</button>
          <button (click)="deleteTask(tache,i)">X</button>
         </div>
         
