@@ -2,7 +2,7 @@ import { Tache } from "./tache"
 
 export class CategorieTache {
 
-    _id ? : String;
+    _id ? : string;
     nom ? : String;
     taches  ? : Tache [];
 }

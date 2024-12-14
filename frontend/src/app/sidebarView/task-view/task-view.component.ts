@@ -8,6 +8,8 @@ import { CategorieTache } from '../../models/categorie-tache';
 import { ThisReceiver } from '@angular/compiler';
 import { Router } from '@angular/router';
 import { Tache } from '../../models/tache';
+import { ProjetService } from '../../service/projet.service';
+import { User } from '../../models/user';
 
 @Component({
   selector: 'app-task-view',
@@ -31,13 +33,18 @@ export class TaskViewComponent {
 
   categorie_creation : boolean = false;
   selectedCategories : CategorieTache[] = [];
-  categorie ? : String;
+  categorie ? : string;
+
+
+  current_tache : Tache = new Tache();
+  tache_view : boolean = false;
 
 
 
 
   constructor(
     @Inject('project') public project: Projet,
+    public projetService : ProjetService,
     private cdr: ChangeDetectorRef,
     private router: Router
   ) {
@@ -74,6 +81,7 @@ export class TaskViewComponent {
 
   openSprintCreation()
   {
+    this.closeAll();
     this.sprint_creation = true;
     this.sidePanel = true;
   }
@@ -85,7 +93,7 @@ export class TaskViewComponent {
     }
     this.projectMock.sprints.push(newSprint); // Ajoute le sprint à la liste existante
     console.log("my new list of sprint : " ,this.projectMock.sprints)
-    this.closeSprintCreation(); // Ferme le formulaire de création
+    this.closeAll();
   }
 
   onSprintSelect(event: Event): void {
@@ -104,17 +112,19 @@ export class TaskViewComponent {
 
   openCategorieCreation()
   {
+    this.closeAll();
     this.categorie_creation = true;
     this.sidePanel = true;
   }
 
   openTacheCreation(index: number) {
+    this.closeAll();
     
-    console.log("selectedSprintIndex : ", this.selectedSprintIndex);
-    console.log("Categgggggggggggggggggggorie Tache : ", this.projectMock.sprints![this.selectedSprintIndex].categorie_tache);
+    // console.log("selectedSprintIndex : ", this.selectedSprintIndex);
+    // console.log("Categgggggggggggggggggggorie Tache : ", this.projectMock.sprints![this.selectedSprintIndex].categorie_tache);
     if (this.projectMock.sprints![this.selectedSprintIndex].categorie_tache![index]) {
       this.categorie = this.projectMock.sprints![this.selectedSprintIndex].categorie_tache![index]._id;
-      alert(this.projectMock.sprints![this.selectedSprintIndex].categorie_tache![index]._id);
+      // alert(this.projectMock.sprints![this.selectedSprintIndex].categorie_tache![index]._id);
       this.tache_creation = true;
       this.sidePanel = true;
     } else {
@@ -123,22 +133,18 @@ export class TaskViewComponent {
   }
   
 
-  closetacheCreation()
-  {
-    this.tache_creation = false;
-    this.sidePanel = false;
-  }
+
 
 
   handleCategorieCreated(newCategorie: CategorieTache): void {
-    alert("eeeeeeeeeeeeeeeeeee");
+    // alert("eeeeeeeeeeeeeeeeeee");
     if (!this.projectMock.sprints![this.selectedSprintIndex].categorie_tache) {
       this.projectMock.sprints![this.selectedSprintIndex].categorie_tache = [];
     }
     console.log("index for add : " , this.selectedSprintIndex)
     this.projectMock.sprints![this.selectedSprintIndex].categorie_tache?.push(newCategorie) // Ajoute le sprint à la liste existante
     console.log("cattache : " , this.projectMock.sprints![this.selectedSprintIndex].categorie_tache)
-    this.closeCategorieCreation(); // Ferme le formulaire de création
+    this.closeAll();
     console.log("hehehe");
    
   }
@@ -165,7 +171,7 @@ export class TaskViewComponent {
     console.log("index for add : " , this.selectedSprintIndex)
     this.projectMock.sprints![this.selectedSprintIndex].categorie_tache?.push(newCategorie) // Ajoute le sprint à la liste existante
     console.log("cattache : " , this.projectMock.sprints![this.selectedSprintIndex].categorie_tache)
-    this.closeCategorieCreation(); // Ferme le formulaire de création
+    this.closeAll();
     console.log("hehehe");
   }
 
@@ -179,6 +185,59 @@ export class TaskViewComponent {
       {task = ct.taches!;}})
     return task;
   }
+
+  setCurrentTask(t : Tache, index : number)
+  {
+    console.log("NANI?")
+    this.closeAll()
+    //console.log(t.description)
+    this.categorie = this.projectMock.sprints![this.selectedSprintIndex].categorie_tache![index]._id;
+    this.current_tache = t;
+    console.log(this.current_tache._id)
+    this.sidePanel = true;
+    this.tache_view = true;
+    
+  }
+
+
+  closeAll()
+  {
+    this.categorie_creation = false;
+    this.tache_creation = false;
+    this.sprint_creation = false;
+    this.tache_view = false;
+    this.sidePanel = false;
+  }
+
+
+  handleTaskUpdated(updatedTask: Tache): void {
+    this.closeAll()
+  
+    console.log("eeeeeee"+ updatedTask.membre)
+    if (!this.projectMock.sprints) return;
+
+    for (const sprint of this.projectMock.sprints) {
+        if (!sprint.categorie_tache) continue;
+
+        for (const categorie of sprint.categorie_tache) {
+            if (!categorie.taches) continue;
+
+            // Recherche de la tâche à mettre à jour
+            const taskIndex = categorie.taches.findIndex(t => t._id === updatedTask._id);
+            if (taskIndex !== -1) {
+                const membre = this.project.membres!.find((m: User) => m._id === updatedTask.membre);
+                console.log("mmememe"+membre)
+                updatedTask.membre = membre
+                // Met à jour la tâche existante
+                categorie.taches[taskIndex] = updatedTask;
+                console.log(`Tâche mise à jour avec succès : ${updatedTask._id}`);
+                return;
+            }
+        }
+    }
+
+    console.log(`Tâche non trouvée : ${updatedTask._id}`);
+}
 
 
 }
