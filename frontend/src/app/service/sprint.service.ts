@@ -50,7 +50,7 @@ export class SprintService {
     }
 
      
-    addtache(projetId : string | undefined  , idsprint : string  | undefined ,idcategorie : String  | undefined ,  tache : Tache | undefined ): Observable<any> {
+    addtache(projetId : string | undefined  , idsprint : string  | undefined ,idcategorie : string  | undefined ,  tache : Tache | undefined ): Observable<any> {
       const url = `${this.baseURL}${projetId}/sprint/${idsprint}/categorie/${idcategorie}/tache`;  // Construction de l'URL
       console.log("URL de la requête:", url);
   

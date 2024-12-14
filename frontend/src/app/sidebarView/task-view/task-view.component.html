@@ -1,4 +1,5 @@
 <div style="display: flex;flex-direction: row;flex: 1;">
+  <p *ngIf="tache_view">TACHE VUE</p>
   <div class="task-container" style="display: flex;flex-direction: column;padding: 30px;   /* Aligne le dropdown à droite */"  [ngStyle]="{'flex': sidePanel ? '3' : '4'}">
     <!-- <p>{{information}}</p> -->
     <div style="display: flex; flex-direction: row; align-items: center; justify-content: end;gap: 10px">
@@ -23,7 +24,7 @@
       <div *ngIf="selectedCategories.includes(s)" class="content">
         
         <div style="display: flex; justify-content: end; width: 80%" *ngFor="let tache of taskOfCategorie(s)">
-         <button class="task-button">{{tache.description}}</button>
+         <button class="task-button" (click)="setCurrentTask(tache,i)">{{tache.description}}</button>
         </div>
         
         
@@ -49,11 +50,7 @@
   (formCancel)="closeCategorieCreation()"
   (categorieCreated)="handleCategorieCreated($event)"
   [project]="projectMock"
-  [sprint]="selectedSprint"
-
-  >
-
-  </app-create-categorie-form>
+  [sprint]="selectedSprint"></app-create-categorie-form>
 
 
   <app-create-tache-form
@@ -62,11 +59,17 @@
   [categorie]="getIdcategorie()"
   *ngIf="tache_creation"
   [ngStyle]="{'flex': tache_creation ? '1' : '1'}"
-  (formCancel)="closetacheCreation()"
- 
->
+  (formCancel)="closeAll()"></app-create-tache-form>
 
-    
-  </app-create-tache-form>
+  <app-view-tache
+  [project]="projectMock"
+  [sprint]="selectedSprint"
+  [categorie]="getIdcategorie()"
+  [task]="current_tache"
+  *ngIf="tache_view"
+  [ngStyle]="{'flex': tache_view ? '1' : '1'}"
+  (formCancel)="closeAll()"
+  (taskUpdated)="handleTaskUpdated($event)">  ></app-view-tache>
+
 
 </div>

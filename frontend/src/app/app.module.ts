@@ -24,7 +24,9 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { CreateCategorieFormComponent } from './forms/create-categorie-form/create-categorie-form.component';
-import { CreateTacheFormComponent } from './forms/create-tache-form/create-tache-form.component'; 
+import { CreateTacheFormComponent } from './forms/create-tache-form/create-tache-form.component';
+import { ViewTacheComponent } from './forms/view-tache/view-tache.component'; 
+import { DatePipe } from '@angular/common';
 
 
 
@@ -32,6 +34,7 @@ import { CreateTacheFormComponent } from './forms/create-tache-form/create-tache
 
 @NgModule({
   declarations: [
+    
     AppComponent,
     TacheComponent,
     ProjetComponent,
@@ -48,7 +51,8 @@ import { CreateTacheFormComponent } from './forms/create-tache-form/create-tache
     CreateSprintFormComponent,
     PopupadduserComponent,
     CreateCategorieFormComponent,
-    CreateTacheFormComponent
+    CreateTacheFormComponent,
+    ViewTacheComponent
 
   ],
   imports: [
@@ -64,6 +68,7 @@ import { CreateTacheFormComponent } from './forms/create-tache-form/create-tache
   ],
   providers: [
     provideClientHydration(),
+    [DatePipe],
     provideHttpClient(withFetch())
   ],
   bootstrap: [AppComponent]

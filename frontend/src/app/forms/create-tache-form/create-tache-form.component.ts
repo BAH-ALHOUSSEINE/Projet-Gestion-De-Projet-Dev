@@ -20,7 +20,7 @@ export class CreateTacheFormComponent {
   @Input() project!: Projet; 
   @Input() sprint! : Sprint; // Ajoutez cette ligne pour recevoir le projet
   newtache : Tache = new Tache();
-  @Input() categorie  :  String | undefined;
+  @Input() categorie  :  string | undefined;
   @Output()  tachecreated = new EventEmitter<Tache>(); 
  
   constructor(private sprintService: SprintService) {}

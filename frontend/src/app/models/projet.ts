@@ -28,6 +28,7 @@ export class Projet {
       projet.membres = Array.isArray(projectData.membres)
       ? projectData.membres.map((membre: any) => {
             const user = new User();
+            user._id = membre._id;
             user.nom = membre.name;
             user.prenom = membre.prenom;
             user.email = membre.email;
@@ -56,11 +57,15 @@ export class Projet {
                     categorie.taches = Array.isArray(ct.taches)
                       ? ct.taches.map((t: any) => {
                             const tache = new Tache();
-                            tache.description = t.description;
-                            tache.id_membre = t.id_membre;
-                            tache.date_echeance = t.date_echeance;
+                            tache._id = t._id;
+                            tache.description = t.description;            
+                            tache.date_echeance = new Date(t.date_echeance)
                             tache.status = t.status;
                             tache.priorite = t.priorite;
+                            if (t.id_membre) {
+                              const membre = projet.membres!.find((m: User) => m._id === t.id_membre);
+                              tache.membre = membre ? membre : null;                                                              
+                            }
                             return tache;
                         })
                       : [];
