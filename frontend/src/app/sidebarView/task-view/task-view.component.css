@@ -218,3 +218,20 @@ li {
     transform: translateY(-3px); /* Légère élévation */
   }
 
+
+  .task-button::after {
+    content: "";
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 12px; /* Diamètre du cercle */
+    height: 12px; /* Diamètre du cercle */
+    background-color: white; /* Couleur du cercle */
+    border-radius: 50%; /* Pour transformer le carré en cercle */
+  
+  }
+  
+  .task-button.current::after {
+    background-color: var(--second-color) !important;
+}
