@@ -235,3 +235,26 @@ li {
   .task-button.current::after {
     background-color: var(--second-color) !important;
 }
+
+
+.add-task
+{
+  background-color: var(--fourth-color);
+  height: 30px;
+  width: 80%;
+  color: white;
+  text-align: center;
+  border-radius: 10px;
+  border: none;
+  margin-bottom: 10px;
+  transition: all 0.3s ease; /* Transition douce */
+  position: relative; /* Nécessaire pour positionner le triangle */
+}
+.add-task:hover
+{
+  background-color: var(--fourth-color) !important;
+
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Ombre légère */
+  transform: translateY(-3px); /* Légère élévation */
+}
+

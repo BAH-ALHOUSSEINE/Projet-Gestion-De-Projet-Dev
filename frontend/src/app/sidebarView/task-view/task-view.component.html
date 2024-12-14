@@ -21,18 +21,19 @@
         [class.active]="selectedCategories.includes(s)">
         {{ s.nom }}
       </button>
-      <div *ngIf="selectedCategories.includes(s)" class="content">
+      <div *ngIf="selectedCategories.includes(s)" class="content" style="display:flex;flex-direction: column;align-items: start;">
         
         <div style="display: flex; justify-content: end;align-items: start; width: 80%; flex-direction: row;" 
         *ngFor="let tache of taskOfCategorie(s)">
-         <button class="task-button" [class.current]="tache._id === current_tache._id"  (click)="setCurrentTask(tache,i)" 
+         <button class="task-button"         [ngStyle]="{'color': statusColor(tache.status)}"
+         [class.current]="tache._id === current_tache._id"  (click)="setCurrentTask(tache,i)" 
          >{{tache.description}}</button>
          <button (click)="deleteTask(tache,i)">X</button>
         </div>
         
         
         
-        <button *ngIf="!tache_creation"   (click)="openTacheCreation(i)">Ajouter une tache</button>
+        <button class="add-task" *ngIf="!tache_creation"   (click)="openTacheCreation(i)">Nouvelle Tâche</button>
       </div>
     </div>
 
