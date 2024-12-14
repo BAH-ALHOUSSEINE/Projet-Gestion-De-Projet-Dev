@@ -23,8 +23,9 @@
       </button>
       <div *ngIf="selectedCategories.includes(s)" class="content">
         
-        <div style="display: flex; justify-content: end; width: 80%" *ngFor="let tache of taskOfCategorie(s)">
+        <div style="display: flex; justify-content: end;align-items: start; width: 80%; flex-direction: row;" *ngFor="let tache of taskOfCategorie(s)">
          <button class="task-button" (click)="setCurrentTask(tache,i)">{{tache.description}}</button>
+         <button (click)="deleteTask(tache,i)">X</button>
         </div>
         
         
@@ -59,7 +60,9 @@
   [categorie]="getIdcategorie()"
   *ngIf="tache_creation"
   [ngStyle]="{'flex': tache_creation ? '1' : '1'}"
-  (formCancel)="closeAll()"></app-create-tache-form>
+  (formCancel)="closeAll()"
+  (tacheCreated)="handleTacheCreated($event)"
+  ></app-create-tache-form>
 
   <app-view-tache
   [project]="projectMock"
