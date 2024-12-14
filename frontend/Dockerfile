@@ -1,5 +1,20 @@
 FROM node:18-alpine AS build-stage
 
+# Ajouter Chromium et ses dépendances
+RUN apk add --no-cache \
+  chromium \
+  nss \
+  freetype \
+  harfbuzz \
+  ttf-freefont \
+  font-noto \
+  mesa-gl
+
+# Variables d'environnement pour Chromium
+ENV CHROME_BIN=/usr/bin/chromium-browser \
+    CHROME_PATH=/usr/lib/chromium/
+
+
 # Définir le répertoire de travail
 WORKDIR /app
 
