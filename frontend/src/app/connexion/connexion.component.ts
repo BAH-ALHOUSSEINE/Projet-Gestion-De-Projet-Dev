@@ -33,7 +33,9 @@ export class ConnexionComponent {
         next: (response) => {
           console.log("reponse : " + response);
           console.log("token : " + response.token);
-          this.authGuard.login(response.token)
+          this.authGuard.login(response.token);
+          sessionStorage.setItem('iduser', response.userId ? response.userId.toString() : '');
+          
           this.router.navigate(['/projet']);
         },
         error: (err) => {

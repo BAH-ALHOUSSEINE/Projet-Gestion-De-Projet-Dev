@@ -5,7 +5,7 @@ export class Tache {
     description ?: string;
     membre?: User | null;
         date_echeance?: Date;
-    status ?: 'À faire' | 'En cours' | 'Terminé'; // Le statut de la tâche
+    status ?: 'A faire' | 'En cours' | 'Terminé'; // Le statut de la tâche
     priorite ?: 'Basse' | 'Moyenne' | 'Haute'; // La priorité de la tâche
   }
   

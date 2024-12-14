@@ -16,6 +16,8 @@ import { Router } from '@angular/router';
 export class ProjectDetailComponent implements OnInit {
   project: Projet | null = null;
   componentInjector: Injector | null = null;
+  iduser  ?: String;
+  isdeleteprojet  ? : boolean=true;
 
   views = [
     { id: 'about', name: 'À propos', component: AboutViewComponent },
@@ -75,6 +77,21 @@ export class ProjectDetailComponent implements OnInit {
         next: (projectData) => {
           this.project = Projet.fromData(projectData);
           this.createInjector(this.project);
+          if (typeof window !== 'undefined' && typeof sessionStorage !== 'undefined') {
+            console.log(this.project);
+           
+            this.iduser = String(sessionStorage.getItem('iduser') || "");
+            if (this.iduser !== this.project?.id_admin?._id) {
+              this.isdeleteprojet = false;
+              console.log("Utilisateur non administrateur :", this.iduser);
+            } else {
+              this.isdeleteprojet = true;
+            }
+          } else {
+            console.warn("sessionStorage n'est pas disponible.");
+            this.iduser = "";
+            this.isdeleteprojet = false;
+          }
           this.cdr.markForCheck();
         },
         error: (error) => {
