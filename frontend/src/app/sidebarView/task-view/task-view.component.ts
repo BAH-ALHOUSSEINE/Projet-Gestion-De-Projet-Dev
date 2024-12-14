@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRe
 import { SprintService } from '../../service/sprint.service';
 import { Projet } from '../../models/projet';
 import { Sprint } from '../../models/sprint';
-import { Status } from '../../models/status.enum';
+import { Status, StatusColor } from '../../models/status.enum';
 import { Subject, takeUntil } from 'rxjs';
 import { CategorieTache } from '../../models/categorie-tache';
 import { ThisReceiver } from '@angular/compiler';
@@ -101,7 +101,7 @@ export class TaskViewComponent {
   onSprintSelect(event: Event): void {
     const selectedIndex = (event.target as HTMLSelectElement).value;
     this.selectedSprint = this.projectMock.sprints![+selectedIndex];
-    alert(this.selectedSprint._id);
+  
     console.log("selected sprint: ", this.selectedSprintIndex);
   }
 
@@ -269,6 +269,25 @@ export class TaskViewComponent {
     }
 
     console.log(`Tâche non trouvée : ${updatedTask._id}`);
+}
+
+
+
+statusColor(status?: string): string {
+  if (!status) {
+      return '#000000'; // Retourner une couleur par défaut (par exemple, noir) si `status` est undefined
+  }
+
+  switch (status) {
+      case Status.Afaire:
+          return StatusColor.Afaire; 
+      case Status.EnCours:
+          return StatusColor.EnCours;
+      case Status.Termine:
+          return StatusColor.Termine; 
+      default:
+          return '#000000'; 
+  }
 }
 
 

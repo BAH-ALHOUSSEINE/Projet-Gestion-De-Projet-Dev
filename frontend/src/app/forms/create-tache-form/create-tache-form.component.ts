@@ -54,8 +54,6 @@ export class CreateTacheFormComponent {
 
   submitTacheCreation (): void {
 
-    alert(this.newtache.date_echeance);
-
     this.sprintService.addtache(this.project._id,this.sprint._id,this.categorie,this.newtache).subscribe((response : any )=>{
 
 
