@@ -71,6 +71,7 @@ export class CreateProjectFormComponent {
    this.projectService.addProjectForCurrentUser(this.newProject).subscribe({
      next: (newProjectData) => {
        const newProject = Projet.fromData(newProjectData.projet);
+       console.log("new project form : " + newProject);
        this.projectCreated.emit(newProject);
      },
      error: (err) => {

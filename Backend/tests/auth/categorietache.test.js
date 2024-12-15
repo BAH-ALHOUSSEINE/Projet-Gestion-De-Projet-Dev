@@ -39,9 +39,8 @@ describe('CategorieTacheController', () => {
 
         expect(response.status).toBe(200);
         expect(response.body.message).toBe('Catégorie ajoutée avec succès');
-        expect(response.body.sprint).toBeDefined();
-        expect(response.body.sprint.categorie_tache).toHaveLength(1);
-        expect(response.body.sprint.categorie_tache[0].nom).toBe('New Category');
+        expect(response.body.categorie).toBeDefined();
+
 
         // Verify that the category was added to the sprint
         const updatedProject = await Project.findById(project._id);

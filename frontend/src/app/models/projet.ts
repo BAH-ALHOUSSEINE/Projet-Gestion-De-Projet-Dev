@@ -26,7 +26,7 @@ export class Projet {
       const projet = new Projet();
       projet._id = projectData._id;
       projet.nom_projet = projectData.nom_projet;
-      projet.id_admin = projectData.id_admin;
+      projet.id_admin = projectData.id_admin._id;
       projet.type_projet = projectData.type_projet;
       projet.description_projet = projectData.description_projet;
       projet.date_debut = new Date(projectData.date_debut);

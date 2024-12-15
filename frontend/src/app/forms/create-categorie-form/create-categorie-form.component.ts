@@ -60,7 +60,8 @@ export class CreateCategorieFormComponent {
     if (this.project._id) {
       console.log(this.project._id, " et sprint : ", this.sprint._id)
       this.sprintService.addcategorietacge(this.project._id, this.sprint._id, this.newCategorie).subscribe((newcat: any) => {
-        this.categorieCreated.emit(newcat.nouvelleCategorie);
+        console.log("categorie in form : " + newcat.categorie)
+        this.categorieCreated.emit(newcat.categorie);
       });
     }
   }

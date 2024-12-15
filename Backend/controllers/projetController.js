@@ -32,7 +32,7 @@ const createProject = async (req, res) => {
       return res.status(400).json({ message: "Tous les champs sont requis." });
     }
 
-    id_admin = authenticateUser(id_admin._id);
+    id_admin = authenticateUser(id_admin);
 
     // Ajouter id_admin à membres s'il n'est pas déjà présent
     if (!membres.map((membre) => membre.toString()).includes(id_admin)) {

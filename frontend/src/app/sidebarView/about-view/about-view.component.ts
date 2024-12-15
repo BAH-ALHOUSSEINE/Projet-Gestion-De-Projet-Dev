@@ -42,7 +42,7 @@ export class AboutViewComponent {
             this.iduser = String(sessionStorage.getItem('iduser') || "");
             if (this.iduser !== this.project?.id_admin) {
               this.isadmin = false;
-              console.log("Utilisateur non administrateur :", this.iduser);
+              console.log("Utilisateur non administrateur :", this.iduser, this.project?.id_admin);
             } else {
               this.isadmin = true;
             }

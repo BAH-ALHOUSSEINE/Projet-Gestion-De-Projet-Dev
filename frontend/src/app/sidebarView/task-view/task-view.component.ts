@@ -90,6 +90,8 @@ export class TaskViewComponent {
 
 
   handleSprintCreated(newSprint: Sprint): void {
+
+    console.log("new sprint" + newSprint)
     if (!this.projectMock.sprints) {
       this.projectMock.sprints = [];
     }
@@ -139,12 +141,11 @@ export class TaskViewComponent {
 
 
   handleCategorieCreated(newCategorie: CategorieTache): void {
-    // alert("eeeeeeeeeeeeeeeeeee");
     if (!this.projectMock.sprints![this.selectedSprintIndex].categorie_tache) {
       this.projectMock.sprints![this.selectedSprintIndex].categorie_tache = [];
     }
     console.log("index for add : " , this.selectedSprintIndex)
-    this.projectMock.sprints![this.selectedSprintIndex].categorie_tache?.push(newCategorie) // Ajoute le sprint à la liste existante
+    this.projectMock.sprints![this.selectedSprintIndex].categorie_tache?.push(newCategorie) 
     console.log("cattache : " , this.projectMock.sprints![this.selectedSprintIndex].categorie_tache)
     this.closeAll();
     console.log("hehehe");

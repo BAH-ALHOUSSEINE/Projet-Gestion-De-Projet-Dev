@@ -45,7 +45,7 @@ exports.addCategorieToSprint = async (req, res) => {
     // Retourner la catégorie nouvellement créée
     res.status(200).json({
      message:'Catégorie ajoutée avec succès', // Retourne l'objet CategorieTache complet
-     sprint: sprint
+     categorie: nouvelleCategorie
     });
   } catch (error) {
     console.error('Erreur lors de l\'ajout de la catégorie:', error);

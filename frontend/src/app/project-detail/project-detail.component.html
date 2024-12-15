@@ -10,7 +10,6 @@
         
       </button>
 
-      <button  class="header-button button-primary s" (click)="listeprojet()"  >Liste des projet</button>
       <button  *ngIf="isdeleteprojet==true" class="header-button button-primary s" (click)="deleteprojet(project._id)"  style="background-color: brown;">Supprimer projet</button>
       <button  *ngIf="isdeleteprojet==true" class="header-button button-primary"   style="background-color: green;">STATUS: ADMINISTRATEUR</button>
       <button  *ngIf="isdeleteprojet==false" class="tn btn-success "   style="background-color: green;"> STATUS: COLLABORATEUR</button>
