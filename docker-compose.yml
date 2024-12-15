@@ -40,11 +40,13 @@ services:
     build:
       context: ./Backend
     container_name: backend-tests
-    command: ["npm", "run", "test"] # Commande pour exécuter les tests Jest
+    command: ["npm", "run", "test", "--", "--detectOpenHandles"] # Commande pour exécuter les tests Jest
     networks:
       - gdp-network
     depends_on:
       - database
+    environment:
+    - MONGO_URI=mongodb://database:27017/testdb
 
   frontend-tests:
     build:

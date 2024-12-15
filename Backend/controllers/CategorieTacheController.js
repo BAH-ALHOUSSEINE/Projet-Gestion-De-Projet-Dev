@@ -19,6 +19,10 @@ exports.addCategorieToSprint = async (req, res) => {
       return res.status(404).json({ message: 'Sprint non trouvé' });
     }
 
+    if(!nom){
+      throw new Error('Le nom de la catégorie est requis');
+    }
+    
     // Créer une nouvelle catégorie
     const nouvelleCategorie = new CategorieTache({
       nom,
@@ -33,7 +37,8 @@ exports.addCategorieToSprint = async (req, res) => {
 
     // Retourner la catégorie nouvellement créée
     res.status(200).json({
-     nouvelleCategorie // Retourne l'objet CategorieTache complet
+     message:'Catégorie ajoutée avec succès', // Retourne l'objet CategorieTache complet
+     sprint: sprint
     });
   } catch (error) {
     console.error('Erreur lors de l\'ajout de la catégorie:', error);

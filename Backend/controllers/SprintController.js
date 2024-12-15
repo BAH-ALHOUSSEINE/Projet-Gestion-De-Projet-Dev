@@ -21,14 +21,11 @@ exports.createSprint = async (req, res) => {
 
     project.sprints = [...project.sprints, newSprint];
 
-    // console.log("Avant sauvegarde :", project);
     await project.save();
-    // console.log("Après sauvegarde :", project);
-
-    console.log("dddddddddd"+newSprint);
 
     res.status(201).json({
-      newSprint
+      message: 'Sprint ajouté avec succès',
+      sprint:newSprint
     });
     console.log("Création réussie");
 
