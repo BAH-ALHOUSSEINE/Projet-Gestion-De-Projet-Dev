@@ -35,10 +35,10 @@ export class ProjetService {
     if (AuthGuard.canAcessLocalStorage()) {
       const token = localStorage.getItem('token') ?? '';  // Si null, utiliser une chaîne vide
       if (!newProject.id_admin) {
-        newProject.id_admin = { _id: '', email: '', nom: '', prenom: '' }; // Initialisation par défaut
+        newProject.id_admin = ''; // Initialisation par défaut
       }
       
-      newProject.id_admin._id = token;
+      newProject.id_admin = token;
     }
 
 

@@ -6,7 +6,7 @@ import { User } from "./user";
 export class Projet {
     _id ?: string; // L'identifiant du projet (représente l'ObjectId de MongoDB)
     nom_projet ?: string;
-    id_admin ?: User; // L'id de l'administrateur (représente l'ObjectId de MongoDB)
+    id_admin ?: string; // L'id de l'administrateur (représente l'ObjectId de MongoDB)
     type_projet ?: string;
     description_projet ?: string;
     date_debut ?: Date;
