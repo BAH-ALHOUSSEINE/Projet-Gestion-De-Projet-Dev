@@ -32,7 +32,6 @@ describe('ProjetServices', () => {
     const projet = Projet.fromData(projectData);
     expect(projet._id).toBe('123');
     expect(projet.nom_projet).toBe('projet');
-    console.log("0000A000A", projet.id_admin);
     expect(projet.id_admin).toBe("admin");
     expect(projet.type_projet).toBe('type');
     expect(projet.description_projet).toBe('description');

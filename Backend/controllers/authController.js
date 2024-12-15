@@ -49,7 +49,6 @@ const register = async (req, res) => {
  * @throws {Error} - If there is an error during the login process.
  */
 const login = async (req, res) => {
-  console.log("test console log login");
   try {
     const { email, password } = req.body;
 

@@ -53,7 +53,6 @@ const createProject = async (req, res) => {
       sprints
     });
 
-    // console.log(newProject)
 
     // Sauvegarde du projet dans la base de données
     await newProject.save();
@@ -87,7 +86,7 @@ const addMember = async (req, res) => {
     const user = await User.findOne({ email });
 
     console.log(user)
-    console.log("user id : ", user._id)
+    console.log("user._id : ", user._id)
     
     if (!user) {
       return res.status(401).json({ error: 'Ce email n est pas lié à un user' });
@@ -138,7 +137,6 @@ const getUserProjects = async (req, res) => {
       .populate('id_admin', 'nom prenom email') //permet de prendre les info lié à l'admin
       .populate('membres', 'nom prenom email'); 
     
-    // console.log("proj : " + projects)
     // Retourner la réponse avec la liste des projets
     res.status(200).json(projects);
   } catch (err) {

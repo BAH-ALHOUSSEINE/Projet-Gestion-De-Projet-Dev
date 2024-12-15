@@ -1,7 +1,7 @@
 // Karma configuration
 // Generated on Sat Dec 14 2024 14:58:39 GMT+0100 (heure normale d’Europe centrale)
 
-const isDocker = require('is-docker')();
+const isDocker = require('is-docker');
 
 module.exports = function(config) {
   config.set({

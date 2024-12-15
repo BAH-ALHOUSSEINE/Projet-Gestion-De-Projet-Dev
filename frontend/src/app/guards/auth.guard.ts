@@ -26,7 +26,6 @@ export class AuthGuard implements CanActivate {
   static canAcessLocalStorage(): boolean
   {
     try {
-      console.log("plat," , )
       console.log("can accesLocalStorageValue : " , typeof window !== 'undefined' && typeof localStorage !== 'undefined')
       return typeof window !== 'undefined' && typeof localStorage !== 'undefined';
     } catch (e) {

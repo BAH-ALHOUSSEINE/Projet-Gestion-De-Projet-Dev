@@ -1,0 +1,14 @@
+{
+    "source": {
+      "include": ["src/app", "src/"], 
+      "includePattern": ".*\\.component\\.ts$" 
+    },
+    "opts": {
+      "destination": "./docs-frontend", 
+      "recurse": true                   
+    },
+    "plugins": [
+    "node_modules/@babel/plugin-transform-typescript"
+    ]
+  }
+  

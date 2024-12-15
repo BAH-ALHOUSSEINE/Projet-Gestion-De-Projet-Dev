@@ -1,105 +1,143 @@
 import { Component, Inject,ChangeDetectorRef } from '@angular/core';
 import { Projet } from '../../models/projet';
-import { MatDialog } from '@angular/material/dialog';
-import { PopupadduserComponent } from '../../popupadduser/popupadduser.component';
 import {ProjetService} from  '../../service/projet.service';
 import { ProjectDetailComponent } from '../../project-detail/project-detail.component';
 import { User } from '../../models/user';
+/**
+ * Component representing the About View.
+ */
 @Component({
   selector: 'app-about-view',
   templateUrl: './about-view.component.html',
   styleUrl: './about-view.component.css'
 })
 export class AboutViewComponent {
-  showdiallogue   ?: boolean; 
-  user  : User = new User();
-  error  : number = 0;
-  errorMessage  : String ="";
+  /**
+   * Indicates whether the dialog is shown.
+   */
+  showdiallogue?: boolean;
 
-  iduser  ?: String;
-  isadmin  ? : boolean=true;
+  /**
+   * User instance.
+   */
+  user: User = new User();
 
-  projectMock : Projet = new Projet();
-    
-  constructor(@Inject('project') public project: Projet,private cdr: ChangeDetectorRef,private serviveproject : ProjetService, private projectdetail : ProjectDetailComponent ) {
+  /**
+   * Error code.
+   */
+  error: number = 0;
 
-    console.log("ça marche ?")
-   // console.log(project)
-   this.projectMock = this.project;
+  /**
+   * Error message.
+   */
+  errorMessage: String = "";
+
+  /**
+   * User ID.
+   */
+  iduser?: String;
+
+  /**
+   * Indicates whether the user is an admin.
+   */
+  isadmin?: boolean = true;
+
+  /**
+   * Mock project instance.
+   */
+  projectMock: Projet = new Projet();
+
+  /**
+   * Constructor for AboutViewComponent.
+   * @param project - Injected project instance.
+   * @param cdr - ChangeDetectorRef instance.
+   * @param serviveproject - Project service instance.
+   * @param projectdetail - Project detail component instance.
+   */
+  constructor(
+    @Inject('project') public project: Projet,
+    private cdr: ChangeDetectorRef,
+    private serviveproject: ProjetService,
+    private projectdetail: ProjectDetailComponent
+  ) {
+    this.projectMock = this.project;
   }
 
-  Annuler(){
-    this.showdiallogue=false;
- }
- 
- 
+  /**
+   * Cancels the current operation and hides the dialog.
+   */
+  Annuler() {
+    this.showdiallogue = false;
+  }
 
+  /**
+   * Lifecycle hook that is called after data-bound properties are initialized.
+   */
   ngOnInit(): void {
-   
-          if (typeof window !== 'undefined' && typeof sessionStorage !== 'undefined') {
-            console.log(this.project);
-           
-            this.iduser = String(sessionStorage.getItem('iduser') || "");
-            if (this.iduser !== this.project?.id_admin) {
-              this.isadmin = false;
-              console.log("Utilisateur non administrateur :", this.iduser, this.project?.id_admin);
-            } else {
-              this.isadmin = true;
-            }
-          } else {
-            console.warn("sessionStorage n'est pas disponible.");
-            this.iduser = "";
-            this.isadmin = false;
-          }
-          this.cdr.markForCheck();
-          
-        }
-        
-    
-
-
- 
-
-
- ajoutermembre() {
-  console.log("user-email : ", this.user.email)
-  this.serviveproject.addmembre(this.project._id, this.user).subscribe((newUser: User) => {
-
-    this.projectMock.membres?.push(newUser)
-        
-    console.log("new user : ", newUser)
-    this.cdr.detectChanges();
-
-
-  });
-}
-
-deleteprojetmembre(email: string | undefined) {
-  if (!email) {
-    console.error("Email non spécifié !");
-    return;
+    if (typeof window !== 'undefined' && typeof sessionStorage !== 'undefined') {
+      console.log(this.project);
+      this.iduser = String(sessionStorage.getItem('iduser') || "");
+      if (this.iduser !== this.project?.id_admin) {
+        this.isadmin = false;
+        console.log("Utilisateur non administrateur :", this.iduser, this.project?.id_admin);
+      } else {
+        this.isadmin = true;
+      }
+    } else {
+      console.warn("sessionStorage n'est pas disponible.");
+      this.iduser = "";
+      this.isadmin = false;
+    }
+    this.cdr.markForCheck();
   }
 
-  this.serviveproject.deleteProjectmemebre(this.project._id, email).subscribe({
-    next: (response: User) => {
-      // Suppression locale du membre dans le tableau des membres
-      this.project.membres = this.project.membres?.filter(membre => membre.email !== email);
-      // Met à jour la vue avec ChangeDetectorRef
+  /**
+   * Adds a member to the project.
+   */
+  ajoutermembre() {
+    console.log("user-email : ", this.user.email);
+    this.serviveproject.addmembre(this.project._id, this.user).subscribe((newUser: User) => {
+      this.projectMock.membres?.push(newUser);
+      console.log("new user : ", newUser);
       this.cdr.detectChanges();
-      console.log(`Membre avec l'email ${email} supprimé avec succès.`);
-    },
-    error: (err) => {
-      console.error("Erreur lors de la suppression du membre :", err);
-    },
-  });
-}
+    });
+  }
 
+  /**
+   * Deletes a member from the project.
+   * @param email - Email of the member to be deleted.
+   */
+  deleteprojetmembre(email: string | undefined) {
+    if (!email) {
+      console.error("Email non spécifié !");
+      return;
+    }
 
-   openDialog(){
-    this.showdiallogue=true;
-   }
+    this.serviveproject.deleteProjectmembre(this.project._id, email).subscribe({
+      next: (response: User) => {
+        this.project.membres = this.project.membres?.filter(membre => membre.email !== email);
+        this.cdr.detectChanges();
+        console.log(`Membre avec l'email ${email} supprimé avec succès.`);
+      },
+      error: (err) => {
+        console.error("Erreur lors de la suppression du membre :", err);
+      },
+    });
+  }
 
-   formatDateInFrench(date: Date): string {
+  /**
+   * Opens the dialog.
+   */
+  openDialog() {
+    this.showdiallogue = true;
+  }
+
+  /**
+   * Formats a date in French locale.
+   * @param date - Date to be formatted.
+   * @returns Formatted date string.
+   */
+  formatDateInFrench(date: Date): string {
     return date.toLocaleDateString("fr-FR", {
       weekday: "long",
       day: "numeric",
@@ -107,6 +145,4 @@ deleteprojetmembre(email: string | undefined) {
       year: "numeric"
     });
   }
-
-
 }

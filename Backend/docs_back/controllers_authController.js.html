@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: controllers/authController.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: controllers/authController.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>const User = require('../models/User');
+const jwt = require('jsonwebtoken');
+
+/**
+ * Registers a new user.
+ *
+ * @param {Object} req - The request object.
+ * @param {Object} req.body - The body of the request.
+ * @param {string} req.body.nom - The last name of the user.
+ * @param {string} req.body.prenom - The first name of the user.
+ * @param {string} req.body.email - The email of the user.
+ * @param {string} req.body.password - The password of the user.
+ * @param {Object} res - The response object.
+ * @returns {Promise&lt;void>} - A promise that resolves when the user is registered.
+ */
+const register = async (req, res) => {
+  try {
+    const { nom, prenom, email, password } = req.body;
+
+    // Vérifie si tous les champs sont présents
+   
+
+    // Vérifie si l'adresse email existe déjà dans la bdd
+    const existing_mail = await User.findOne({ email });
+    if (existing_mail) {
+      return res.status(400).json({ error: 'L\'email est déjà utilisé Veuillez choisir un autre email ' }); // Email déjà pris
+    }
+
+    const user = new User({ nom, prenom, email, password });
+    await user.save();
+    res.status(201).json({ message: 'Utilisateur créé avec succès' });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+
+
+/**
+ * Handles user login.
+ *
+ * @param {Object} req - The request object.
+ * @param {Object} req.body - The body of the request.
+ * @param {string} req.body.email - The email of the user.
+ * @param {string} req.body.password - The password of the user.
+ * @param {Object} res - The response object.
+ * @returns {Promise&lt;void>} - A promise that resolves to void.
+ *
+ * @throws {Error} - If there is an error during the login process.
+ */
+const login = async (req, res) => {
+  console.log("test console log login");
+  try {
+    const { email, password } = req.body;
+
+    // Recherche de l'utilisateur par email
+    const user = await User.findOne({ email });
+
+    // Vérification de l'existence de l'utilisateur et du mot de passe
+    if (!user || !(await user.matchPassword(password))) {
+      return res.status(401).json({ error: 'Identifiants invalides' });
+    }
+
+    // Génération du token
+    const token = jwt.sign({ _id: user._id }, '777', { expiresIn: '1h' }); // Expires dans 1 heure
+
+    // Retourner le token et l'ID de l'utilisateur
+    res.json({ token, userId: user._id });
+  } catch (error) {
+    // Gestion des erreurs
+    console.error("Erreur lors de la connexion :", error);
+    res.status(500).json({ error: error.message });
+  }
+};
+
+
+module.exports = { register, login };
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-routes_projetRouter.html">routes/projetRouter</a></li><li><a href="module-routes_routerSprint.html">routes/routerSprint</a></li><li><a href="module-routes_taskRouter.html">routes/taskRouter</a></li><li><a href="module-routes_userRouter.html">routes/userRouter</a></li></ul><h3>Global</h3><ul><li><a href="global.html#PORT">PORT</a></li><li><a href="global.html#addCategorieToSprint">addCategorieToSprint</a></li><li><a href="global.html#addMember">addMember</a></li><li><a href="global.html#addTacheToCategorie">addTacheToCategorie</a></li><li><a href="global.html#authenticateUser">authenticateUser</a></li><li><a href="global.html#connectDB">connectDB</a></li><li><a href="global.html#createProject">createProject</a></li><li><a href="global.html#createSprint">createSprint</a></li><li><a href="global.html#deleteTache">deleteTache</a></li><li><a href="global.html#deleteprojet">deleteprojet</a></li><li><a href="global.html#deleteprojetmembre">deleteprojetmembre</a></li><li><a href="global.html#getProjectById">getProjectById</a></li><li><a href="global.html#getSprintByprojetId">getSprintByprojetId</a></li><li><a href="global.html#getUserById">getUserById</a></li><li><a href="global.html#getUserProjects">getUserProjects</a></li><li><a href="global.html#login">login</a></li><li><a href="global.html#protect">protect</a></li><li><a href="global.html#register">register</a></li><li><a href="global.html#updateTache">updateTache</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Sun Dec 15 2024 17:16:45 GMT+0100 (heure normale d’Europe centrale)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

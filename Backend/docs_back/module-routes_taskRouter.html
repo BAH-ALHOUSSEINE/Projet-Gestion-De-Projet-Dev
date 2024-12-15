@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Module: routes/taskRouter</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Module: routes/taskRouter</h1>
+
+    
+
+
+
+
+<section>
+
+<header>
+    
+        
+            
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description">Express router for handling task-related routes.</div>
+        
+
+        
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="routes_taskRouter.js.html">routes/taskRouter.js</a>, <a href="routes_taskRouter.js.html#line1">line 1</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".delete/:projetId/sprints/:sprintId/categories/:categorieId/tasks/:tacheId"><span class="type-signature">(static) </span>delete/:projetId/sprints/:sprintId/categories/:categorieId/tasks/:tacheId<span class="signature">(deleteTache)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Route to delete a task.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>req.params.projetId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The ID of the project.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>req.params.sprintId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The ID of the sprint.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>req.params.categorieId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The ID of the category.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>req.params.tacheId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The ID of the task.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>deleteTache</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Controller function to delete the task.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="routes_taskRouter.js.html">routes/taskRouter.js</a>, <a href="routes_taskRouter.js.html#line24">line 24</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".put/:projetId/sprints/:sprintId/categories/:categorieId/tasks/:tacheId"><span class="type-signature">(static) </span>put/:projetId/sprints/:sprintId/categories/:categorieId/tasks/:tacheId<span class="signature">(updateTache)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Route to update a task.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>req.params.projetId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The ID of the project.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>req.params.sprintId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The ID of the sprint.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>req.params.categorieId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The ID of the category.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>req.params.tacheId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The ID of the task.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>updateTache</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Controller function to update the task.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="routes_taskRouter.js.html">routes/taskRouter.js</a>, <a href="routes_taskRouter.js.html#line10">line 10</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-routes_projetRouter.html">routes/projetRouter</a></li><li><a href="module-routes_routerSprint.html">routes/routerSprint</a></li><li><a href="module-routes_taskRouter.html">routes/taskRouter</a></li><li><a href="module-routes_userRouter.html">routes/userRouter</a></li></ul><h3>Global</h3><ul><li><a href="global.html#PORT">PORT</a></li><li><a href="global.html#addCategorieToSprint">addCategorieToSprint</a></li><li><a href="global.html#addMember">addMember</a></li><li><a href="global.html#addTacheToCategorie">addTacheToCategorie</a></li><li><a href="global.html#authenticateUser">authenticateUser</a></li><li><a href="global.html#connectDB">connectDB</a></li><li><a href="global.html#createProject">createProject</a></li><li><a href="global.html#createSprint">createSprint</a></li><li><a href="global.html#deleteTache">deleteTache</a></li><li><a href="global.html#deleteprojet">deleteprojet</a></li><li><a href="global.html#deleteprojetmembre">deleteprojetmembre</a></li><li><a href="global.html#getProjectById">getProjectById</a></li><li><a href="global.html#getSprintByprojetId">getSprintByprojetId</a></li><li><a href="global.html#getUserById">getUserById</a></li><li><a href="global.html#getUserProjects">getUserProjects</a></li><li><a href="global.html#login">login</a></li><li><a href="global.html#protect">protect</a></li><li><a href="global.html#register">register</a></li><li><a href="global.html#updateTache">updateTache</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Sun Dec 15 2024 17:16:45 GMT+0100 (heure normale d’Europe centrale)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

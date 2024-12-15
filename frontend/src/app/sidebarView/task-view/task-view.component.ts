@@ -1,17 +1,17 @@
 import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef, Inject } from '@angular/core';
-import { SprintService } from '../../service/sprint.service';
 import { Projet } from '../../models/projet';
 import { Sprint } from '../../models/sprint';
 import { Status, StatusColor } from '../../models/status.enum';
-import { Subject, takeUntil } from 'rxjs';
 import { CategorieTache } from '../../models/categorie-tache';
-import { ThisReceiver } from '@angular/compiler';
 import { Router } from '@angular/router';
 import { Tache } from '../../models/tache';
 import { ProjetService } from '../../service/projet.service';
 import { User } from '../../models/user';
 import { TacheService } from '../../service/tache.service';
 
+/**
+ * Component for viewing and managing tasks within a project.
+ */
 @Component({
   selector: 'app-task-view',
   templateUrl: './task-view.component.html',
@@ -20,204 +20,262 @@ import { TacheService } from '../../service/tache.service';
 })
 export class TaskViewComponent {
 
+  /**
+   * Mock project data.
+   */
   projectMock = new Projet();
 
-  
-  selectedSprint: Sprint = new Sprint()
+  /**
+   * Currently selected sprint.
+   */
+  selectedSprint: Sprint = new Sprint();
+
+  /**
+   * Index of the currently selected sprint.
+   */
   selectedSprintIndex: number = 2;
+
+  /**
+   * Flag indicating if sprint creation panel is open.
+   */
   sprint_creation: boolean = false;
-  tache_creation  : boolean = false;
 
-  information ? : String;
+  /**
+   * Flag indicating if task creation panel is open.
+   */
+  tache_creation: boolean = false;
 
-  sidePanel : boolean = false;
+  /**
+   * Optional information string.
+   */
+  information?: String;
 
-  categorie_creation : boolean = false;
-  selectedCategories : CategorieTache[] = [];
-  categorie ? : string;
+  /**
+   * Flag indicating if the side panel is open.
+   */
+  sidePanel: boolean = false;
 
+  /**
+   * Flag indicating if category creation panel is open.
+   */
+  categorie_creation: boolean = false;
 
-  current_tache : Tache = new Tache();
-  tache_view : boolean = false;
+  /**
+   * List of selected categories.
+   */
+  selectedCategories: CategorieTache[] = [];
 
+  /**
+   * Optional selected category ID.
+   */
+  categorie?: string;
 
+  /**
+   * Currently selected task.
+   */
+  current_tache: Tache = new Tache();
 
+  /**
+   * Flag indicating if task view panel is open.
+   */
+  tache_view: boolean = false;
 
+  /**
+   * Constructor for TaskViewComponent.
+   * @param project Injected project data.
+   * @param projetService Service for managing projects.
+   * @param taskService Service for managing tasks.
+   * @param cdr Change detector reference.
+   * @param router Router for navigation.
+   */
   constructor(
     @Inject('project') public project: Projet,
-    public projetService : ProjetService,
-    public taskService : TacheService,
+    public projetService: ProjetService,
+    public taskService: TacheService,
     private cdr: ChangeDetectorRef,
     private router: Router
   ) {
-
     this.projectMock = this.project;
   }
 
+  /**
+   * Lifecycle hook that is called after data-bound properties are initialized.
+   */
   ngOnInit(): void {
-    console.log("eee",this.project)
     if (this.projectMock.sprints && this.projectMock.sprints.length > 0) {
       this.selectedSprintIndex = 0;
       this.selectedSprint = this.projectMock.sprints[this.selectedSprintIndex];
-      console.log(this.projectMock.sprints[this.selectedSprintIndex].categorie_tache);
     } else {
       console.warn('Aucun sprint trouvé dans le projet.');
-      this.selectedSprintIndex = -1; 
+      this.selectedSprintIndex = -1;
       this.selectedSprint = new Sprint();
     }
 
-
     this.sidePanel = false;
     this.sprint_creation = false;
-    this.categorie_creation= false;
-    
-
-
+    this.categorie_creation = false;
   }
 
-  closeSprintCreation()
-  {
+  /**
+   * Closes the sprint creation panel.
+   */
+  closeSprintCreation(): void {
     this.sprint_creation = false;
     this.sidePanel = false;
   }
 
-  openSprintCreation()
-  {
+  /**
+   * Opens the sprint creation panel.
+   */
+  openSprintCreation(): void {
     this.closeAll();
     this.sprint_creation = true;
     this.sidePanel = true;
   }
 
-
+  /**
+   * Handles the creation of a new sprint.
+   * @param newSprint The newly created sprint.
+   */
   handleSprintCreated(newSprint: Sprint): void {
-
-    console.log("new sprint" + newSprint)
+    console.log("new sprint" + newSprint);
     if (!this.projectMock.sprints) {
       this.projectMock.sprints = [];
     }
-    this.projectMock.sprints.push(newSprint); // Ajoute le sprint à la liste existante
-    console.log("my new list of sprint : " ,this.projectMock.sprints)
+    this.projectMock.sprints.push(newSprint);
+    console.log("my new list of sprint: ", this.projectMock.sprints);
     this.closeAll();
   }
 
+  /**
+   * Handles the selection of a sprint.
+   * @param event The event triggered by selecting a sprint.
+   */
   onSprintSelect(event: Event): void {
     const selectedIndex = (event.target as HTMLSelectElement).value;
     this.selectedSprint = this.projectMock.sprints![+selectedIndex];
-  
     console.log("selected sprint: ", this.selectedSprintIndex);
   }
 
-
-  closeCategorieCreation()
-  {
+  /**
+   * Closes the category creation panel.
+   */
+  closeCategorieCreation(): void {
     this.categorie_creation = false;
     this.sidePanel = false;
   }
 
-  openCategorieCreation()
-  {
+  /**
+   * Opens the category creation panel.
+   */
+  openCategorieCreation(): void {
     this.closeAll();
     this.categorie_creation = true;
     this.sidePanel = true;
   }
 
-  openTacheCreation(index: number) {
+  /**
+   * Opens the task creation panel for a specific category.
+   * @param index The index of the category.
+   */
+  openTacheCreation(index: number): void {
     this.closeAll();
-    
-    // console.log("selectedSprintIndex : ", this.selectedSprintIndex);
-    // console.log("Categgggggggggggggggggggorie Tache : ", this.projectMock.sprints![this.selectedSprintIndex].categorie_tache);
     if (this.projectMock.sprints![this.selectedSprintIndex].categorie_tache![index]) {
       this.categorie = this.projectMock.sprints![this.selectedSprintIndex].categorie_tache![index]._id;
-      // alert(this.projectMock.sprints![this.selectedSprintIndex].categorie_tache![index]._id);
       this.tache_creation = true;
       this.sidePanel = true;
     } else {
       console.warn("Index de catégorie invalide.");
     }
   }
-  
 
-
-
-
+  /**
+   * Handles the creation of a new category.
+   * @param newCategorie The newly created category.
+   */
   handleCategorieCreated(newCategorie: CategorieTache): void {
     if (!this.projectMock.sprints![this.selectedSprintIndex].categorie_tache) {
       this.projectMock.sprints![this.selectedSprintIndex].categorie_tache = [];
     }
-    console.log("index for add : " , this.selectedSprintIndex)
-    this.projectMock.sprints![this.selectedSprintIndex].categorie_tache?.push(newCategorie) 
-    console.log("cattache : " , this.projectMock.sprints![this.selectedSprintIndex].categorie_tache)
+    console.log("index for add: ", this.selectedSprintIndex);
+    this.projectMock.sprints![this.selectedSprintIndex].categorie_tache?.push(newCategorie);
+    console.log("catégorie tache: ", this.projectMock.sprints![this.selectedSprintIndex].categorie_tache);
     this.closeAll();
-    console.log("hehehe");
-   
   }
 
+  /**
+   * Toggles the selection of a category.
+   * @param categorie The category to toggle.
+   */
   toggleCategorie(categorie: CategorieTache): void {
     const pos = this.selectedCategories.indexOf(categorie);
     if (pos > -1) {
-      // Si l'index est déjà sélectionné, on le retire
       this.selectedCategories.splice(pos, 1);
     } else {
-      // Sinon, on l'ajoute
       this.selectedCategories.push(categorie);
     }
   }
 
-  getIdcategorie(){
+  /**
+   * Gets the ID of the selected category.
+   * @returns The ID of the selected category.
+   */
+  getIdcategorie(): string | undefined {
     return this.categorie;
   }
 
+  /**
+   * Handles the creation of a new task.
+   * @param newTache The newly created task.
+   */
   handleTacheCreated(newTache: Tache): void {
-    this.closeAll()
-    console.log("jen ai marre : " + this.categorie)
-  
-
-      for(const c of this.projectMock.sprints![this.selectedSprintIndex].categorie_tache!)
-      {
-        if(c._id == this.categorie)
-        {
-          console.log("jen ai marre : " + this.categorie)
-          c.taches?.push(newTache)
-        }
+    this.closeAll();
+    for (const c of this.projectMock.sprints![this.selectedSprintIndex].categorie_tache!) {
+      if (c._id == this.categorie) {
+        c.taches?.push(newTache);
       }
-  
+    }
+  }
 
-}
-
-
+  /**
+   * Gets the tasks of a specific category.
+   * @param categorie The category to get tasks for.
+   * @returns The list of tasks for the category.
+   */
   taskOfCategorie(categorie: CategorieTache): Tache[] {
-    // Vérifie si la catégorie est dans les catégories ouvertes
-    let task : Tache[] = [];
-    this.selectedCategories.map(ct =>
-    {
-      if(ct._id == categorie._id)
-      {task = ct.taches!;}})
+    let task: Tache[] = [];
+    this.selectedCategories.map(ct => {
+      if (ct._id == categorie._id) {
+        task = ct.taches!;
+      }
+    });
     return task;
   }
 
-  setCurrentTask(t : Tache, index : number)
-  {
-    console.log("NANI?")
-    this.closeAll()
-    //console.log(t.description)
+  /**
+   * Sets the current task for viewing.
+   * @param t The task to set as current.
+   * @param index The index of the category containing the task.
+   */
+  setCurrentTask(t: Tache, index: number): void {
+    this.closeAll();
     this.categorie = this.projectMock.sprints![this.selectedSprintIndex].categorie_tache![index]._id;
     this.current_tache = t;
-    console.log(this.current_tache._id)
+    console.log(this.current_tache._id);
     this.sidePanel = true;
     this.tache_view = true;
-    
   }
 
-  deleteTask(t: Tache, index: number) {
-    // Récupérer la liste des tâches de la catégorie spécifique
+  /**
+   * Deletes a task from a specific category.
+   * @param t The task to delete.
+   * @param index The index of the category containing the task.
+   */
+  deleteTask(t: Tache, index: number): void {
     const taches = this.projectMock.sprints![this.selectedSprintIndex].categorie_tache![index].taches!;
-  
-    // Trouver l'index de la tâche à supprimer
     const taskIndex = taches.findIndex(task => task._id === t._id);
-  
-    // Si la tâche existe, la supprimer
     if (taskIndex !== -1) {
-      taches.splice(taskIndex, 1); // Retire la tâche de la liste
+      taches.splice(taskIndex, 1);
     }
 
     this.taskService.deleteTache(
@@ -225,16 +283,14 @@ export class TaskViewComponent {
       this.selectedSprint._id,
       this.projectMock.sprints![this.selectedSprintIndex].categorie_tache![index]._id,
       t._id).subscribe(response => {
-        console.log(response)
-        
+        console.log(response);
       });
-
-
   }
 
-
-  closeAll()
-  {
+  /**
+   * Closes all open panels.
+   */
+  closeAll(): void {
     this.categorie_creation = false;
     this.tache_creation = false;
     this.sprint_creation = false;
@@ -242,55 +298,55 @@ export class TaskViewComponent {
     this.sidePanel = false;
   }
 
-
+  /**
+   * Handles the update of a task.
+   * @param updatedTask The updated task.
+   */
   handleTaskUpdated(updatedTask: Tache): void {
-    this.closeAll()
-  
-    console.log("eeeeeee"+ updatedTask.membre)
+    this.closeAll();
     if (!this.projectMock.sprints) return;
 
     for (const sprint of this.projectMock.sprints) {
-        if (!sprint.categorie_tache) continue;
+      if (!sprint.categorie_tache) continue;
 
-        for (const categorie of sprint.categorie_tache) {
-            if (!categorie.taches) continue;
+      for (const categorie of sprint.categorie_tache) {
+        if (!categorie.taches) continue;
 
-            // Recherche de la tâche à mettre à jour
-            const taskIndex = categorie.taches.findIndex(t => t._id === updatedTask._id);
-            if (taskIndex !== -1) {
-                const membre = this.project.membres!.find((m: User) => m._id === updatedTask.membre);
-                console.log("mmememe"+membre)
-                updatedTask.membre = membre
-                // Met à jour la tâche existante
-                categorie.taches[taskIndex] = updatedTask;
-                console.log(`Tâche mise à jour avec succès : ${updatedTask._id}`);
-                return;
-            }
+        const taskIndex = categorie.taches.findIndex(t => t._id === updatedTask._id);
+        if (taskIndex !== -1) {
+          const membre = this.project.membres!.find((m: User) => m._id === updatedTask.membre);
+          console.log("membre :" + membre);
+          updatedTask.membre = membre;
+          categorie.taches[taskIndex] = updatedTask;
+          console.log(`Tâche mise à jour avec succès: ${updatedTask._id}`);
+          return;
         }
+      }
     }
 
-    console.log(`Tâche non trouvée : ${updatedTask._id}`);
-}
-
-
-
-statusColor(status?: string): string {
-  if (!status) {
-      return '#000000'; // Retourner une couleur par défaut (par exemple, noir) si `status` est undefined
+    console.log(`Tâche non trouvée: ${updatedTask._id}`);
   }
 
-  switch (status) {
+  /**
+   * Gets the color associated with a task status.
+   * @param status The status of the task.
+   * @returns The color associated with the status.
+   */
+  statusColor(status?: string): string {
+    if (!status) {
+      return '#000000';
+    }
+
+    switch (status) {
       case Status.Afaire:
-          return StatusColor.Afaire; 
+        return StatusColor.Afaire;
       case Status.EnCours:
-          return StatusColor.EnCours;
+        return StatusColor.EnCours;
       case Status.Termine:
-          return StatusColor.Termine; 
+        return StatusColor.Termine;
       default:
-          return '#000000'; 
+        return '#000000';
+    }
   }
-}
-
-
 }
 

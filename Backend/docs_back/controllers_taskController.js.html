@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: controllers/taskController.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: controllers/taskController.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>const Projet = require('../models/Project');
+const mongoose = require('mongoose');
+
+
+
+
+/**
+ * Ajouter une tâche à une catégorie de tâches dans un sprint
+ * @async
+ * @function addTacheToCategorie
+ * @param {Object} req - L'objet de requête HTTP
+ * @param {Object} req.params - Les paramètres de la requête
+ * @param {string} req.params.projetId - L'ID du projet
+ * @param {string} req.params.sprintId - L'ID du sprint
+ * @param {string} req.params.categorieId - L'ID de la catégorie de tâches
+ * @param {Object} req.body - Le corps de la requête
+ * @param {string} req.body.date_echeance - La date d'échéance de la tâche
+ * @param {string} req.body.description - La description de la tâche
+ * @param {string} req.body.id_membre - L'ID du membre assigné à la tâche
+ * @param {string} req.body.status - Le statut de la tâche
+ * @param {string} req.body.priorite - La priorité de la tâche
+ * @param {Object} res - L'objet de réponse HTTP
+ * @returns {Promise&lt;void>}
+ */
+exports.addTacheToCategorie = async (req, res) => {
+  try {
+    const { projetId, sprintId, categorieId } = req.params;
+    const { date_echeance, description, id_membre, status, priorite } = req.body;
+
+    // Vérification des données d'entrée
+    if (!date_echeance || !description || !status || !priorite) {
+      return res.status(400).json({ message: 'Tous les champs doivent être renseignés' });
+    }
+
+    // Recherche du projet
+    const projet = await Projet.findById(projetId);
+    if (!projet) {
+      return res.status(404).json({ message: 'Projet non trouvé' });
+    }
+
+    // Recherche du sprint dans le projet
+    const sprint = projet.sprints.id(sprintId);
+    if (!sprint) {
+      return res.status(404).json({ message: 'Sprint non trouvé' });
+    }
+
+    // Recherche de la catégorie dans le sprint
+    const categorie = sprint.categorie_tache.id(categorieId);
+    if (!categorie) {
+      return res.status(404).json({ message: 'Catégorie non trouvée' });
+    }
+
+   
+    const nouvelleTache = {
+      _id: new mongoose.Types.ObjectId(),
+      date_echeance,
+      description,
+      id_membre,
+      status,
+      priorite
+    };
+        categorie.taches.push(nouvelleTache);
+
+    // Sauvegarder les modifications dans le projet
+    await projet.save();
+    console.log("creation réussie")
+    // Retourner la réponse avec les données mises à jour
+    res.status(200).json({ message: 'Tâche ajoutée avec succès', nouvelleTache });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Erreur lors de l\'ajout de la tâche', error: error.message });
+  }
+};
+
+
+
+/**
+ * Mettre à jour une tâche dans une catégorie de tâches dans un sprint
+ * @async
+ * @function updateTache
+ * @param {Object} req - L'objet de requête HTTP
+ * @param {Object} req.params - Les paramètres de la requête
+ * @param {string} req.params.projetId - L'ID du projet
+ * @param {string} req.params.sprintId - L'ID du sprint
+ * @param {string} req.params.categorieId - L'ID de la catégorie de tâches
+ * @param {string} req.params.tacheId - L'ID de la tâche
+ * @param {Object} req.body - Le corps de la requête
+ * @param {string} [req.body.date_echeance] - La date d'échéance de la tâche
+ * @param {string} [req.body.description] - La description de la tâche
+ * @param {string} [req.body.membre] - L'ID du membre assigné à la tâche
+ * @param {string} [req.body.status] - Le statut de la tâche
+ * @param {string} [req.body.priorite] - La priorité de la tâche
+ * @param {Object} res - L'objet de réponse HTTP
+ * @returns {Promise&lt;void>}
+ */
+exports.updateTache = async (req, res) => {
+  try {
+    console.log('YOOOOOOOOOOOOO')
+    const { projetId, sprintId, categorieId, tacheId } = req.params;
+    const { date_echeance, description, membre, status, priorite } = req.body;
+
+    // Vérification des données d'entrée
+    if (!date_echeance &amp;&amp; !description &amp;&amp; !status &amp;&amp; !priorite) {
+      return res.status(400).json({ message: 'Au moins un champ doit être renseigné pour la modification' });
+    }
+
+    // Recherche du projet
+    const projet = await Projet.findById(projetId);
+    if (!projet) {
+      return res.status(404).json({ message: 'Projet non trouvé' });
+    }
+
+    // Recherche du sprint dans le projet
+    const sprint = projet.sprints.id(sprintId);
+    if (!sprint) {
+      return res.status(404).json({ message: 'Sprint non trouvé' });
+    }
+
+    // Recherche de la catégorie dans le sprint
+    const categorie = sprint.categorie_tache.id(categorieId);
+    if (!categorie) {
+      return res.status(404).json({ message: 'Catégorie non trouvée' });
+    }
+
+    // Recherche de la tâche dans la catégorie
+    const tache = categorie.taches.id(tacheId);
+    if (!tache) {
+      return res.status(404).json({ message: 'Tâche non trouvée' });
+    }
+
+
+
+
+    // Mise à jour des champs de la tâche (seulement les champs fournis)
+    if (date_echeance) tache.date_echeance = date_echeance;
+    if (description) tache.description = description;
+   // Logique pour le membre : Si 'Aucun', supprimer le membre, sinon affecter l'id_membre
+   if (membre === 'Aucun') {
+    tache.id_membre = undefined;  // Supprimer le membre
+  } else if (membre) {
+    tache.id_membre = membre;  // Affecter l'ID du membre
+  }    if (status) tache.status = status;
+    if (priorite) tache.priorite = priorite;
+
+    // Sauvegarder les modifications dans le projet
+    await projet.save();
+
+    // Retourner la réponse avec la tâche mise à jour
+    res.status(200).json({ message: 'Tâche mise à jour avec succès', tache });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Erreur lors de la mise à jour de la tâche', error: error.message });
+  }
+};
+
+/**
+ * Supprimer une tâche d'une catégorie de tâches dans un sprint
+ * @async
+ * @function deleteTache
+ * @param {Object} req - L'objet de requête HTTP
+ * @param {Object} req.params - Les paramètres de la requête
+ * @param {string} req.params.projetId - L'ID du projet
+ * @param {string} req.params.sprintId - L'ID du sprint
+ * @param {string} req.params.categorieId - L'ID de la catégorie de tâches
+ * @param {string} req.params.tacheId - L'ID de la tâche
+ * @param {Object} res - L'objet de réponse HTTP
+ * @returns {Promise&lt;void>}
+ */
+
+exports.deleteTache = async (req, res) => {
+  try {
+    console.log("Suppression d'une tâche")
+    const { projetId, sprintId, categorieId, tacheId } = req.params;
+
+    // Recherche du projet
+    const projet = await Projet.findById(projetId);
+    if (!projet) {
+      return res.status(404).json({ message: 'Projet non trouvé' });
+    }
+
+    // Recherche du sprint dans le projet
+    const sprint = projet.sprints.id(sprintId);
+    if (!sprint) {
+      return res.status(404).json({ message: 'Sprint non trouvé' });
+    }
+
+    // Recherche de la catégorie dans le sprint
+    const categorie = sprint.categorie_tache.id(categorieId);
+    if (!categorie) {
+      return res.status(404).json({ message: 'Catégorie non trouvée' });
+    }
+
+    // Recherche de la tâche dans la catégorie
+    const tache = categorie.taches.id(tacheId);
+    if (!tache) {
+      return res.status(404).json({ message: 'Tâche non trouvée' });
+    }
+    const tacheIndex = categorie.taches.findIndex(t => t._id.toString() === tacheId);
+    if (tacheIndex === -1) {
+      return res.status(404).json({ message: 'Tâche non trouvée' });
+    }
+
+    // Suppression de la tâche
+    categorie.taches.splice(tacheIndex, 1);
+
+    // Sauvegarder les modifications dans le projet
+    await projet.save();
+
+    // Retourner la réponse avec succès
+    res.status(200).json({ message: 'Tâche supprimée avec succès' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Erreur lors de la suppression de la tâche', error: error.message });
+  }
+};
+
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-routes_projetRouter.html">routes/projetRouter</a></li><li><a href="module-routes_routerSprint.html">routes/routerSprint</a></li><li><a href="module-routes_taskRouter.html">routes/taskRouter</a></li><li><a href="module-routes_userRouter.html">routes/userRouter</a></li></ul><h3>Global</h3><ul><li><a href="global.html#PORT">PORT</a></li><li><a href="global.html#addCategorieToSprint">addCategorieToSprint</a></li><li><a href="global.html#addMember">addMember</a></li><li><a href="global.html#addTacheToCategorie">addTacheToCategorie</a></li><li><a href="global.html#authenticateUser">authenticateUser</a></li><li><a href="global.html#connectDB">connectDB</a></li><li><a href="global.html#createProject">createProject</a></li><li><a href="global.html#createSprint">createSprint</a></li><li><a href="global.html#deleteTache">deleteTache</a></li><li><a href="global.html#deleteprojet">deleteprojet</a></li><li><a href="global.html#deleteprojetmembre">deleteprojetmembre</a></li><li><a href="global.html#getProjectById">getProjectById</a></li><li><a href="global.html#getSprintByprojetId">getSprintByprojetId</a></li><li><a href="global.html#getUserById">getUserById</a></li><li><a href="global.html#getUserProjects">getUserProjects</a></li><li><a href="global.html#login">login</a></li><li><a href="global.html#protect">protect</a></li><li><a href="global.html#register">register</a></li><li><a href="global.html#updateTache">updateTache</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Sun Dec 15 2024 17:16:45 GMT+0100 (heure normale d’Europe centrale)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

@@ -95,7 +95,6 @@ exports.addTacheToCategorie = async (req, res) => {
  */
 exports.updateTache = async (req, res) => {
   try {
-    console.log('YOOOOOOOOOOOOO')
     const { projetId, sprintId, categorieId, tacheId } = req.params;
     const { date_echeance, description, membre, status, priorite } = req.body;
 

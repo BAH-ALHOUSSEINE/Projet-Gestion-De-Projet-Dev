@@ -28,4 +28,4 @@ RUN npm install
 EXPOSE 9876
 
 # Commande pour exécuter les tests
-CMD ["npm", "run", "test"]
+CMD ["npm", "run", "test-headless",]

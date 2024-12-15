@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
-import {Projet} from '../models/projet'
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, catchError, Observable, of } from 'rxjs';
-import { AuthGuard } from '../guards/auth.guard';
 import { Sprint } from '../models/sprint';
 import { CategorieTache } from '../models/categorie-tache';
 import { Tache } from '../models/tache';
