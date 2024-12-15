@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, Output, SimpleChanges } from '@angular/core';
 import { Tache } from '../../models/tache';
-import { CategorieTache } from '../../models/categorie-tache';
 import { Projet } from '../../models/projet';
 import { Status } from '../../models/status.enum';
 import { Sprint } from '../../models/sprint';
@@ -10,28 +9,73 @@ import { TacheService } from '../../service/tache.service';
   selector: 'app-view-tache',
   templateUrl: './view-tache.component.html',
   styleUrl: './view-tache.component.css'
-})
+})/**
+* Component for viewing and editing a task.
+* 
+* @selector app-view-tache
+* @templateUrl ./view-tache.component.html
+* @styleUrl ./view-tache.component.css
+*/
 export class ViewTacheComponent {
+  /**
+   * The task to be viewed or edited.
+   */
   @Input() task!: Tache;
+
+  /**
+   * The project associated with the task.
+   */
   @Input() project!: Projet;
+
+  /**
+   * The sprint associated with the task.
+   */
   @Input() sprint!: Sprint;
+
+  /**
+   * The category of the task.
+   */
   @Input() categorie: string | undefined;
-  @Output() formCancel = new EventEmitter<void>(); // Événement pour annuler la modification
+
+  /**
+   * Event emitted when the form is cancelled.
+   */
+  @Output() formCancel = new EventEmitter<void>();
+
+  /**
+   * Event emitted when the task is updated.
+   */
   @Output() taskUpdated = new EventEmitter<Tache>();
 
-  formHeader: string = ''; // Initialize with a default value
+  /**
+   * The header of the form.
+   */
+  formHeader: string = '';
 
+  /**
+   * Configuration for the project form.
+   */
   projectFormConfig: any[] = [];
-  constructor(private tacheService: TacheService) {}
 
-  
-
+  /**
+   * Data for the form.
+   */
   formData: any = {};
 
+  /**
+   * Constructor for ViewTacheComponent.
+   * 
+   * @param tacheService - Service for handling task operations.
+   */
+  constructor(private tacheService: TacheService) { }
 
+  /**
+   * Lifecycle hook that is called when any data-bound property of a directive changes.
+   * 
+   * @param changes - The changed properties.
+   */
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['task'] && this.task) {
-      // Normalisation de date_echeance uniquement si elle existe
       if (this.task.date_echeance && !(this.task.date_echeance instanceof Date)) {
         this.task.date_echeance = new Date(this.task.date_echeance);
       }
@@ -39,8 +83,10 @@ export class ViewTacheComponent {
     }
   }
 
+  /**
+   * Lifecycle hook that is called after data-bound properties of a directive are initialized.
+   */
   ngOnInit() {
-
     this.projectFormConfig = [
       { id: 'description', name: 'description', label: 'Description du tache', type: 'text', required: true },
       { id: 'date_echeance', name: 'date_echeance', label: 'Date echeance', type: 'date', required: true },
@@ -75,7 +121,7 @@ export class ViewTacheComponent {
         type: 'select',
         required: true,
         options: [
-          { value: "Aucun", label: 'Aucun' }, // Option par défaut
+          { value: "Aucun", label: 'Aucun' },
           ...(this.project?.membres?.map(user => ({
             value: user._id,
             label: `${user.prenom}`
@@ -89,66 +135,60 @@ export class ViewTacheComponent {
     this.formData.priorite = this.task.priorite;
     this.formData.date_echeance = this.task.date_echeance?.toISOString().split('T')[0];
     this.formData.membre = this.task.membre?._id ? this.task.membre._id : 'Aucun';
-  
-
-    
   }
 
+  /**
+   * Cancels the creation of the task and emits the formCancel event.
+   */
   cancelCreation(): void {
-    this.formCancel.emit(); // Informe le parent que la création est annulée
+    this.formCancel.emit();
   }
 
+  /**
+   * Submits the task creation form and updates the task.
+   */
   submitTacheCreation(): void {
-
-    let new_task : Tache = new Tache();
+    let new_task: Tache = new Tache();
     new_task._id = this.task._id;
-    new_task.description = this.formData.description
+    new_task.description = this.formData.description;
+    new_task.date_echeance = new Date(this.formData.date_echeance);
+    new_task.membre = this.formData.membre;
+    new_task.status = this.formData.status;
+    new_task.priorite = this.formData.priorite;
 
-    new_task.date_echeance = new Date(this.formData.date_echeance)
-
-    new_task.membre = this.formData.membre
-    new_task.status = this.formData.status
-    new_task.priorite = this.formData.priorite
-    console.log("new : ", new_task);
     this.tacheService.updateTache(
-    this.project._id,    // Make sure this is correctly assigned
-    this.sprint._id,     // Make sure this is correctly assigned
-    this.categorie,      // Ensure this is not undefined
-    this.task!._id,      // Ensure this is not undefined
-    new_task
-  ).subscribe(response => {
-    console.log(response)
-    this.taskUpdated.emit(new_task);
-  });
-
-    
+      this.project._id,
+      this.sprint._id,
+      this.categorie,
+      this.task!._id,
+      new_task
+    ).subscribe(response => {
+      this.taskUpdated.emit(new_task);
+    });
   }
 
+  /**
+   * Updates the form data with the current task values.
+   */
   updateFormData() {
-  
     this.formData.description = this.task.description;
     this.formData.status = this.task.status;
     this.formData.priorite = this.task.priorite;
     this.formData.membre = this.task.membre?._id ? this.task.membre._id : 'Aucun';
 
+    if (this.task.date_echeance) {
+      const dateEcheance = this.task.date_echeance instanceof Date
+        ? this.task.date_echeance
+        : new Date(this.task.date_echeance);
 
- // Vérification et conversion explicite de date_echeance
- if (this.task.date_echeance) {
-  const dateEcheance = this.task.date_echeance instanceof Date
-    ? this.task.date_echeance
-    : new Date(this.task.date_echeance);
-
-  this.formData.date_echeance = dateEcheance.toISOString().split('T')[0];
+      this.formData.date_echeance = dateEcheance.toISOString().split('T')[0];
     } else {
-      this.formData.date_echeance = ''; // Valeur par défaut si date_echeance est indéfinie
+      this.formData.date_echeance = '';
     }
-
-    this.formData.date_echeance = this.task.date_echeance?.toISOString().split('T')[0];
-
-    console.log("Membre data: ", this.formData.membre);
   }
-
-
-
-
 }
+
+
+
+
+

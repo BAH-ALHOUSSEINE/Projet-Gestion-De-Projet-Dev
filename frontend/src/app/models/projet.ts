@@ -3,6 +3,9 @@ import { Sprint } from "./sprint";
 import { Tache } from "./tache";
 import { User } from "./user";
 
+/**
+ * Represents a project.
+ */
 export class Projet {
     _id ?: string; // L'identifiant du projet (représente l'ObjectId de MongoDB)
     nom_projet ?: string;
@@ -14,6 +17,11 @@ export class Projet {
     membres ?: User[]; // Un tableau d'ObjectId représentant les membres
     sprints ?: Sprint[]
 
+      /**
+   * Creates an instance of Projet from raw project data.
+   * @param projectData - The raw project data.
+   * @returns A new instance of Projet.
+   */
     static fromData(projectData: any): Projet {
       const projet = new Projet();
       projet._id = projectData._id;
@@ -81,7 +89,11 @@ export class Projet {
       return projet;
     }
 
-
+  /**
+   * Formats a date in French locale.
+   * @param date - The date to format.
+   * @returns The formatted date string in French locale or "Date inconnue" if the date is null/undefined.
+   */
     formatDateInFrench(date: Date | null | undefined): string {
       if (!date) {
         return "Date inconnue"; // Message par défaut si la date est null/undefined

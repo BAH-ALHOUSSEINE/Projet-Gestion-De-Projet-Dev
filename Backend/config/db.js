@@ -1,3 +1,11 @@
+/**
+ * Connects to the MongoDB database using Mongoose.
+ * The MongoDB URI is retrieved from the environment variable `MONGO_URI`.
+ * 
+ * @async
+ * @function connectDB
+ * @throws Will throw an error if the connection to the database fails.
+ */
 const mongoose = require('mongoose');
 const connectDB = async () => {
   try {

@@ -1,6 +1,18 @@
 const User = require('../models/User');
 const jwt = require('jsonwebtoken');
 
+/**
+ * Registers a new user.
+ *
+ * @param {Object} req - The request object.
+ * @param {Object} req.body - The body of the request.
+ * @param {string} req.body.nom - The last name of the user.
+ * @param {string} req.body.prenom - The first name of the user.
+ * @param {string} req.body.email - The email of the user.
+ * @param {string} req.body.password - The password of the user.
+ * @param {Object} res - The response object.
+ * @returns {Promise<void>} - A promise that resolves when the user is registered.
+ */
 const register = async (req, res) => {
   try {
     const { nom, prenom, email, password } = req.body;
@@ -22,6 +34,20 @@ const register = async (req, res) => {
   }
 };
 
+
+
+/**
+ * Handles user login.
+ *
+ * @param {Object} req - The request object.
+ * @param {Object} req.body - The body of the request.
+ * @param {string} req.body.email - The email of the user.
+ * @param {string} req.body.password - The password of the user.
+ * @param {Object} res - The response object.
+ * @returns {Promise<void>} - A promise that resolves to void.
+ *
+ * @throws {Error} - If there is an error during the login process.
+ */
 const login = async (req, res) => {
   console.log("test console log login");
   try {

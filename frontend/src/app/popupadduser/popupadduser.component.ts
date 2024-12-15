@@ -3,7 +3,6 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Inject } from '@angular/core';
 import { User } from '../models/user';
 import {ProjetService} from  '../service/projet.service';
-import { Projet } from '../models/projet';
 import { ActivatedRoute } from '@angular/router';
 import { Injector } from '@angular/core';
 @Component({

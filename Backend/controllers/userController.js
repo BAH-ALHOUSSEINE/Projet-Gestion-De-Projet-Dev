@@ -1,10 +1,15 @@
-const Project = require('../models/Project');
-
-
-
-// controllers/userController.js
 const User = require('../models/User'); // Assurez-vous que le chemin vers le modèle User est correct
 
+
+/**
+ * Get a user by ID.
+ *
+ * @param {Object} req - The request object.
+ * @param {Object} req.params - The request parameters.
+ * @param {string} req.params.userId - The ID of the user to retrieve.
+ * @param {Object} res - The response object.
+ * @returns {Promise<void>} - A promise that resolves to void.
+ */
 exports.getUserById = async (req, res) => {
   try {
     const userId = req.params.userId;

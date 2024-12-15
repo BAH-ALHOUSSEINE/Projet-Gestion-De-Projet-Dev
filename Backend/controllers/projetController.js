@@ -1,7 +1,23 @@
 const { authenticateUser } = require('../middleware/authomiddleware');
 const Project = require('../models/Project');
 const User = require('../models/User');
-const mongoose = require('mongoose');
+
+/**
+ * Creates a new project.
+ * 
+ * @param {Object} req - The request object.
+ * @param {Object} req.body - The request body.
+ * @param {string} req.body.nom_projet - The name of the project.
+ * @param {string} req.body.id_admin - The ID of the admin.
+ * @param {string} req.body.type_projet - The type of the project.
+ * @param {string} req.body.description_projet - The description of the project.
+ * @param {string} req.body.date_debut - The start date of the project.
+ * @param {string} req.body.date_fin - The end date of the project.
+ * @param {Array<string>} req.body.membres - The members of the project.
+ * @param {Array<Object>} req.body.sprints - The sprints of the project.
+ * @param {Object} res - The response object.
+ * @returns {Promise<void>}
+ */
 
 const createProject = async (req, res) => {
 
@@ -55,6 +71,16 @@ const createProject = async (req, res) => {
   }
 };
 
+/**
+ * Adds a member to a project.
+ * 
+ * @param {Object} req - The request object.
+ * @param {Object} req.body - The request body.
+ * @param {string} req.body.email - The email of the member to add.
+ * @param {Object} res - The response object.
+ * @returns {Promise<void>}
+ */
+
 const addMember = async (req, res) => {
   try {
     const { email } = req.body;
@@ -84,7 +110,14 @@ const addMember = async (req, res) => {
 };
 
 
-
+/**
+ * Retrieves the projects of a user.
+ * 
+ * @param {Object} req - The request object.
+ * @param {string} req.params.userId - The ID of the user.
+ * @param {Object} res - The response object.
+ * @returns {Promise<void>}
+ */
 
 const getUserProjects = async (req, res) => {
   console.log("getUserProject")
@@ -114,6 +147,15 @@ const getUserProjects = async (req, res) => {
   }
 };
 
+
+/**
+ * Retrieves a project by its ID.
+ * 
+ * @param {Object} req - The request object.
+ * @param {string} req.params.projectId - The ID of the project.
+ * @param {Object} res - The response object.
+ * @returns {Promise<void>}
+ */
 const getProjectById = async (req, res) => {
   try {
     const project = await Project.findById(req.params.projectId).populate('membres', 'prenom email').populate('id_admin', 'nom prenom email');
@@ -127,6 +169,15 @@ const getProjectById = async (req, res) => {
   }
 };
 
+/**
+ * Retrieves the sprints of a project by its ID.
+ * 
+ * @param {Object} req - The request object.
+ * @param {string} req.params.projectId - The ID of the project.
+ * @param {Object} res - The response object.
+ * @returns {Promise<void>}
+ */
+
 const getSprintByprojetId = async (req, res) => {
   try {
     const project = await Project.findById(req.params.projectId).populate('membres', 'prenom email').populate('id_admin', 'nom prenom email');
@@ -139,6 +190,15 @@ const getSprintByprojetId = async (req, res) => {
     res.status(500).json({ message: 'Erreur serveur.' });
   }
 };
+
+/**
+ * Deletes a project by its ID.
+ * 
+ * @param {Object} req - The request object.
+ * @param {string} req.params.projectId - The ID of the project.
+ * @param {Object} res - The response object.
+ * @returns {Promise<void>}
+ */
 
 
 
@@ -165,10 +225,19 @@ const  deleteprojet = async (req,res)=>{
 }
 
 
+/**
+ * Deletes a member from a project by their email.
+ * 
+ * @param {Object} req - The request object.
+ * @param {string} req.params.projectId - The ID of the project.
+ * @param {Object} req.body - The request body.
+ * @param {string} req.body.email - The email of the member to delete.
+ * @param {Object} res - The response object.
+ * @returns {Promise<void>}
+ */
 
 
-
-const deleteprojetmemebre = async (req, res) => {
+const deleteprojetmembre = async (req, res) => {
   try {
     const idprojet = req.params.projectId;
     const emailToDelete = req.body.email; // L'email du membre à supprimer est envoyé dans le corps de la requête.
@@ -199,4 +268,4 @@ const deleteprojetmemebre = async (req, res) => {
 
 
 
-module.exports = { createProject, addMember, getUserProjects, getProjectById, getSprintByprojetId ,deleteprojet,deleteprojetmemebre};
+module.exports = { createProject, addMember, getUserProjects, getProjectById, getSprintByprojetId ,deleteprojet, deleteprojetmembre};

@@ -1,8 +1,27 @@
 const Projet = require('../models/Project');
-const User = require('../models/User');
 const mongoose = require('mongoose');
 
-// Ajouter une tâche à une catégorie de tâches dans un sprint
+
+
+
+/**
+ * Ajouter une tâche à une catégorie de tâches dans un sprint
+ * @async
+ * @function addTacheToCategorie
+ * @param {Object} req - L'objet de requête HTTP
+ * @param {Object} req.params - Les paramètres de la requête
+ * @param {string} req.params.projetId - L'ID du projet
+ * @param {string} req.params.sprintId - L'ID du sprint
+ * @param {string} req.params.categorieId - L'ID de la catégorie de tâches
+ * @param {Object} req.body - Le corps de la requête
+ * @param {string} req.body.date_echeance - La date d'échéance de la tâche
+ * @param {string} req.body.description - La description de la tâche
+ * @param {string} req.body.id_membre - L'ID du membre assigné à la tâche
+ * @param {string} req.body.status - Le statut de la tâche
+ * @param {string} req.body.priorite - La priorité de la tâche
+ * @param {Object} res - L'objet de réponse HTTP
+ * @returns {Promise<void>}
+ */
 exports.addTacheToCategorie = async (req, res) => {
   try {
     const { projetId, sprintId, categorieId } = req.params;
@@ -55,6 +74,25 @@ exports.addTacheToCategorie = async (req, res) => {
 
 
 
+/**
+ * Mettre à jour une tâche dans une catégorie de tâches dans un sprint
+ * @async
+ * @function updateTache
+ * @param {Object} req - L'objet de requête HTTP
+ * @param {Object} req.params - Les paramètres de la requête
+ * @param {string} req.params.projetId - L'ID du projet
+ * @param {string} req.params.sprintId - L'ID du sprint
+ * @param {string} req.params.categorieId - L'ID de la catégorie de tâches
+ * @param {string} req.params.tacheId - L'ID de la tâche
+ * @param {Object} req.body - Le corps de la requête
+ * @param {string} [req.body.date_echeance] - La date d'échéance de la tâche
+ * @param {string} [req.body.description] - La description de la tâche
+ * @param {string} [req.body.membre] - L'ID du membre assigné à la tâche
+ * @param {string} [req.body.status] - Le statut de la tâche
+ * @param {string} [req.body.priorite] - La priorité de la tâche
+ * @param {Object} res - L'objet de réponse HTTP
+ * @returns {Promise<void>}
+ */
 exports.updateTache = async (req, res) => {
   try {
     console.log('YOOOOOOOOOOOOO')
@@ -115,6 +153,19 @@ exports.updateTache = async (req, res) => {
   }
 };
 
+/**
+ * Supprimer une tâche d'une catégorie de tâches dans un sprint
+ * @async
+ * @function deleteTache
+ * @param {Object} req - L'objet de requête HTTP
+ * @param {Object} req.params - Les paramètres de la requête
+ * @param {string} req.params.projetId - L'ID du projet
+ * @param {string} req.params.sprintId - L'ID du sprint
+ * @param {string} req.params.categorieId - L'ID de la catégorie de tâches
+ * @param {string} req.params.tacheId - L'ID de la tâche
+ * @param {Object} res - L'objet de réponse HTTP
+ * @returns {Promise<void>}
+ */
 
 exports.deleteTache = async (req, res) => {
   try {

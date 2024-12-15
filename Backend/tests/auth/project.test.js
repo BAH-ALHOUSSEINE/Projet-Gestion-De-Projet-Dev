@@ -1,6 +1,5 @@
 const request = require('supertest');
 const express = require('express');
-const mongoose = require('mongoose');
 const { 
   createProject, 
   getUserProjects, 
@@ -8,7 +7,6 @@ const {
   deleteprojet 
 } = require('../../controllers/projetController');
 const Project = require('../../models/Project');
-const User = require('../../models/User');
 const { authenticateUser } = require('../../middleware/authomiddleware');
 
 // Create Express app

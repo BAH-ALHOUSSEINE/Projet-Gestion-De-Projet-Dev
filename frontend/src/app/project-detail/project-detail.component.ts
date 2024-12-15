@@ -13,24 +13,67 @@ import { Router } from '@angular/router';
   styleUrls: ['./project-detail.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ProjectDetailComponent implements OnInit {
-  project: Projet | null = null;
-  componentInjector: Injector | null = null;
-  iduser  ?: String;
-  isdeleteprojet  ? : boolean=true;
 
+/**
+ * Component for displaying project details.
+ * 
+ * @component
+ * @selector app-project-detail
+ * @templateUrl ./project-detail.component.html
+ * @styleUrls ./project-detail.component.css
+ * @changeDetection ChangeDetectionStrategy.OnPush
+ */
+export class ProjectDetailComponent implements OnInit {
+  /**
+   * The project to display.
+   */
+  project: Projet | null = null;
+
+  /**
+   * Injector for dynamically created components.
+   */
+  componentInjector: Injector | null = null;
+
+  /**
+   * ID of the user.
+   */
+  iduser?: String;
+
+  /**
+   * Flag indicating if the project can be deleted.
+   */
+  isdeleteprojet?: boolean = true;
+
+  /**
+   * List of views available in the project detail component.
+   */
   views = [
     { id: 'about', name: 'À propos', component: AboutViewComponent },
     { id: 'tasks', name: 'Tâches', component: TaskViewComponent },
     // Autres vues...
   ];
 
+  /**
+   * The currently active view ID.
+   */
   activeView: string = this.views[0].id;
 
+  /**
+   * Gets the component of the active view.
+   */
   get activeViewComponent() {
     return this.views.find(view => view.id === this.activeView) || null;
   }
 
+  /**
+   * Constructor for ProjectDetailComponent.
+   * 
+   * @param route - ActivatedRoute for accessing route parameters.
+   * @param projectService - Service for handling project data.
+   * @param injector - Injector for dependency injection.
+   * @param cdr - ChangeDetectorRef for marking changes.
+   * @param router - Router for navigation.
+   */
   constructor(
     private route: ActivatedRoute,
     private projectService: ProjetService,
@@ -39,6 +82,9 @@ export class ProjectDetailComponent implements OnInit {
     private router: Router
   ) {}
 
+  /**
+   * Updates the injector with the current project.
+   */
   private updateInjector() {
     if (this.project) {
       this.componentInjector = Injector.create({
@@ -52,17 +98,27 @@ export class ProjectDetailComponent implements OnInit {
     }
   }
 
-    // Garde la méthode createInjector pour la compatibilité avec le template
-    createInjector(data: any) {
-      if (!this.componentInjector) {
-        this.componentInjector = Injector.create({
-          providers: [{ provide: 'project', useValue: data }],
-          parent: this.injector,
-        });
-      }
-      return this.componentInjector;
+  /**
+   * Creates an injector with the provided data.
+   * 
+   * @param data - Data to be injected.
+   * @returns The created injector.
+   */
+  createInjector(data: any) {
+    if (!this.componentInjector) {
+      this.componentInjector = Injector.create({
+        providers: [{ provide: 'project', useValue: data }],
+        parent: this.injector,
+      });
     }
+    return this.componentInjector;
+  }
 
+  /**
+   * Sets the active view by its ID.
+   * 
+   * @param viewId - The ID of the view to activate.
+   */
   setActiveView(viewId: string) {
     if (this.activeView !== viewId) {
       this.activeView = viewId;
@@ -70,6 +126,9 @@ export class ProjectDetailComponent implements OnInit {
     }
   }
 
+  /**
+   * Initializes the component and loads the project data.
+   */
   ngOnInit(): void {
     const projectId = this.route.snapshot.paramMap.get('id');
     if (projectId) {
@@ -99,26 +158,32 @@ export class ProjectDetailComponent implements OnInit {
         }
       });
     }
-}
+  }
 
-update(updatedProject: Projet): void {
-  this.project = updatedProject;
-}
+  /**
+   * Updates the project with the provided data.
+   * 
+   * @param updatedProject - The updated project data.
+   */
+  update(updatedProject: Projet): void {
+    this.project = updatedProject;
+  }
 
-deleteprojet(idprojet : string | undefined){
+  /**
+   * Deletes the project by its ID.
+   * 
+   * @param idprojet - The ID of the project to delete.
+   */
+  deleteprojet(idprojet: string | undefined) {
+    this.projectService.deleteProject(idprojet).subscribe(reponse => {
+      this.router.navigate(['/projet']);
+    });
+  }
 
-
-
-  this.projectService.deleteProject(idprojet).subscribe(reponse =>{
-
-  
-   this.router.navigate(['/projet']);
-  });
-
-}
-
-listeprojet(){
- this.router.navigate(['/projet']);
-}
- 
+  /**
+   * Navigates to the project list.
+   */
+  listeprojet() {
+    this.router.navigate(['/projet']);
+  }
 }

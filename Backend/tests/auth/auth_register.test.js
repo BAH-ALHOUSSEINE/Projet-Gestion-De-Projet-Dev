@@ -1,7 +1,6 @@
 // register.test.js
 const request = require('supertest');
 const express = require('express');
-const mongoose = require('mongoose');
 const { register } = require('../../controllers/authController'); // Assurez-vous d'importer votre fonction correctement
 const User = require('../../models/User'); // Assurez-vous d'importer le modèle User
 

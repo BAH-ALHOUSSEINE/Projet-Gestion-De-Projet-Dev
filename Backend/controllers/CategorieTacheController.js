@@ -1,7 +1,14 @@
 const Project = require('../models/Project');
 const CategorieTache = require('../models/CategorieTache')
 
-// Ajouter une catégorie de tâches à un sprint
+  /**
+     * Creates a new instance of CategorieTache.
+     *
+     * @param {Object} nouvelleCategorie - The new category object.
+     * @param {string} nouvelleCategorie.nom - The name of the category.
+     * @param {Array} nouvelleCategorie.taches - The tasks associated with the category.
+     */
+
 exports.addCategorieToSprint = async (req, res) => {
   try {
     const { projetId, sprintId } = req.params; // Extraire les paramètres

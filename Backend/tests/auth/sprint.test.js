@@ -2,7 +2,6 @@ const request = require('supertest');
 const express = require('express');
 const mongoose = require('mongoose');
 const Project = require('../../models/Project');
-const User = require('../../models/User');
 const Sprint = require('../../models/Sprint'); // Adjust the path as necessary
 const SprintController = require('../../controllers/SprintController'); // Adjust the path as necessary
 

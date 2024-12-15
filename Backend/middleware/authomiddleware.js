@@ -1,6 +1,15 @@
+
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
-
+/**
+ * Middleware to protect routes by verifying JWT token.
+ * 
+ * @param {Object} req - Express request object.
+ * @param {Object} res - Express response object.
+ * @param {Function} next - Express next middleware function.
+ * @returns {void}
+ */
+ 
 const protect = async (req, res, next) => {
   let token;
   if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
@@ -19,6 +28,12 @@ const protect = async (req, res, next) => {
 };
 
 
+/**
+ * Function to authenticate a user using a JWT token.
+ * 
+ * @param {string} token - JWT token.
+ * @returns {string} - Decoded user ID.
+ */
 function authenticateUser (token ) {
   // Décoder et vérifier le token
   const decoded = jwt.verify(token, '777');

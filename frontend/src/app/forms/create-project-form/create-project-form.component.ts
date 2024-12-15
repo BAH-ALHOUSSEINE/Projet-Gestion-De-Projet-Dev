@@ -6,44 +6,86 @@ import { ProjetService } from '../../service/projet.service';
   selector: 'app-create-project-form',
   templateUrl: './create-project-form.component.html',
   styleUrl: './create-project-form.component.css'
-})
+})/**
+* Component for creating a new project.
+* 
+* This component provides a form for creating a new project and emits events
+* when the project is successfully created or when the form is canceled.
+* 
+* @selector app-create-project-form
+* @templateUrl ./create-project-form.component.html
+* @styleUrl ./create-project-form.component.css
+*/
 export class CreateProjectFormComponent {
-  @Output() projectCreated = new EventEmitter<Projet>(); // Événement à émettre lors de la création réussie
-  @Output() formCancel = new EventEmitter<void>(); // Événement pour annuler la création
-  newProject: Projet = new Projet(); 
-  
-  projectFormConfig = [
-    { id: 'nomProjet', name: 'nom_projet', label: 'Nom du projet', type: 'text', required: true },
-    { id: 'typeProjet', name: 'type_projet', label: 'Type de projet', type: 'text', required: true },
-    { id: 'descriptionProjet', name: 'description_projet', label: 'Description', type: 'textarea', required: false },
-    { id: 'dateDebut', name: 'date_debut', label: 'Date de début', type: 'date', required: true },
-    { id: 'dateFin', name: 'date_fin', label: 'Date de fin', type: 'date', required: true }
-  ];
+ /**
+  * Event emitted when a project is successfully created.
+  */
+ @Output() projectCreated = new EventEmitter<Projet>();
 
-  constructor(private projectService: ProjetService) {}
+ /**
+  * Event emitted when the form creation is canceled.
+  */
+ @Output() formCancel = new EventEmitter<void>();
 
-  ngOnInit(): void {
-    // Initialisation si nécessaire
-  }
+ /**
+  * The new project being created.
+  */
+ newProject: Projet = new Projet();
 
-  submitProjectCreation(): void {
-    console.log("Soumission de la création du projet :", this.newProject);
-    // Assurez-vous que le projet a les champs nécessaires
-    this.newProject.membres = [];
+ /**
+  * Configuration for the project creation form fields.
+  */
+ projectFormConfig = [
+   { id: 'nomProjet', name: 'nom_projet', label: 'Nom du projet', type: 'text', required: true },
+   { id: 'typeProjet', name: 'type_projet', label: 'Type de projet', type: 'text', required: true },
+   { id: 'descriptionProjet', name: 'description_projet', label: 'Description', type: 'textarea', required: false },
+   { id: 'dateDebut', name: 'date_debut', label: 'Date de début', type: 'date', required: true },
+   { id: 'dateFin', name: 'date_fin', label: 'Date de fin', type: 'date', required: true }
+ ];
 
-    // Appel au service pour ajouter le projet
-    this.projectService.addProjectForCurrentUser(this.newProject).subscribe({
-      next: (newProjectData) => {
-        const newProject = Projet.fromData(newProjectData.projet); // Transformer les données en objet Projet
-        this.projectCreated.emit(newProject); // Émet le projet créé au parent
-      },
-      error: (err) => {
-        console.error("Erreur lors de la création du projet :", err);
-      }
-    });
-  }
+ /**
+  * Constructor for CreateProjectFormComponent.
+  * 
+  * @param projectService - The service used to manage projects.
+  */
+ constructor(private projectService: ProjetService) {}
 
-  cancelCreation(): void {
-    this.formCancel.emit(); // Informe le parent que la création est annulée
-  }
+ /**
+  * Lifecycle hook that is called after data-bound properties of a directive are initialized.
+  */
+ ngOnInit(): void {
+   // Initialisation si nécessaire
+ }
+
+ /**
+  * Submits the project creation form.
+  * 
+  * This method ensures that the new project has the necessary fields and then
+  * calls the project service to add the project for the current user. If the
+  * project is successfully created, it emits the `projectCreated` event.
+  */
+ submitProjectCreation(): void {
+   console.log("Soumission de la création du projet :", this.newProject);
+   this.newProject.membres = [];
+
+   this.projectService.addProjectForCurrentUser(this.newProject).subscribe({
+     next: (newProjectData) => {
+       const newProject = Projet.fromData(newProjectData.projet);
+       this.projectCreated.emit(newProject);
+     },
+     error: (err) => {
+       console.error("Erreur lors de la création du projet :", err);
+     }
+   });
+ }
+
+ /**
+  * Cancels the project creation form.
+  * 
+  * This method emits the `formCancel` event to inform the parent component that
+  * the project creation has been canceled.
+  */
+ cancelCreation(): void {
+   this.formCancel.emit();
+ }
 }

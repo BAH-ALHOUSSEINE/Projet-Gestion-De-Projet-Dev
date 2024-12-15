@@ -4,6 +4,7 @@
 
 ## Pré-requis pour le déploiement de l'application
 Gestionnaire de paquets npm 
+Service MongoDB
 
 # Côté Backend 
     - Node.js (v18 minimum)
@@ -62,4 +63,4 @@ Dans le repertoire Backend/
 
 # Frontend 
 Dans le répertoire frontend/
-    - ng test
+    - npm test
