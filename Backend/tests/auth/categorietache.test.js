@@ -12,7 +12,8 @@ app.post('/projects/:projetId/sprints/:sprintId/categories', CategorieTacheContr
 describe('CategorieTacheController', () => {
     // Connect to the MongoDB Memory Server before running tests
     beforeAll(async () => {
-        await mongoose.connect('mongodb://localhost:27017/testdb', {
+        const URI = process.env.MONGO_URI || 'mongodb://localhost:27017/testdb';
+        await mongoose.connect(URI, {
             useNewUrlParser: true,
             useUnifiedTopology: true,
         });

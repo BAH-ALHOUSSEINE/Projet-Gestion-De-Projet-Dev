@@ -13,7 +13,8 @@ app.post('/projects/:projetId/sprints', SprintController.createSprint);
 describe('Sprint Model Controller Test', () => {
     // Connect to the MongoDB Memory Server before running tests
     beforeAll(async () => {
-        await mongoose.connect('mongodb://localhost:27017/testdb', {
+        const URI = process.env.MONGO_URI || 'mongodb://localhost:27017/testdb';
+        await mongoose.connect(URI, {
             useNewUrlParser: true,
             useUnifiedTopology: true,
         });

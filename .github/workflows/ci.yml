@@ -11,13 +11,19 @@ jobs:
       - uses: actions/checkout@v3
       - name: Build Docker images
         run: docker compose build
-
-  test:
+  
+  backend-test:
     needs: build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - name: Run backend tests
         run: docker compose run --rm backend-tests
+
+  frontend-test:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
       - name: Run frontend tests
         run: docker compose run --rm frontend-tests
