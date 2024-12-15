@@ -1,4 +1,6 @@
 import { Tache } from './tache';
+import { User } from "./user";
+
 
 describe('Tache', () => {
   it('should create an instance', () => {
@@ -7,8 +9,8 @@ describe('Tache', () => {
 
   it('should create an instance of Tache with default values', () => {
     const tache = new Tache();
-    expect(tache.description_tache).toBeUndefined();
-    expect(tache.id_membre).toBeUndefined();
+    expect(tache.description).toBeUndefined();
+    expect(tache.membre).toBeUndefined();
     expect(tache.date_echeance).toBeUndefined();
     expect(tache.status).toBeUndefined();
     expect(tache.priorite).toBeUndefined();
@@ -16,13 +18,15 @@ describe('Tache', () => {
 
   it('should allow to set optional values', () => {
     const tache = new Tache();
-    tache.description_tache = 'description';
-    tache.id_membre = 'membre';
+    tache.description = 'description';
+    const membre = new User();
+    membre._id = 'membre';
+    tache.membre = membre;
     tache.date_echeance = new Date();
     tache.status = 'À faire';
     tache.priorite = 'Basse';
-    expect(tache.description_tache).toBe('description');
-    expect(tache.id_membre).toBe('membre');
+    expect(tache.description).toBe('description');
+    expect(tache.membre?._id).toBe('membre');
     expect(tache.date_echeance).toEqual(new Date());
     expect(tache.status).toBe('À faire');
     expect(tache.priorite).toBe('Basse');

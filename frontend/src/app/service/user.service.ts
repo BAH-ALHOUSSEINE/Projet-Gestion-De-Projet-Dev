@@ -3,12 +3,13 @@ import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 
-@Injectable({
-  providedIn: 'root'
-})
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
+
+@Injectable({
+  providedIn: 'root'
+})
 export class UserService {
   
 
