@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { TacheComponent } from './tache.component';
 
 describe('TacheComponent', () => {
@@ -9,12 +8,10 @@ describe('TacheComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [TacheComponent]
-    })
-    .compileComponents();
+    }).compileComponents();
 
     fixture = TestBed.createComponent(TacheComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
   it('should create', () => {
