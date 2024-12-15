@@ -49,7 +49,6 @@ import { DatePipe } from '@angular/common';
     DynamicFormComponent,
     CreateProjectFormComponent,
     CreateSprintFormComponent,
-    PopupadduserComponent,
     CreateCategorieFormComponent,
     CreateTacheFormComponent,
     ViewTacheComponent
